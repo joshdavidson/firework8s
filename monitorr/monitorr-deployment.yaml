@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: monitorr
+  labels:
+    app: monitorr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitorr
+  template:
+    metadata:
+      labels:
+        app: monitorr
+    spec:
+      containers:
+      - name: monitorr
+        image: monitorr/monitorr
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        env:
+          - name: TZ
+            value: "America/New_York"
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+        volumeMounts:
+          - name: data
+            mountPath: /app
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: monitorr

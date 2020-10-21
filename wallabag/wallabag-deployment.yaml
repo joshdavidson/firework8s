@@ -1,0 +1,33 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: wallabag
+  labels:
+    app: wallabag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wallabag
+  template:
+    metadata:
+      labels:
+        app: wallabag
+    spec:
+      containers:
+      - name: wallabag
+        image: wallabag/wallabag
+        ports:
+          - containerPort: 80
+        env:
+          - name: SYMFONY__ENV__DOMAIN_NAME
+            value: "http://wallabag.lan"
+          - name:  POPULATE_DATABASE
+            value: "True"
+        volumeMounts:
+          - name: data
+            mountPath: /var/www/wallabag/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: wallabag

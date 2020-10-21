@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jackett
+  namespace: default
+spec:
+  rules:
+  - host: jackett.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: jackett
+            port:
+              number: 9117
+        path: /
+        pathType: ImplementationSpecific

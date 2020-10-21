@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: wekan
+  name: wekan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: wekan
+  template:
+    metadata:
+      labels:
+        wekan-tier: "true"
+        service: wekan
+    spec:
+      containers:
+      - env:
+        - name: BIGEVENTS_PATTERN
+          value: NONE
+        - name: BROWSER_POLICY_ENABLED
+          value: "true"
+        - name: CARD_OPENED_WEBHOOK_ENABLED
+          value: "false"
+        - name: MAIL_FROM
+          value: Wekan Notifications <noreply.wekan@mydomain.com>
+        - name: MAIL_URL
+          value: smtp://smtp.sendgrid.net:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
+        - name: MONGO_URL
+          value: mongodb://wekandb:27017/wekan
+        - name: RICHER_CARD_COMMENT_EDITOR
+          value: "false"
+        - name: ROOT_URL
+          value: http://wekan.lan
+        - name: SCROLLAMOUNT
+          value: auto
+        - name: SCROLLINERTIA
+          value: "0"
+        - name: WITH_API
+          value: "true"
+        image: wekanteam/wekan
+        imagePullPolicy: Always
+        name: wekan-app
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: wekandb
+  name: wekandb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: wekandb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        wekan-tier: "true"
+        service: wekandb
+    spec:
+      containers:
+        - args:
+            - mongod
+            - --oplogSize
+            - "128"
+          image: mongo:latest
+          imagePullPolicy: Always
+          name: wekan-db
+          ports:
+            - containerPort: 27017
+          resources: {}
+          volumeMounts:
+            - mountPath: /data/db
+              name: wekan-db
+            - mountPath: /dump
+              name: wekan-db-dump
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+        - name: wekan-db
+          persistentVolumeClaim:
+            claimName: wekan-db
+        - name: wekan-db-dump
+          persistentVolumeClaim:
+            claimName: wekan-db-dump

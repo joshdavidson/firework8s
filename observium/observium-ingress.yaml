@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: observium
+  namespace: default
+spec:
+  rules:
+  - host: observium.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: observium
+            port:
+              number: 8668
+        path: /
+        pathType: ImplementationSpecific

@@ -1,0 +1,50 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mylar
+  namespace: default
+  labels:
+    app: mylar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mylar
+  template:
+    metadata:
+      labels:
+        app: mylar
+    spec:
+      containers:
+      - name: mylar
+        image: hotio/mylar3
+        ports:
+          - containerPort: 8090
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+          - name: UMASK
+            value: "002"
+          - name: DEBUG
+            value: "no"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /downloads
+            name: downloads
+          - mountPath: /comics
+            name: comics
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: mylar
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads/transmission
+      - name: comics
+        hostPath:
+          path: /mnt/share/Comics

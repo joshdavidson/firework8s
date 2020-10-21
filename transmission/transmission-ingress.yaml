@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: transmission
+spec:
+  rules:
+  - host: transmission.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: transmission
+            port:
+              number: 9091
+        path: /
+        pathType: ImplementationSpecific

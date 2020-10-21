@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lazylibrarian
+  namespace: default
+spec:
+  rules:
+  - host: lazylibrarian.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: lazylibrarian
+            port:
+              number: 5299
+        path: /
+        pathType: ImplementationSpecific

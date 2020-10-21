@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lazylibrarian
+  namespace: default
+spec:
+  selector:
+    app: lazylibrarian
+  ports:
+  - name: default
+    port: 5299
+    targetPort: 5299

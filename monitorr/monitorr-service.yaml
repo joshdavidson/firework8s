@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitorr
+  namespace: default
+spec:
+  selector:
+    app: monitorr
+  ports:
+  - name: web
+    port: 80
+    targetPort: 80

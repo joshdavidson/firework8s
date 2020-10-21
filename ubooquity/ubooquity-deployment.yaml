@@ -1,0 +1,49 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ubooquity
+  namespace: default
+  labels:
+    app: ubooquity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubooquity
+  template:
+    metadata:
+      labels:
+        app: ubooquity
+    spec:
+      containers:
+      - name: ubooquity
+        image: linuxserver/ubooquity
+        ports:
+          - containerPort: 2202
+          - containerPort: 2203
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+          - name: MAXMEM
+            value: "1024"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /books
+            name: books
+          - mountPath: /comics
+            name: comics
+      volumes:
+      - name: config
+        hostPath:
+          path: /mnt/share/container_volumes/ubooquity_config
+      - name: books
+        hostPath:
+          path: /mnt/share/eBooks
+      - name: comics
+        hostPath:
+          path: /mnt/share/Comics

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: komga
+  namespace: default
+spec:
+  rules:
+  - host: komga.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: komga
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific

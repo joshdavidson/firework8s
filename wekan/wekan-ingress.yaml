@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wekan
+  namespace: default
+spec:
+  rules:
+  - host: wekan.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: wekan
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific

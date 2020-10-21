@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ubooquity
+  namespace: default
+spec:
+  rules:
+  - host: ubooquity.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: ubooquity
+            port:
+              number: 2202
+        path: /ubooquity
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: ubooquity
+            port:
+              number: 2203
+        path: /ubooquity
+        pathType: ImplementationSpecific

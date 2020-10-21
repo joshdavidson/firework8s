@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mylar
+  namespace: default
+spec:
+  rules:
+  - host: mylar.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: mylar
+            port:
+              number: 8090
+        path: /
+        pathType: ImplementationSpecific

@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: transmission
+  labels:
+    app: transmission
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transmission
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      containers:
+      - name: transmission
+        image: linuxserver/transmission
+        ports:
+          - containerPort: 9091
+          - containerPort: 51413
+            protocol: UDP
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+          - name: USER
+            value: "transmission"
+          - name: PASS
+            value: "transmission"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /downloads
+            name: downloads
+      volumes:
+      - name: config
+        hostPath:
+          path: /mnt/share/container_volumes/transmission_config
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads/transmission

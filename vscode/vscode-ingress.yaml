@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vscode
+spec:
+  rules:
+  - host: vscode.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: vscode
+            port:
+              number: 8443
+        path: /
+        pathType: ImplementationSpecific

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homer
+  namespace: default
+spec:
+  rules:
+  - host: dashboard.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: homer
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific

@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cyberchef
+spec:
+  rules:
+  - host: cyberchef.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: cyberchef
+            port:
+              number: 8000
+        path: /
+        pathType: ImplementationSpecific

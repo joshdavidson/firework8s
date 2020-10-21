@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: observium
+  namespace: default
+  labels:
+    app: observium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: observium
+  template:
+    metadata:
+      labels:
+        app: observium
+    spec:
+      containers:
+      - name: observium
+        image: uberchuckie/observium
+        ports:
+          - containerPort: 8668
+        env:
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /opt/observium/logs
+            name: logs
+          - mountPath: /opt/observium/rrd
+            name: rrd
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: observium-config
+        - name: logs
+          persistentVolumeClaim:
+            claimName: observium-logs
+        - name: rrd
+          persistentVolumeClaim:
+            claimName: observium-rrd

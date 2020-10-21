@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: readarr
+  namespace: default
+spec:
+  rules:
+  - host: readarr.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: readarr
+            port:
+              number: 8787
+        path: /
+        pathType: ImplementationSpecific

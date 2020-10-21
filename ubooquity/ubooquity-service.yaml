@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubooquity
+  namespace: default
+spec:
+  selector:
+    app: ubooquity
+  ports:
+  - name: default
+    port: 2202
+    targetPort: 2202
+  - name: admin
+    port: 2203
+    targetPort: 2203

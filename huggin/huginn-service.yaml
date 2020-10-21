@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: huginn
+  namespace: default
+spec:
+  selector:
+    app: huginn
+  ports:
+  - name: web
+    port: 3000
+    targetPort: 3000

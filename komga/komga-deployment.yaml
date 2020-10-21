@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: komga
+  namespace: default
+  labels:
+    app: komga
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: komga
+  template:
+    metadata:
+      labels:
+        app: komga
+    spec:
+      containers:
+      - name: komga
+        image: gotson/komga
+        ports:
+          - containerPort: 8080
+        env:
+          - name: TZ
+            value: "America/New_York"
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /comics
+            name: comics
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: komga
+        - name: comics
+          hostPath:
+            path: /mnt/share/Comics

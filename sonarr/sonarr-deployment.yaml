@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sonarr
+  namespace: default
+  labels:
+    app: sonarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr
+        ports:
+          - containerPort: 8989
+        env:
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /downloads
+            name: downloads
+          - mountPath: /tv
+            name: tv
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: sonarr
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads/transmission
+      - name: tv
+        hostPath:
+          path: /mnt/share/Television

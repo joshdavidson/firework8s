@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission
+  namespace: default
+spec:
+  selector:
+    app: transmission
+  ports:
+  - name: web
+    port: 9091
+    targetPort: 9091
+  - name: comm
+    protocol: UDP
+    port: 51413
+    targetPort: 51413

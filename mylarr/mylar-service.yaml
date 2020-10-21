@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mylar
+  namespace: default
+spec:
+  selector:
+    app: mylar
+  ports:
+  - port: 8090
+    targetPort: 8090

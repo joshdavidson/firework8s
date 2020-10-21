@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: readarr
+  labels:
+    app: readarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readarr
+  template:
+    metadata:
+      labels:
+        app: readarr
+    spec:
+      containers:
+      - name: readarr
+        image: hotio/readarr:unstable
+        ports:
+          - containerPort: 8787
+        env:
+          - name: PUID
+            value: "1001"
+          - name: PGID
+            value: "1001"
+          - name: TZ
+            value: "America/New_York"
+          - name: UMASK
+            value: "002"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /books
+            name: books
+          - mountPath: /downloads
+            name: downloads
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: readarr
+      - name: books
+        hostPath:
+          path: /mnt/share/eBooks
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads/transmission

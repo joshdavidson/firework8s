@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: phpservermon
+  namespace: default
+spec:
+  rules:
+  - host: phpservermon.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: phpservermon
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific

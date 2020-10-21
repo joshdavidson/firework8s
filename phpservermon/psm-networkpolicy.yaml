@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: phpservermon-tier
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          phpservermon-tier: "true"
+  podSelector:
+    matchLabels:
+      phpservermon-tier: "true"

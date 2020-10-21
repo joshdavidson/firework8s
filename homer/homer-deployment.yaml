@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: homer
+  namespace: default
+  labels:
+    app: homer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homer
+  template:
+    metadata:
+      labels:
+        app: homer
+    spec:
+      containers:
+      - name: homer
+        image: b4bz/homer
+        ports:
+          - containerPort: 8080
+        volumeMounts:
+        - mountPath: /www/assets
+          name: assets
+      volumes:
+      - name: assets
+        persistentVolumeClaim:
+          claimName: homer

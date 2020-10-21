@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ciao
+  labels:
+    app: ciao
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ciao
+  template:
+    metadata:
+      labels:
+        app: ciao
+    spec:
+      containers:
+        - name: ciao
+          image: brotandgames/ciao
+          ports:
+            - containerPort: 3000
+          env:
+            - name: SECRET_KEY_BASE
+              value: "sensitive_secret_key_base"
+            - name: SMTP_ADDRESS
+              value: "smtp.sendgrid.net"
+            - name: SMTP_EMAIL_FROM
+              value: "noreply@ciao.lan"
+            - name: SMTP_EMAIL_TO
+              value: "yourname@youremail.com"
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_AUTHENTICATION
+              value: "plain"
+            - name: SMTP_DOMAIN
+              value: "smtp.sendgrid.net"
+            - name: SMTP_ENABLE_STARTTLS_AUTO
+              value: "true"
+            - name: SMTP_USERNAME
+              value: "apikey"
+            - name: SMTP_PASSWORD
+              value: "your sendgrid api key"
+          volumeMounts:
+            - name: data
+              mountPath: /app/db/sqlite
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: ciao

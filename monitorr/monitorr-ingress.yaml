@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monitorr
+  namespace: default
+spec:
+  rules:
+  - host: monitorr.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: monitorr
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific

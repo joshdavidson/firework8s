@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: wekan
+  name: wekan
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    service: wekan
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: wekandb
+  name: wekandb
+spec:
+  ports:
+    - name: "27017"
+      port: 27017
+      targetPort: 27017
+  selector:
+    service: wekandb

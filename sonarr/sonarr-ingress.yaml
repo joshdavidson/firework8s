@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr
+  namespace: default
+spec:
+  rules:
+  - host: sonarr.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: sonarr
+            port:
+              number: 8989
+        path: /
+        pathType: ImplementationSpecific

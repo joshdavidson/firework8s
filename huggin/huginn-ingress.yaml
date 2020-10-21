@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: huginn
+spec:
+  rules:
+  - host: huginn.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: huginn
+            port:
+              number: 3000
+        path: /
+        pathType: ImplementationSpecific

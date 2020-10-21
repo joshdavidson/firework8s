@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: smokeping
+  labels:
+    app: smokeping
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  tls:
+    - hosts:
+      - "smokeping.darkness.network"
+      secretName: "smokeping-tls"
+  rules:
+    - host: "smokeping.lan"
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: smokeping
+                port:
+                  number: 80

@@ -1,0 +1,23 @@
+---
+defaultImage: true
+image:
+  repository: "ranchercharts/kubernetes_incubator-nfs-provisioner"
+  tag: "v2.2.1-k8s1.12"
+storageClass:
+  create: true
+  name: "default"
+  defaultClass: true
+  reclaimPolicy: "Delete"
+  allowVolumeExpansion: true
+persistence:
+  enabled: false
+  size: "20Gi"
+  storageClass: ""
+  hostPath: "/srv/persistent-volumes"
+service:
+  type: "ClusterIP"
+  nfsNodePort: ""
+  mountdNodePort: ""
+  rpcbindNodePort: ""
+nodeSelector:
+  kubernetes.io/hostname: docker03
