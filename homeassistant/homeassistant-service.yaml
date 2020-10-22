@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: homeassistant
+  namespace: default
+spec:
+  selector:
+    app: homeassistant
+  ports:
+  - port: 8123
+    targetPort: 8123
