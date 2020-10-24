@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: smokeping
-        image: dvorak/docker-smokeping
+        image: linuxserver/docker-smokeping
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -29,6 +29,10 @@ spec:
           - mountPath: "/data"
             name: data
         env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
           - name: TZ
             value: "America/New_York"
       volumes:
