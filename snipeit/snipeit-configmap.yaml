@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: snipeit-config
+  namespace: default
+data:
+  MYSQL_PORT_3306_TCP_ADDR: "snipeit-mysql"
+  MYSQL_PORT_3306_TCP_PORT: "3306"
+  MYSQL_ROOT_PASSWORD: "YOUR_SUPER_SECRET_PASSWORD"
+  MYSQL_DATABASE: "snipeit"
+  MYSQL_USER: "snipeit"
+  MYSQL_PASSWORD: "YOUR_snipeit_USER_PASSWORD"
+  MAIL_PORT_587_TCP_ADDR: "smtp.sendgrid.net"
+  MAIL_PORT_587_TCP_PORT: "587"
+  MAIL_ENV_FROM_ADDR: "noreply@snipeit.lan"
+  MAIL_ENV_FROM_NAME: "Snip-IT System E-mail"
+  MAIL_ENV_ENCRYPTION: "tls"
+  MAIL_ENV_USERNAME: "apikey"
+  MAIL_ENV_PASSWORD: "YOUR_SENDGRID_KEY"
+  APP_ENV: "production"
+  APP_DEBUG: "false"
+  APP_KEY: "base64:D5oGA+zhFSVA3VwuoZoQ21RAcwBtJv/RGiqOcZ7BUvI="
+  APP_URL: "http://snipeit.lan"
+  APP_TIMEZONE: "US/New_York"
+  APP_LOCALE: "en"

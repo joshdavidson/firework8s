@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: snipeit
+  namespace: default
+spec:
+  rules:
+  - host: snipeit.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: snipeit
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific

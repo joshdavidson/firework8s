@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snipeit-mysql
+  namespace: default
+  labels:
+    service: snipeit-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: snipeit-mysql
+  template:
+    metadata:
+      labels:
+        service: snipeit-mysql
+    spec:
+      containers:
+      - name: snipeit-mysql
+        envFrom:
+          - configMapRef:
+              name: snipeit-config
+        image: mysql:5.6
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3306
+        resources: {}
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: mysql
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+        - name: mysql
+          persistentVolumeClaim:
+            claimName: snipeit-mysql
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: snipeit
+  name: snipeit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: snipeit
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: snipeit
+    spec:
+      containers:
+        - name: snipeit
+          envFrom:
+            - configMapRef:
+                name: snipeit-config
+          image: snipe/snipe-it
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources: { }
+          volumeMounts:
+            - mountPath: /var/lib/snipeit
+              name: snipeit-data
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+        - name: snipeit-data
+          persistentVolumeClaim:
+            claimName: snipeit-data

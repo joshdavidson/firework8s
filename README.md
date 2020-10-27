@@ -27,6 +27,7 @@ phpservermon | PHP server monitor | http://www.phpservermonitor.org/
 readarr | Book, magazine, comics eBook and audiobook manager (Sonarr for eBooks) | http://readarr.com/
 smokeping | Smokeping keeps track of your network latency | https://github.com/linuxserver/docker-smokeping
 sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
+snipe-it | Free and open source IT asset management | https://github.com/snipe/snipe-it
 transmission | BitTorrent client | https://transmissionbt.com/
 ubooquity | Home server for your comics and ebooks | https://github.com/linuxserver/docker-ubooquity
 vscode | VS Code running on a remote server, accessible through the browser | https://github.com/linuxserver/docker-code-server
