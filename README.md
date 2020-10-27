@@ -1,5 +1,5 @@
-# openhomelab
-OpenHomeLab is a collection of kubernetes objects (yaml files) for use in setting a home lab
+# OpenHomeLab
+OpenHomeLab is a collection of kubernetes objects (yaml files) for deploying workloads in a home lab with k8s. 
 ## Deploy
 Execute kubectl apply -f against the directory you wish to deploy.  For example:
 ```shell script
