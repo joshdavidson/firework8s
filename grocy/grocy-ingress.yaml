@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grocy
+  namespace: default
+spec:
+  rules:
+  - host: grocy.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: grocy
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
