@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: raneto
+  namespace: default
+spec:
+  rules:
+  - host: raneto.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: raneto
+            port:
+              number: 3000
+        path: /
+        pathType: ImplementationSpecific

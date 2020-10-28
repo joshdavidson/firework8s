@@ -1,0 +1,37 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: raneto
+  namespace: default
+  labels:
+    app: raneto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: raneto
+  template:
+    metadata:
+      labels:
+        app: raneto
+    spec:
+      containers:
+      - name: raneto
+        image: linuxserver/raneto
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: raneto
