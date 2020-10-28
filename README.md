@@ -14,6 +14,8 @@ Application | Description | Website
 ------------ | ------------- | -------------
 ciao | Private and public HTTP(S) monitoring | https://brotandgames.com/ciao/
 cyberchef | The cyber swiss army knife | https://gchq.github.io/cyberchef
+grocy | Groceries and household management solution for your home | https://grocy.info/
+heimdalll | Application dashboard and launcher | https://github.com/linuxserver/Heimdall
 homeassistant | Open source home automation | https://www.home-assistant.io/ 
 homer | A very simple static homepage for your server | https://github.com/bastienwirtz/homer
 huggin | Create agents that monitor and act on your behalf | https://github.com/huginn/huginn
@@ -25,6 +27,7 @@ monitorr | Monitors the status of local and remote network services, websites, a
 mylar | An automated Comic Book downloader (cbr/cbz) for use with SABnzbd, NZBGet and torrents | https://github.com/evilhero/mylar
 observium | Network monitoring platform | https://www.observium.org/
 phpservermon | PHP server monitor | http://www.phpservermonitor.org/
+raneto | Markdown powered Knowledgebase for Nodejs | http://raneto.com/
 readarr | Book, magazine, comics eBook and audiobook manager (Sonarr for eBooks) | http://readarr.com/
 smokeping | Smokeping keeps track of your network latency | https://github.com/linuxserver/docker-smokeping
 sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
