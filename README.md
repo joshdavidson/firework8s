@@ -10,7 +10,7 @@ Would deploy Sonarr to your Kubernetes cluster...
 ## Applications
 Each folder contains a set of yaml files to deploy the application to a Kubernetes cluster.
 
-Application | Description | Website
+Name | Description | Website
 ------------ | ------------- | -------------
 ciao | Private and public HTTP(S) monitoring | https://brotandgames.com/ciao/
 cyberchef | The cyber swiss army knife | https://gchq.github.io/cyberchef
