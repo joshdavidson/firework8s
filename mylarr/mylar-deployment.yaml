@@ -18,6 +18,7 @@ spec:
       containers:
       - name: mylar
         image: hotio/mylar3
+        imagePullPolicy: Always
         ports:
           - containerPort: 8090
         env:

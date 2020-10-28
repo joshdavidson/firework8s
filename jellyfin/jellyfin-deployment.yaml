@@ -18,6 +18,7 @@ spec:
       containers:
       - name: jellyfin
         image: jellyfin/jellyfin
+        imagePullPolicy: Always
         ports:
           - containerPort: 8989
         env:

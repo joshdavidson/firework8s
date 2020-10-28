@@ -17,6 +17,7 @@ spec:
       containers:
       - name: readarr
         image: hotio/readarr:unstable
+        imagePullPolicy: Always
         ports:
           - containerPort: 8787
         env:

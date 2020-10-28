@@ -18,6 +18,7 @@ spec:
       containers:
       - name: homeassistant
         image: homeassistant/home-assistant:stable
+        imagePullPolicy: Always
         ports:
           - containerPort: 8123
         env:

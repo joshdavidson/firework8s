@@ -18,6 +18,7 @@ spec:
       containers:
       - name: lazylibrarian
         image: linuxserver/lazylibrarian
+        imagePullPolicy: Always
         ports:
           - containerPort: 5299
         env:

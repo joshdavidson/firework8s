@@ -18,6 +18,7 @@ spec:
       containers:
       - name: jackett
         image: linuxserver/jackett
+        imagePullPolicy: Always
         ports:
           - containerPort: 9117
         env:

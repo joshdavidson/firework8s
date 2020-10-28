@@ -18,6 +18,7 @@ spec:
       containers:
       - name: observium
         image: uberchuckie/observium
+        imagePullPolicy: Always
         ports:
           - containerPort: 8668
         env:

@@ -18,6 +18,7 @@ spec:
       containers:
       - name: komga
         image: gotson/komga
+        imagePullPolicy: Always
         ports:
           - containerPort: 8080
         env:
