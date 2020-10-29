@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sickgear
+  namespace: default
+spec:
+  rules:
+  - host: sickgear.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: sickgear
+            port:
+              number: 8081
+        path: /
+        pathType: ImplementationSpecific

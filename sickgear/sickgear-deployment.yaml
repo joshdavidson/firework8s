@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sickgear
+  namespace: default
+  labels:
+    app: sickgear
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sickgear
+  template:
+    metadata:
+      labels:
+        app: sickgear
+    spec:
+      containers:
+      - name: sickgear
+        image: linuxserver/sickgear
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8081
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /downloads
+            name: downloads
+          - mountPath: /tv
+            name: tv
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: sickgear
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads/transmission
+      - name: tv
+        hostPath:
+          path: /mnt/share/Television
