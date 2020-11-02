@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: stuffinspace
+  labels:
+    app: stuffinspace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stuffinspace
+  template:
+    metadata:
+      labels:
+        app: stuffinspace
+    spec:
+      containers:
+      - name: stuffinspace
+        image: joshdavidson/stuffinspace
+        imagePullPolicy: Always
+        env:
+          - name: APACHE_SERVER_NAME
+            value: "stuffinspace.lan"
+          - name: CONTAINER_TIMEZONE
+            value: "America/New_York"
+        ports:
+          - containerPort: 80

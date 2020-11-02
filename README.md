@@ -33,6 +33,7 @@ sickgear |  SickGear has proven the most reliable stable TV fork of the great Si
 smokeping | Smokeping keeps track of your network latency | https://github.com/linuxserver/docker-smokeping
 snipe-it | Free and open source IT asset management | https://github.com/snipe/snipe-it
 sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
+stuffinspace | A real-time interactive WebGL visualisation of objects in Earth orbit | http://stuffin.space
 transmission | BitTorrent client | https://transmissionbt.com/
 ubooquity | Home server for your comics and ebooks | https://github.com/linuxserver/docker-ubooquity
 vscode | VS Code running on a remote server, accessible through the browser | https://github.com/linuxserver/docker-code-server
