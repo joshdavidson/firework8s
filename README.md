@@ -29,9 +29,10 @@ observium | Network monitoring platform | https://www.observium.org/
 phpservermon | PHP server monitor | http://www.phpservermonitor.org/
 raneto | Markdown powered Knowledgebase for Nodejs | http://raneto.com/
 readarr | Book, magazine, comics eBook and audiobook manager (Sonarr for eBooks) | http://readarr.com/
+sickgear |  SickGear has proven the most reliable stable TV fork of the great Sick-Beard family | https://github.com/SickGear/SickGear
 smokeping | Smokeping keeps track of your network latency | https://github.com/linuxserver/docker-smokeping
-sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
 snipe-it | Free and open source IT asset management | https://github.com/snipe/snipe-it
+sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
 transmission | BitTorrent client | https://transmissionbt.com/
 ubooquity | Home server for your comics and ebooks | https://github.com/linuxserver/docker-ubooquity
 vscode | VS Code running on a remote server, accessible through the browser | https://github.com/linuxserver/docker-code-server
