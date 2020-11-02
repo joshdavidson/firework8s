@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: dashboard.lan
+  - host: homer.lan
     http:
       paths:
       - backend:
