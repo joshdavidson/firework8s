@@ -12,6 +12,7 @@ Each folder contains a set of yaml files to deploy the application to a Kubernet
 
 Name | Description | Website
 ------------ | ------------- | -------------
+bookstack | Free and open source Wiki designed for creating beautiful documentation | https://www.bookstackapp.com
 ciao | Private and public HTTP(S) monitoring | https://brotandgames.com/ciao/
 cyberchef | The cyber swiss army knife | https://gchq.github.io/cyberchef
 grocy | Groceries and household management solution for your home | https://grocy.info/
