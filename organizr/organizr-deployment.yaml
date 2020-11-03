@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: organizr
+  labels:
+    app: organizr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: organizr
+  template:
+    metadata:
+      labels:
+        app: organizr
+    spec:
+      containers:
+      - name: organizr
+        image: organizr/organizr
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+          - name: fpm
+            value: "false"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: organizr

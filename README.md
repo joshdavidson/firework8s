@@ -29,6 +29,7 @@ lazylibrarian | Follow authors and grab metadata for all your digital reading ne
 monitorr | Monitors the status of local and remote network services, websites, and applications | https://github.com/Monitorr/Monitorr
 mylar | An automated Comic Book downloader (cbr/cbz) for use with SABnzbd, NZBGet and torrents | https://github.com/evilhero/mylar
 observium | Network monitoring platform | https://www.observium.org/
+organizr | An HTPC/Homelab services organizer | https://organizr.app
 phpservermon | PHP server monitor | http://www.phpservermonitor.org/
 raneto | Markdown powered Knowledgebase for Nodejs | http://raneto.com/
 readarr | Book, magazine, comics eBook and audiobook manager (Sonarr for eBooks) | http://readarr.com/
