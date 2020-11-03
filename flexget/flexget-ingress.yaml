@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flexget
+  namespace: default
+spec:
+  rules:
+  - host: flexget.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: flexget
+            port:
+              number: 5050
+        path: /
+        pathType: ImplementationSpecific

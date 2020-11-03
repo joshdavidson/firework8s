@@ -1,0 +1,61 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: flexget
+  namespace: default
+  labels:
+    app: flexget
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flexget
+  template:
+    metadata:
+      labels:
+        app: flexget
+    spec:
+      containers:
+      - name: flexget
+        image: wiserain/flexget
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 5050
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+          - name: FG_WEBUI_PASSWD
+            value: "password"
+          - name: FG_LOG_LEVEL
+            value: "info"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data
+            name: data
+          - mountPath: /downloads
+            name: downloads
+          - mountPath: /movies
+            name: movies
+          - mountPath: /tv
+            name: tv
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: flexget-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: flexget-data
+        - name: downloads
+          hostPath:
+            path: /mnt/share/Downloads/transmission
+        - name: movies
+          hostPath:
+            path: /mnt/share/Movies
+        - name: tv
+          hostPath:
+            path: /mnt/share/Television
