@@ -39,6 +39,7 @@ snipe-it | Free and open source IT asset management | https://github.com/snipe/s
 sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
 stuffinspace | A real-time interactive WebGL visualisation of objects in Earth orbit | http://stuffin.space
 transmission | BitTorrent client | https://transmissionbt.com/
+trilium | Hierarchical note taking application | https://github.com/zadam/trilium
 ubooquity | Home server for your comics and ebooks | https://github.com/linuxserver/docker-ubooquity
 vscode | VS Code running on a remote server, accessible through the browser | https://github.com/linuxserver/docker-code-server
 wallabag | Self hosted application for saving web pages | https://wallabag.org/

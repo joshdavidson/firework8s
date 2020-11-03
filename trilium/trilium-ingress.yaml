@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: trilium
+  namespace: default
+spec:
+  rules:
+  - host: trilium.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: trilium
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific
