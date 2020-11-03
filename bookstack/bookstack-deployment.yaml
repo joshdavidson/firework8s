@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: bookstack
+  name: bookstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: bookstack
+  template:
+    metadata:
+      labels:
+        service: bookstack
+    spec:
+      containers:
+      - env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: DB_HOST
+          value: "bookstack-db"
+        - name: DB_USER
+          value: "bookstack"
+        - name: DB_PASS
+          value: "bookstack"
+        - name: DB_DATABASE
+          value: "bookstackapp"
+        - name: APP_URL
+          value: "http://bookstack.lan"
+        image: linuxserver/bookstack:latest
+        imagePullPolicy: Always
+        name: bookstack
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: /config
+            name: bookstack
+      restartPolicy: Always
+      volumes:
+        - name: bookstack
+          persistentVolumeClaim:
+            claimName: bookstack
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: bookstack-db
+  name: bookstack-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: bookstack-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: bookstack-db
+    spec:
+      containers:
+        - env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: MYSQL_ROOT_PASSWORD
+            value: "password"
+          - name: TZ
+            value: "America/New_York"
+          - name: MYSQL_DATABASE
+            value: "bookstackapp"
+          - name: MYSQL_USER
+            value: "bookstack"
+          - name: MYSQL_PASSWORD
+            value: "bookstack"
+          image: linuxserver/mariadb
+          imagePullPolicy: Always
+          name: bookstack-db
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /config
+              name: bookstack-db
+      restartPolicy: Always
+      volumes:
+        - name: bookstack-db
+          persistentVolumeClaim:
+            claimName: bookstack-db

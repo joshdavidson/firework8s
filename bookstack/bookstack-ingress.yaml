@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bookstack
+  namespace: default
+spec:
+  rules:
+  - host: bookstack.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: bookstack
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
