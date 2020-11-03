@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongo
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - args:
+            - mongod
+            - --oplogSize
+            - "128"
+          image: mongo:latest
+          imagePullPolicy: Always
+          name: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo
+            - mountPath: /dump
+              name: mongo-dump
+      volumes:
+        - name: mongo
+          persistentVolumeClaim:
+            claimName: mongo
+        - name: mongo-dump
+          persistentVolumeClaim:
+            claimName: mongo-dump
