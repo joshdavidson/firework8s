@@ -4,7 +4,7 @@ metadata:
   name: snipeit-config
   namespace: default
 data:
-  MYSQL_PORT_3306_TCP_ADDR: "snipeit-mysql"
+  MYSQL_PORT_3306_TCP_ADDR: "snipeit-db"
   MYSQL_PORT_3306_TCP_PORT: "3306"
   MYSQL_ROOT_PASSWORD: "YOUR_SUPER_SECRET_PASSWORD"
   MYSQL_DATABASE: "snipeit"

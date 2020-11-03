@@ -2,18 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: wekan
+    app: wekan
   name: wekan
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: wekan
+      app: wekan
   template:
     metadata:
       labels:
-        wekan-tier: "true"
-        service: wekan
+        app: wekan
     spec:
       containers:
       - env:
@@ -41,31 +40,28 @@ spec:
           value: "true"
         image: wekanteam/wekan
         imagePullPolicy: Always
-        name: wekan-app
+        name: wekan
         ports:
         - containerPort: 8080
-        resources: {}
       restartPolicy: Always
-      serviceAccountName: ""
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: wekandb
-  name: wekandb
+    app: wekan-db
+  name: wekan-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: wekandb
+      app: wekan-db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        wekan-tier: "true"
-        service: wekandb
+        app: wekan-db
     spec:
       containers:
         - args:
@@ -77,14 +73,11 @@ spec:
           name: wekan-db
           ports:
             - containerPort: 27017
-          resources: {}
           volumeMounts:
             - mountPath: /data/db
               name: wekan-db
             - mountPath: /dump
               name: wekan-db-dump
-      restartPolicy: Always
-      serviceAccountName: ""
       volumes:
         - name: wekan-db
           persistentVolumeClaim:

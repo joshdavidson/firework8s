@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: bookstack
+    app: bookstack
   name: bookstack
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: bookstack
+      app: bookstack
   template:
     metadata:
       labels:
-        service: bookstack
+        app: bookstack
     spec:
       containers:
       - env:
@@ -48,19 +48,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: bookstack-db
+    app: bookstack-db
   name: bookstack-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: bookstack-db
+      app: bookstack-db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        service: bookstack-db
+        app: bookstack-db
     spec:
       containers:
         - env:

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: phpservermon
+    app: phpservermon
   name: phpservermon
 spec:
   ports:
@@ -10,18 +10,18 @@ spec:
     port: 80
     targetPort: 80
   selector:
-    service: phpservermon
+    app: phpservermon
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: mariadb
-  name: mariadb
+    app: phpservermon-db
+  name: phpservermon-db
 spec:
   ports:
     - name: "3306"
       port: 3306
       targetPort: 3306
   selector:
-    service: mariadb
+    app: phpservermon-db

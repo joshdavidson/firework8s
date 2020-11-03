@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: bookstack
+    app: bookstack
   name: bookstack
 spec:
   ports:
@@ -10,13 +10,13 @@ spec:
     port: 80
     targetPort: 80
   selector:
-    service: bookstack
+    app: bookstack
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: bookstack-db
+    app: bookstack-db
   name: bookstack-db
 spec:
   ports:
@@ -24,4 +24,4 @@ spec:
       port: 3306
       targetPort: 3306
   selector:
-    service: bookstack-db
+    app: bookstack-db

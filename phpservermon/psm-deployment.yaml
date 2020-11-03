@@ -2,25 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: phpservermon
+    app: phpservermon
   name: phpservermon
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: phpservermon
+      app: phpservermon
   template:
     metadata:
       labels:
-        phpservermon-tier: "true"
-        service: phpservermon
+        app: phpservermon
     spec:
       containers:
       - env:
           - name: PSM_BASE_URL
             value: http://phpservermon.lan/
           - name: PSM_DB_HOST
-            value: mariadb
+            value: phpservermon-db
           - name: PSM_DB_NAME
             value: phpservermon
           - name: PSM_DB_USER
@@ -42,20 +41,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: mariadb
-  name: mariadb
+    app: phpservermon-db
+  name: phpservermon-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: mariadb
+      app: phpservermon-db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        phpservermon-tier: "true"
-        service: mariadb
+        app: phpservermon-db
     spec:
       containers:
         - env:
@@ -69,7 +67,7 @@ spec:
               value: password
           image: mariadb:10
           imagePullPolicy: Always
-          name: mariadb
+          name: phpservermon-db
           ports:
             - containerPort: 3306
           volumeMounts:

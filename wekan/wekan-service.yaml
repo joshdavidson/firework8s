@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: wekan
+    app: wekan
   name: wekan
 spec:
   ports:
@@ -10,18 +10,18 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    service: wekan
+    app: wekan
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: wekandb
-  name: wekandb
+    app: wekan-db
+  name: wekan-db
 spec:
   ports:
     - name: "27017"
       port: 27017
       targetPort: 27017
   selector:
-    service: wekandb
+    app: wekan-db
