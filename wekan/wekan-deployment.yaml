@@ -27,7 +27,7 @@ spec:
         - name: MAIL_URL
           value: smtp://smtp.sendgrid.net:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
         - name: MONGO_URL
-          value: mongodb://wekandb:27017/wekan
+          value: mongodb://wekan-db:27017/wekan
         - name: RICHER_CARD_COMMENT_EDITOR
           value: "false"
         - name: ROOT_URL
