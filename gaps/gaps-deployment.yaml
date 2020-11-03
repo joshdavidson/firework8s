@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: gaps
+  namespace: default
+  labels:
+    app: gaps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gaps
+  template:
+    metadata:
+      labels:
+        app: gaps
+    spec:
+      containers:
+      - name: gaps
+        image: housewrecker/gaps
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8484
+        volumeMounts:
+          - mountPath: /usr/data
+            name: gaps
+      volumes:
+      -  name: gaps
+         persistentVolumeClaim:
+          claimName: gaps

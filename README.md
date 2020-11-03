@@ -16,6 +16,7 @@ bookstack | Free and open source Wiki designed for creating beautiful documentat
 ciao | Private and public HTTP(S) monitoring | https://brotandgames.com/ciao/
 cyberchef | The cyber swiss army knife | https://gchq.github.io/cyberchef
 flexget | Multipurpose automation tool for all your media | https://flexget.com
+gaps | Gaps recommends gaps in your Plex Server movie library based on collection searches | https://github.com/JasonHHouse/gaps 
 grocy | Groceries and household management solution for your home | https://grocy.info/
 heimdalll | Application dashboard and launcher | https://github.com/linuxserver/Heimdall
 homeassistant | Open source home automation | https://www.home-assistant.io/ 

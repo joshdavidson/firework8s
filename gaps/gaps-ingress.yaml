@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gaps
+  namespace: default
+spec:
+  rules:
+  - host: gaps.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: gaps
+            port:
+              number: 8484
+        path: /
+        pathType: ImplementationSpecific
