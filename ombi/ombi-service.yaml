@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ombi
+  namespace: default
+spec:
+  selector:
+    app: ombi
+  ports:
+  - port: 3579
+    targetPort: 3579

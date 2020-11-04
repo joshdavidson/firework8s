@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ombi
+  namespace: default
+spec:
+  rules:
+  - host: ombi.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: ombi
+            port:
+              number: 3579
+        path: /
+        pathType: ImplementationSpecific
