@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana
+          imagePullPolicy: Always
+          env:
+            - name: GF_INSTALL_PLUGINS
+              value: grafana-piechart-panel,grafana-worldmap-panel
+            - name: GF_PATHS_DATA
+              value: /config/data
+            - name: GF_PATHS_LOGS
+              value: /config/logs
+            - name: GF_PATHS_PLUGINS
+              value: /config/plugins
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - mountPath: /config
+              name: grafana
+      volumes:
+        - name: grafana
+          persistentVolumeClaim:
+            claimName: grafana
