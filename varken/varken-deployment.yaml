@@ -2,77 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: varken-influxdb
-  name: varken-influxdb
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: varken-influxdb
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: varken-influxdb
-    spec:
-      containers:
-        - image: influxdb
-          name: varken-influxdb
-          ports:
-            - containerPort: 8086
-          volumeMounts:
-            - mountPath: /var/lib/influxdb
-              name: varken-influxdb
-      volumes:
-        - name: varken-influxdb
-          persistentVolumeClaim:
-            claimName: varken-influxdb
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: varken-grafana
-  name: varken-grafana
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: varken-grafana
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: varken-grafana
-    spec:
-      containers:
-        - env:
-            - name: GF_INSTALL_PLUGINS
-              value: grafana-piechart-panel,grafana-worldmap-panel
-            - name: GF_PATHS_DATA
-              value: /config/data
-            - name: GF_PATHS_LOGS
-              value: /config/logs
-            - name: GF_PATHS_PLUGINS
-              value: /config/plugins
-          image: grafana/grafana
-          name: varken-grafana
-          ports:
-            - containerPort: 3000
-          volumeMounts:
-            - mountPath: /config
-              name: varken-grafana
-      volumes:
-        - name: varken-grafana
-          persistentVolumeClaim:
-            claimName: varken-grafana
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
     app: varken
   name: varken
 spec:
@@ -115,7 +44,7 @@ spec:
             - name: VRKN_INFLUXDB_SSL
               value: "false"
             - name: VRKN_INFLUXDB_URL
-              value: "varken-influxdb"
+              value: "influxdb"
             - name: VRKN_INFLUXDB_USERNAME
               value: "root"
             - name: VRKN_INFLUXDB_VERIFY_SSL
