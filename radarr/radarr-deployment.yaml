@@ -44,4 +44,4 @@ spec:
           path: /mnt/share/Downloads/transmission2
       - name: movies
         hostPath:
-          path: /mnt/share/movies
+          path: /mnt/share/Movies
