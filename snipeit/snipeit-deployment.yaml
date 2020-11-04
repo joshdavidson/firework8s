@@ -31,7 +31,7 @@ spec:
       volumes:
         - name: mysql
           persistentVolumeClaim:
-            claimName: snipeit-mysql
+            claimName: snipeit-db
 ---
 apiVersion: apps/v1
 kind: Deployment
