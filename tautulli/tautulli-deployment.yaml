@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: tautulli
+  namespace: default
+  labels:
+    app: tautulli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tautulli
+  template:
+    metadata:
+      labels:
+        app: tautulli
+    spec:
+      containers:
+      - name: tautulli
+        image: linuxserver/tautulli
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8181
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /logs
+            name: logs
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: tautulli-conf
+      - name: logs
+        persistentVolumeClaim:
+          claimName: tautulli-logs
