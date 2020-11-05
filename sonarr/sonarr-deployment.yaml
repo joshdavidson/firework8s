@@ -19,6 +19,10 @@ spec:
       - name: sonarr
         image: linuxserver/sonarr
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1"
         ports:
           - containerPort: 8989
         env:

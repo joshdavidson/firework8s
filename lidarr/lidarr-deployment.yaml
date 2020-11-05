@@ -19,6 +19,10 @@ spec:
       - name: lidarr
         image: linuxserver/lidarr
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1"
         ports:
           - containerPort: 8686
         env:

@@ -15,10 +15,15 @@ spec:
       labels:
         app: radarr
     spec:
+
       containers:
       - name: radarr
         image: linuxserver/radarr
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1"
         ports:
           - containerPort: 7878
         env:
