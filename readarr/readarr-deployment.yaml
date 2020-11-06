@@ -16,19 +16,17 @@ spec:
     spec:
       containers:
       - name: readarr
-        image: hotio/readarr:unstable
+        image: hotio/readarr:nightly
         imagePullPolicy: Always
         ports:
           - containerPort: 8787
         env:
           - name: PUID
-            value: "1001"
+            value: "1000"
           - name: PGID
-            value: "1001"
+            value: "1000"
           - name: TZ
             value: "America/New_York"
-          - name: UMASK
-            value: "002"
         volumeMounts:
           - mountPath: /config
             name: config
