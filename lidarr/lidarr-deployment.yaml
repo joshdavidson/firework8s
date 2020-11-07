@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
       - name: lidarr
-        image: linuxserver/lidarr
+        image: linuxserver/lidarr:nightly
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "1Gi"
-            cpu: "1"
+            memory: "2Gi"
+            cpu: ".5"
         ports:
           - containerPort: 8686
         env:

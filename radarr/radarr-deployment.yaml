@@ -18,11 +18,11 @@ spec:
 
       containers:
       - name: radarr
-        image: linuxserver/radarr
+        image: linuxserver/radarr:nightly
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "1Gi"
+            memory: "4Gi"
             cpu: "1"
         ports:
           - containerPort: 7878
