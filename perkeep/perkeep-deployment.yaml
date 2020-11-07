@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: perkeep
+  namespace: default
+  labels:
+    app: perkeep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: perkeep
+  template:
+    metadata:
+      labels:
+        app: perkeep
+    spec:
+      containers:
+      - name: perkeep
+        image: jhillyerd/perkeep
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3179
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /storage
+            name: data
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: perkeep-conf
+        - name: data
+          persistentVolumeClaim:
+            claimName: perkeep-data

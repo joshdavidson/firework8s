@@ -38,6 +38,7 @@ mysql | Open-source relational database management system | https://www.mysql.co
 observium | Network monitoring platform | https://www.observium.org/
 ombi |  Gives your shared Plex or Emby users the ability to request content by themselves | https://ombi.io/
 organizr | An HTPC/Homelab services organizer | https://organizr.app
+perkeep | Software for modeling, storing, searching, sharing and synchronizing data | https://perkeep.org/
 phpservermon | PHP server monitor | http://www.phpservermonitor.org/
 postgres | Open source object-relational database system | https://www.postgresql.org/
 raneto | Markdown powered Knowledgebase for Nodejs | http://raneto.com/

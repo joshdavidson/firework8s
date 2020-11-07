@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: perkeep
+  namespace: default
+spec:
+  rules:
+  - host: perkeep.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: perkeep
+            port:
+              number: 3179
+        path: /
+        pathType: ImplementationSpecific
