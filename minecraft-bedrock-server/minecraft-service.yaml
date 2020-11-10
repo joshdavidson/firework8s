@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-bedrock
+  namespace: default
+spec:
+  selector:
+    app: minecraft-bedrock
+  ports:
+  - port: 19132
+    nodePort: 19132
+    targetPort: 19132
+    protocol: UDP
+  type: NodePort

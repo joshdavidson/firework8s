@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: minecraft-bedrock
+  namespace: default
+  labels:
+    app: minecraft-bedrock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minecraft-bedrock
+  template:
+    metadata:
+      labels:
+        app: minecraft-bedrock
+    spec:
+      containers:
+      - name: minecraft-bedrock
+        image: itzg/minecraft-bedrock-server
+        imagePullPolicy: Always
+        env:
+          - name: EULA
+            value: "true"
+        ports:
+          - containerPort: 19132
+            hostPort: 19132
+            protocol: UDP
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: "1"
+            memory: 2Gi
+        volumeMounts:
+          - mountPath: /data
+            name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: minecraft-bedrock

@@ -31,6 +31,8 @@ komga | Media server for comics/mangas/BDs with API and OPDS support | https://k
 lazylibrarian | Follow authors and grab metadata for all your digital reading needs | https://github.com/lazylibrarian/LazyLibrarian
 lidarr | Music collection manager | https://lidarr.audio/
 mariadb | Community-developed, commercially supported fork of the MySQL | https://mariadb.org/
+minecraft | Minecraft server with selectable version | https://hub.docker.com/r/itzg/minecraft-server
+minecraft-bedrock | Minecraft Bedrock Dedicated Server with selectable version | https://hub.docker.com/r/itzg/minecraft-bedrock-server
 mongodb | NoSQL database | https://www.mongodb.com/
 monitorr | Monitors the status of local and remote network services, websites, and applications | https://github.com/Monitorr/Monitorr
 mylar | An automated Comic Book downloader (cbr/cbz) for use with SABnzbd, NZBGet and torrents | https://github.com/evilhero/mylar
