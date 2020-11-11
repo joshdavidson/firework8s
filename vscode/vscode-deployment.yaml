@@ -31,6 +31,6 @@ spec:
           - mountPath: /config
             name: config
       volumes:
-      - hostPath:
-          path: /mnt/share/container_volumes/vscode_config
-        name: config
+        - name: config
+          persistentVolumeClaim:
+            claimName: vscode

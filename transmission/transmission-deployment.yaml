@@ -40,8 +40,8 @@ spec:
             name: downloads
       volumes:
       - name: config
-        hostPath:
-          path: /mnt/share/container_volumes/transmission_config
+        persistentVolumeClaim:
+          claimName: transmission
       - name: downloads
         hostPath:
-          path: /mnt/share/Downloads/transmission
+          path: /mnt/share/Downloads

@@ -46,7 +46,7 @@ spec:
           claimName: radarr
       - name: downloads
         hostPath:
-          path: /mnt/share/Downloads/transmission2
+          path: /mnt/share/Downloads
       - name: movies
         hostPath:
           path: /mnt/share/Movies

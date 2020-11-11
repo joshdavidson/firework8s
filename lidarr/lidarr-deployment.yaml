@@ -45,7 +45,7 @@ spec:
           claimName: lidarr
       - name: downloads
         hostPath:
-          path: /mnt/share/Downloads/transmission
+          path: /mnt/share/Downloads
       - name: music
         hostPath:
           path: /mnt/share/Music

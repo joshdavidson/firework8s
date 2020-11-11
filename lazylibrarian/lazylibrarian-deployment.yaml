@@ -49,4 +49,4 @@ spec:
           path: /mnt/share/Comics
       - name: downloads
         hostPath:
-          path: /mnt/share/Downloads/transmission
+          path: /mnt/share/Downloads

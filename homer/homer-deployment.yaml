@@ -19,6 +19,11 @@ spec:
       - name: homer
         image: b4bz/homer
         imagePullPolicy: Always
+        env:
+          - name: UID
+            value: "1000"
+          - name: GID
+            value: "1000"
         ports:
           - containerPort: 8080
         volumeMounts:

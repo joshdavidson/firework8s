@@ -43,4 +43,4 @@ spec:
           path: /mnt/share/eBooks
       - name: downloads
         hostPath:
-          path: /mnt/share/Downloads/transmission
+          path: /mnt/share/Downloads

@@ -20,5 +20,5 @@ spec:
             name: ubooquity
             port:
               number: 2203
-        path: /ubooquity
+        path: /ubooquity/admin
         pathType: ImplementationSpecific

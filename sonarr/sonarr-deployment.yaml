@@ -45,7 +45,7 @@ spec:
           claimName: sonarr
       - name: downloads
         hostPath:
-          path: /mnt/share/Downloads/transmission
+          path: /mnt/share/Downloads
       - name: tv
         hostPath:
           path: /mnt/share/Television

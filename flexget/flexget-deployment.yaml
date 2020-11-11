@@ -52,7 +52,7 @@ spec:
             claimName: flexget-data
         - name: downloads
           hostPath:
-            path: /mnt/share/Downloads/transmission
+            path: /mnt/share/Downloads
         - name: movies
           hostPath:
             path: /mnt/share/Movies

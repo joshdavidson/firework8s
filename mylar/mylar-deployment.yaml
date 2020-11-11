@@ -45,7 +45,7 @@ spec:
           claimName: mylar
       - name: downloads
         hostPath:
-          path: /mnt/share/Downloads/transmission
+          path: /mnt/share/Downloads
       - name: comics
         hostPath:
           path: /mnt/share/Comics

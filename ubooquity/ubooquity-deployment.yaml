@@ -40,8 +40,8 @@ spec:
             name: comics
       volumes:
       - name: config
-        hostPath:
-          path: /mnt/share/container_volumes/ubooquity_config
+        persistentVolumeClaim:
+          claimName: ubooquity
       - name: books
         hostPath:
           path: /mnt/share/eBooks
