@@ -25,12 +25,21 @@ spec:
         ports:
           - containerPort: 25565
             hostPort: 25565
+        readinessProbe:
+          exec:
+            command:
+              - mc-monitor
+              - status
+              - -- host
+              - 127.0.0.1
+          initialDelaySeconds: 5
+          periodSeconds: 5
         resources:
           requests:
             cpu: 50m
             memory: 100Mi
           limits:
-            cpu: 1
+            cpu: "1"
             memory: 2Gi
         volumeMounts:
           - mountPath: /data

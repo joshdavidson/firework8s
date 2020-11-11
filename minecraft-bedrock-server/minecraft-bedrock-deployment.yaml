@@ -22,10 +22,22 @@ spec:
         env:
           - name: EULA
             value: "true"
+          - name: GAMEMODE
+            value: survival
+          - name: DIFFICULTY
+            value: normal
         ports:
           - containerPort: 19132
             hostPort: 19132
             protocol: UDP
+        readinessProbe:
+          exec:
+            command:
+              - mc-monitor
+              - status-bedrock
+              - --host
+              - 127.0.0.1
+          initialDelaySeconds: 30
         resources:
           requests:
             cpu: 50m
