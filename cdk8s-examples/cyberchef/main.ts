@@ -3,9 +3,9 @@ import { App, Chart } from 'cdk8s';
 import * as kplus from 'cdk8s-plus';
 
 export class MyChart extends Chart {
+
   constructor(scope: Construct, name: string) {
     super(scope, name);
-
     const ingress = new kplus.Ingress(this, 'ingress');
     ingress.addHostDefaultBackend('cyberchef.lan', this.getIngressBackend());
   }
@@ -21,6 +21,7 @@ export class MyChart extends Chart {
     });
     return kplus.IngressBackend.fromService(deploy.expose(8000));
   }
+
 }
 
 const app = new App();
