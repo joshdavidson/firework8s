@@ -9,15 +9,3 @@ spec:
   resources:
     requests:
       storage: 250Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: bookstack-db
-spec:
-  storageClassName: "default"
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 250Mi

@@ -19,8 +19,6 @@ spec:
       containers:
         - args:
             - mongod
-            - --oplogSize
-            - "128"
           image: mongo:latest
           imagePullPolicy: Always
           name: mongo
