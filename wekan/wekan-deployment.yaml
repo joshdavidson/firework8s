@@ -27,7 +27,7 @@ spec:
         - name: MAIL_URL
           value: smtp://smtp.sendgrid.net:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
         - name: MONGO_URL
-          value: mongodb://wekan-db:27017/wekan
+          value: mongodb://mongo:27017/wekan
         - name: RICHER_CARD_COMMENT_EDITOR
           value: "false"
         - name: ROOT_URL
@@ -44,44 +44,3 @@ spec:
         ports:
         - containerPort: 8080
       restartPolicy: Always
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: wekan-db
-  name: wekan-db
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: wekan-db
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: wekan-db
-    spec:
-      containers:
-        - args:
-            - mongod
-            - --oplogSize
-            - "128"
-          image: mongo:latest
-          imagePullPolicy: Always
-          name: wekan-db
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - mountPath: /data/db
-              name: wekan-db
-            - mountPath: /dump
-              name: wekan-db-dump
-      volumes:
-        - name: wekan-db
-          persistentVolumeClaim:
-            claimName: wekan-db
-        - name: wekan-db-dump
-          persistentVolumeClaim:
-            claimName: wekan-db-dump

@@ -19,11 +19,11 @@ spec:
           - name: PSM_BASE_URL
             value: http://phpservermon.lan/
           - name: PSM_DB_HOST
-            value: phpservermon-db
+            value: mariadb
           - name: PSM_DB_NAME
             value: phpservermon
           - name: PSM_DB_USER
-            value: phpservermon
+            value: root
           - name: PSM_DB_PASS
             value: password
           - name: PSM_DB_PREFIX
@@ -36,45 +36,3 @@ spec:
         ports:
         - containerPort: 80
       restartPolicy: Always
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: phpservermon-db
-  name: phpservermon-db
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: phpservermon-db
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: phpservermon-db
-    spec:
-      containers:
-        - env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: password
-            - name: MYSQL_DATABASE
-              value: phpservermon
-            - name: MYSQL_USER
-              value: phpservermon
-            - name: MYSQL_PASSWORD
-              value: password
-          image: mariadb:10
-          imagePullPolicy: Always
-          name: phpservermon-db
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - mountPath: /var/lib/mysql
-              name: phpservermon-db
-      restartPolicy: Always
-      volumes:
-        - name: phpservermon-db
-          persistentVolumeClaim:
-            claimName: phpservermon-db
