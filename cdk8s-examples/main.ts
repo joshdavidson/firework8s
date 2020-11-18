@@ -9,6 +9,7 @@ import {GrafanaChart} from "./grafana";
 import {GrocyChart} from "./grocy";
 import {HeimdallChart} from "./heimdall";
 import {HomeAssistantChart} from "./homeassistant";
+import {HugginChart} from "./huggin";
 import {HomerChart} from "./homer";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
@@ -25,6 +26,7 @@ new GrocyChart(app, 'grocy');
 new HeimdallChart(app, 'heimdall');
 new HomeAssistantChart(app, 'homeassistant');
 new HomerChart(app, 'homer');
+new HugginChart(app, 'huggin');
 new JackettChart(app, 'jackett');
 new VsCodeChart(app, 'vscode');
 

@@ -10,6 +10,7 @@ import {GrocyChart} from "./grocy";
 import {HeimdallChart} from "./heimdall";
 import {HomeAssistantChart} from "./homeassistant";
 import {HomerChart} from "./homer";
+import {HugginChart} from "./huggin";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
 
@@ -77,6 +78,12 @@ describe('Placeholder', () => {
   test('Homer', () => {
     const app = Testing.app();
     const chart = new HomerChart(app, 'test-homer');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Huggin', () => {
+    const app = Testing.app();
+    const chart = new HugginChart(app, 'test-huggin');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
