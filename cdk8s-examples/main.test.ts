@@ -19,6 +19,7 @@ import {LazyLibrarianChart} from "./lazylibrarian";
 import {LidarrChart} from "./lidarr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
+import {WallabagChart} from "./wallabag";
 
 describe('Placeholder', () => {
   test('Bitwarden', () => {
@@ -138,6 +139,12 @@ describe('Placeholder', () => {
   test('VsCode', () => {
     const app = Testing.app();
     const chart = new VsCodeChart(app, 'test-vscode');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Wallabag', () => {
+    const app = Testing.app();
+    const chart = new WallabagChart(app, 'test-wallabag');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
