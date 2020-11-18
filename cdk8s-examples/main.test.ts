@@ -10,6 +10,7 @@ import {GrocyChart} from "./grocy";
 import {HeimdallChart} from "./heimdall";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
+import {HomeAssistantChart} from "./homeassistant";
 
 describe('Placeholder', () => {
   test('Bitwarden', () => {
@@ -63,6 +64,12 @@ describe('Placeholder', () => {
   test('Heimdall', () => {
     const app = Testing.app();
     const chart = new HeimdallChart(app, 'test-heimdall');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('HomeAssistant', () => {
+    const app = Testing.app();
+    const chart = new HomeAssistantChart(app, 'test-homeassistant');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });

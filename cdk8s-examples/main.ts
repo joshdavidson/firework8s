@@ -7,6 +7,7 @@ import {FlexGetChart} from "./flexget";
 import {GapsChart} from "./gaps";
 import {GrafanaChart} from "./grafana";
 import {GrocyChart} from "./grocy";
+import {HomeAssistantChart} from "./homeassistant";
 import {HeimdallChart} from "./heimdall";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
@@ -21,6 +22,7 @@ new GapsChart(app, 'gaps');
 new GrafanaChart(app, 'grafana');
 new GrocyChart(app, 'grocy');
 new HeimdallChart(app, 'heimdall');
+new HomeAssistantChart(app, 'homeassistant');
 new JackettChart(app, 'jackett');
 new VsCodeChart(app, 'vscode');
 
