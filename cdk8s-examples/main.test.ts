@@ -4,6 +4,7 @@ import {BookstackChart} from "./bookstack";
 import {CiaoChart} from "./ciao";
 import {CyberChefChart} from "./cyberchef";
 import {FlexGetChart} from "./flexget";
+import {GapsChart} from "./gaps";
 import {HeimdallChart} from "./heimdall";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
@@ -36,6 +37,12 @@ describe('Placeholder', () => {
   test('FlexGet', () => {
     const app = Testing.app();
     const chart = new FlexGetChart(app, 'test-flexget');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Gaps', () => {
+    const app = Testing.app();
+    const chart = new GapsChart(app, 'test-gaps');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
