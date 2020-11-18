@@ -3,8 +3,6 @@ Firework8s is a collection of Kubernetes objects (YAML files) for deploying work
 home lab used for development of this project consists of a 3 node cluster managed by Rancher.
 
 ## Project Structure
-Firework8s contains the folders:
-
 Folder | Description 
 --------------- | ---------------
 yaml-examples   | Contains pure hand created Kubernetes YAML; These files can be considered the gold standard for the project
