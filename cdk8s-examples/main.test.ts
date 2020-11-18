@@ -17,6 +17,7 @@ import {JellyfinChart} from "./jellyfin";
 import {KomgaChart} from "./komga";
 import {LazyLibrarianChart} from "./lazylibrarian";
 import {LidarrChart} from "./lidarr";
+import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 
 describe('Placeholder', () => {
@@ -125,6 +126,12 @@ describe('Placeholder', () => {
   test('Lidarr', () => {
     const app = Testing.app();
     const chart = new LidarrChart(app, 'test-lidarr');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('StuffInSpace', () => {
+    const app = Testing.app();
+    const chart = new StuffInSpaceChart(app, 'test-stuffinspace');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
