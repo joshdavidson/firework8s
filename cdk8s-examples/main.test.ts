@@ -17,6 +17,7 @@ import {JellyfinChart} from "./jellyfin";
 import {KomgaChart} from "./komga";
 import {LazyLibrarianChart} from "./lazylibrarian";
 import {LidarrChart} from "./lidarr";
+import {MariaDbChart} from "./mariadb";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -128,6 +129,12 @@ describe('Placeholder', () => {
   test('Lidarr', () => {
     const app = Testing.app();
     const chart = new LidarrChart(app, 'test-lidarr');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('MariaDB', () => {
+    const app = Testing.app();
+    const chart = new MariaDbChart(app, 'test-mariadb');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
