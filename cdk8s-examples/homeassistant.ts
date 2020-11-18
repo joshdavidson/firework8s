@@ -1,40 +1,60 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class HomeAssistantChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('homeassistant.lan', this.getIngressBackend());
-  }
+    const label = {app: 'homeassistant'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'homeassistant/home-assistant:stable',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 8123,
-      volumeMounts:[{
-        path: '/config',
-        volume: kplus.Volume.fromEmptyDir('config'),
-      }]
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'homeassistant'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
     });
-    container.addEnv('TZ',   kplus.EnvValue.fromValue('America/New_York'));
-
-    return container;
-  }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ HomeAssistantChart.getContainer() ]
+    
+    const service = new Service(this, 'service', {
+      ports: [{port: 8123, targetPort: 8123}]
     });
-  }
+    service.addSelector('app', 'homeassistant');
 
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(8123));
-  }
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [{name: 'homeassistant', persistentVolumeClaim: {claimName: 'homeassistant'}}],
+            containers: [{
+              name: 'homeassistant',
+              image: 'homeassistant/home-assistant:stable',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 8123}],
+              env: [{name: 'TZ', value: 'America/New_York'}],
+              volumeMounts: [{mountPath: '/config', name: 'homeassistant'}]
+            }]
+          }
+        }
+      }
+    });
 
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('homeassistant.lan', IngressBackend.fromService(service));
+  }
 }
 
 const app = new App();
