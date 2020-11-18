@@ -1,47 +1,55 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment } from './imports/k8s'
+import { Ingress, IngressBackend, Service } from 'cdk8s-plus';
 
 export class WekanChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('wekan.lan', this.getIngressBackend());
-  }
+    const label = {app: 'wekan'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'wekanteam/wekan',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 8080
+    const service = new Service(this, 'service', {
+      ports: [{port: 8080, targetPort: 8080}]
+    });
+    service.addSelector('app', 'wekan');
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            containers: [{
+              name: 'wekan',
+              image: 'wekan/wekan',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 8080}],
+              env: [
+                {name: 'BIGEVENTS_PATTERN', value: 'NONE'},
+                {name: 'BROWSER_POLICY_ENABLED', value: 'true'},
+                {name: 'CARD_OPENED_WEBHOOK_ENABLED', value: 'false'},
+                {name: 'MAIL_FROM', value: 'Wekan Notifications <noreply.wekan@mydomain.com>'},
+                {name: 'MAIL_URL', value: 'smtp://smtp.sendgrid.net:25/?ignoreTLS=true&tls={rejectUnauthorized:false}'},
+                {name: 'MONGO_URL', value: 'mongodb://mongo:27017/wekan'},
+                {name: 'RICHER_CARD_COMMENT_EDITOR', value: 'false'},
+                {name: 'ROOT_URL', value: 'http://wekan.lan'},
+                {name: 'SCROLLAMOUNT', value: 'auto'},
+                {name: 'SCROLLINERTIA', value: '0'},
+                {name: 'WITH_API', value: 'true'}
+              ],
+            }]
+          }
+        }
+      }
     });
 
-    container.addEnv('BIGEVENTS_PATTERN', kplus.EnvValue.fromValue('NONE'));
-    container.addEnv('BROWSER_POLICY_ENABLED', kplus.EnvValue.fromValue('true'));
-    container.addEnv('CARD_OPENED_WEBHOOK_ENABLED', kplus.EnvValue.fromValue('false'));
-    container.addEnv('MAIL_FROM', kplus.EnvValue.fromValue('Wekan Notifications <noreply.wekan@mydomain.com>'));
-    container.addEnv('MAIL_URL', kplus.EnvValue.fromValue('smtp://smtp.sendgrid.net:25/?ignoreTLS=true&tls={rejectUnauthorized:false}'));
-    container.addEnv('MONGO_URL', kplus.EnvValue.fromValue('mongodb://mongo:27017/wekan'));
-    container.addEnv('RICHER_CARD_COMMENT_EDITOR', kplus.EnvValue.fromValue('false'));
-    container.addEnv('ROOT_URL', kplus.EnvValue.fromValue('http://wekan.lan'));
-    container.addEnv('SCROLLAMOUNT', kplus.EnvValue.fromValue('auto'));
-    container.addEnv('SCROLLINERTIA', kplus.EnvValue.fromValue('0'));
-    container.addEnv('WITH_API', kplus.EnvValue.fromValue('true'));
-
-    return container;
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('wekan.lan', IngressBackend.fromService(service));
   }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ WekanChart.getContainer() ]
-    });
-  }
-
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(8080));
-  }
-
 }
 
 const app = new App();

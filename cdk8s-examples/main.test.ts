@@ -1,6 +1,6 @@
 import {Testing} from 'cdk8s';
 import {BitwardenChart} from "./bitwarden";
-import {BookstackChart} from "./bookstack";
+import {BookStackChart} from "./bookstack";
 import {CiaoChart} from "./ciao";
 import {CyberChefChart} from "./cyberchef";
 import {FlexGetChart} from "./flexget";
@@ -10,7 +10,7 @@ import {GrocyChart} from "./grocy";
 import {HeimdallChart} from "./heimdall";
 import {HomeAssistantChart} from "./homeassistant";
 import {HomerChart} from "./homer";
-import {HugginChart} from "./huggin";
+import {HuginnChart} from "./huginn";
 import {InfluxDbChart} from "./influxdb";
 import {JackettChart} from "./jackett";
 import {JellyfinChart} from "./jellyfin";
@@ -36,7 +36,7 @@ describe('Placeholder', () => {
   });
   test('Bookstack', () => {
     const app = Testing.app();
-    const chart = new BookstackChart(app, 'test-bookstack');
+    const chart = new BookStackChart(app, 'test-bookstack');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
@@ -94,9 +94,9 @@ describe('Placeholder', () => {
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
-  test('Huggin', () => {
+  test('Huginn', () => {
     const app = Testing.app();
-    const chart = new HugginChart(app, 'test-huggin');
+    const chart = new HuginnChart(app, 'test-huginn');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
