@@ -80,5 +80,5 @@ export class MongoDbChart extends Chart {
 }
 
 const app = new App();
-new MongoDbChart(app, 'minecraft');
+new MongoDbChart(app, 'mongo');
 app.synth();
