@@ -8,9 +8,10 @@ import {GapsChart} from "./gaps";
 import {GrafanaChart} from "./grafana";
 import {GrocyChart} from "./grocy";
 import {HeimdallChart} from "./heimdall";
+import {HomeAssistantChart} from "./homeassistant";
+import {HomerChart} from "./homer";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
-import {HomeAssistantChart} from "./homeassistant";
 
 describe('Placeholder', () => {
   test('Bitwarden', () => {
@@ -70,6 +71,12 @@ describe('Placeholder', () => {
   test('HomeAssistant', () => {
     const app = Testing.app();
     const chart = new HomeAssistantChart(app, 'test-homeassistant');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Homer', () => {
+    const app = Testing.app();
+    const chart = new HomerChart(app, 'test-homer');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
