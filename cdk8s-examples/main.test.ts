@@ -13,6 +13,7 @@ import {HomerChart} from "./homer";
 import {HugginChart} from "./huggin";
 import {InfluxDbChart} from "./influxdb";
 import {JackettChart} from "./jackett";
+import {JellyfinChart} from "./jellyfin";
 import {VsCodeChart} from "./vscode";
 
 describe('Placeholder', () => {
@@ -97,6 +98,12 @@ describe('Placeholder', () => {
   test('Jackett', () => {
     const app = Testing.app();
     const chart = new JackettChart(app, 'test-jackett');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Jellyfin', () => {
+    const app = Testing.app();
+    const chart = new JellyfinChart(app, 'test-jellyfin');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });

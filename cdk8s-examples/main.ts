@@ -13,6 +13,7 @@ import {HugginChart} from "./huggin";
 import {HomerChart} from "./homer";
 import {InfluxDbChart} from "./influxdb";
 import {JackettChart} from "./jackett";
+import {JellyfinChart} from "./jellyfin";
 import {VsCodeChart} from "./vscode";
 
 const app = new App();
@@ -30,6 +31,7 @@ new HomerChart(app, 'homer');
 new HugginChart(app, 'huggin');
 new InfluxDbChart(app, 'influxdb');
 new JackettChart(app, 'jackett');
+new JellyfinChart(app, 'jellyfin');
 new VsCodeChart(app, 'vscode');
 
 app.synth();
