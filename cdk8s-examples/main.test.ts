@@ -19,6 +19,7 @@ import {LazyLibrarianChart} from "./lazylibrarian";
 import {LidarrChart} from "./lidarr";
 import {MariaDbChart} from "./mariadb";
 import {MinecraftChart} from "./minecraft";
+import {MinecraftBedrockChart} from "./minecraft-bedrock";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -142,6 +143,12 @@ describe('Placeholder', () => {
   test('Minecraft', () => {
     const app = Testing.app();
     const chart = new MinecraftChart(app, 'test-minecraft');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('MinecraftBedrock', () => {
+    const app = Testing.app();
+    const chart = new MinecraftBedrockChart(app, 'test-minecraft-bedrock');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });

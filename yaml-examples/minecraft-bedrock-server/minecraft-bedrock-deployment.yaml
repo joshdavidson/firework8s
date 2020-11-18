@@ -23,9 +23,9 @@ spec:
           - name: EULA
             value: "true"
           - name: GAMEMODE
-            value: survival
+            value: creative
           - name: DIFFICULTY
-            value: normal
+            value: easy
         ports:
           - containerPort: 19132
             hostPort: 19132
