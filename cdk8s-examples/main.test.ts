@@ -29,6 +29,7 @@ import {PerkeepChart} from "./perkeep";
 import {PhpServerMonChart} from "./phpservermon";
 import {PostgresChart} from "./postgres";
 import {RadarrChart} from "./radarr";
+import {RanetoChart} from "./raneto";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -212,6 +213,12 @@ describe('Placeholder', () => {
   test('Radarr', () => {
     const app = Testing.app();
     const chart = new RadarrChart(app, 'test-radarr');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Raneto', () => {
+    const app = Testing.app();
+    const chart = new RanetoChart(app, 'test-raneto');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
