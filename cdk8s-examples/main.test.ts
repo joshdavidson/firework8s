@@ -16,6 +16,7 @@ import {JackettChart} from "./jackett";
 import {JellyfinChart} from "./jellyfin";
 import {KomgaChart} from "./komga";
 import {LazyLibrarianChart} from "./lazylibrarian";
+import {LidarrChart} from "./lidarr";
 import {VsCodeChart} from "./vscode";
 
 describe('Placeholder', () => {
@@ -118,6 +119,12 @@ describe('Placeholder', () => {
   test('LazyLibrarian', () => {
     const app = Testing.app();
     const chart = new LazyLibrarianChart(app, 'test-lazylibrarian');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Lidarr', () => {
+    const app = Testing.app();
+    const chart = new LidarrChart(app, 'test-lidarr');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });

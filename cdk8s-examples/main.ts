@@ -16,6 +16,7 @@ import {JackettChart} from "./jackett";
 import {JellyfinChart} from "./jellyfin";
 import {KomgaChart} from "./komga";
 import {LazyLibrarianChart} from "./lazylibrarian";
+import {LidarrChart} from "./lidarr";
 import {VsCodeChart} from "./vscode";
 
 const app = new App();
@@ -36,6 +37,7 @@ new JackettChart(app, 'jackett');
 new JellyfinChart(app, 'jellyfin');
 new KomgaChart(app, 'komga');
 new LazyLibrarianChart(app, 'lazylibrarian');
+new LidarrChart(app, 'lidarr');
 new VsCodeChart(app, 'vscode');
 
 app.synth();
