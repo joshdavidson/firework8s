@@ -11,6 +11,7 @@ import {HeimdallChart} from "./heimdall";
 import {HomeAssistantChart} from "./homeassistant";
 import {HugginChart} from "./huggin";
 import {HomerChart} from "./homer";
+import {InfluxDbChart} from "./influxdb";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
 
@@ -27,6 +28,7 @@ new HeimdallChart(app, 'heimdall');
 new HomeAssistantChart(app, 'homeassistant');
 new HomerChart(app, 'homer');
 new HugginChart(app, 'huggin');
+new InfluxDbChart(app, 'influxdb');
 new JackettChart(app, 'jackett');
 new VsCodeChart(app, 'vscode');
 

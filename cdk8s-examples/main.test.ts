@@ -11,6 +11,7 @@ import {HeimdallChart} from "./heimdall";
 import {HomeAssistantChart} from "./homeassistant";
 import {HomerChart} from "./homer";
 import {HugginChart} from "./huggin";
+import {InfluxDbChart} from "./influxdb";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
 
@@ -84,6 +85,12 @@ describe('Placeholder', () => {
   test('Huggin', () => {
     const app = Testing.app();
     const chart = new HugginChart(app, 'test-huggin');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('InfluxDB', () => {
+    const app = Testing.app();
+    const chart = new InfluxDbChart(app, 'test-influxdb');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
