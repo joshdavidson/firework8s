@@ -20,6 +20,7 @@ import {LidarrChart} from "./lidarr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
+import {WekanChart} from "./wekan";
 
 const app = new App();
 new BitwardenChart(app, 'bitwarden');
@@ -43,5 +44,6 @@ new LidarrChart(app, 'lidarr');
 new StuffInSpaceChart(app, 'stuffinspace');
 new VsCodeChart(app, 'vscode');
 new WallabagChart(app, 'wallabag');
+new WekanChart(app, 'wekan');
 
 app.synth();

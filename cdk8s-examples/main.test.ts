@@ -20,6 +20,7 @@ import {LidarrChart} from "./lidarr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
+import {WekanChart} from "./wekan";
 
 describe('Placeholder', () => {
   test('Bitwarden', () => {
@@ -145,6 +146,12 @@ describe('Placeholder', () => {
   test('Wallabag', () => {
     const app = Testing.app();
     const chart = new WallabagChart(app, 'test-wallabag');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Wekan', () => {
+    const app = Testing.app();
+    const chart = new WekanChart(app, 'test-wekan');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
