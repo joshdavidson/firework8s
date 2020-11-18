@@ -22,6 +22,7 @@ import {MinecraftChart} from "./minecraft";
 import {MinecraftBedrockChart} from "./minecraft-bedrock";
 import {MongoDbChart} from "./mongo";
 import {MonitorrChart} from "./monitorr";
+import {MylarChart} from "./mylar";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -163,6 +164,12 @@ describe('Placeholder', () => {
   test('Monitorr', () => {
     const app = Testing.app();
     const chart = new MonitorrChart(app, 'test-monitorr');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Mylar', () => {
+    const app = Testing.app();
+    const chart = new MylarChart(app, 'test-mylar');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
