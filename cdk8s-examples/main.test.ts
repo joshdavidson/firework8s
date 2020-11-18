@@ -6,6 +6,7 @@ import {CyberChefChart} from "./cyberchef";
 import {FlexGetChart} from "./flexget";
 import {GapsChart} from "./gaps";
 import {GrafanaChart} from "./grafana";
+import {GrocyChart} from "./grocy";
 import {HeimdallChart} from "./heimdall";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
@@ -50,6 +51,12 @@ describe('Placeholder', () => {
   test('Grafana', () => {
     const app = Testing.app();
     const chart = new GrafanaChart(app, 'test-grafana');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Grocy', () => {
+    const app = Testing.app();
+    const chart = new GrocyChart(app, 'test-grocy');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
