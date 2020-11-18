@@ -38,7 +38,7 @@ export class HuginnChart extends Chart {
         template: {
           metadata: {labels: label},
           spec: {
-            volumes: [{name: 'huginn', persistentVolumeClaim: {claimName: 'huginn'}}],
+            volumes: [{name: 'pvc', persistentVolumeClaim: {claimName: 'huginn'}}],
             containers: [{
               name: 'huginn',
               image: 'b4bz/huginn',

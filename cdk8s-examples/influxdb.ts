@@ -1,32 +1,61 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, IntOrString, PersistentVolumeClaim, Service } from './imports/k8s'
 
 export class InfluxDbChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    this.getDeployment().expose(8086);
-  }
+    const label = { app: 'influxdb' };
 
-  private static getContainer() {
-    return new kplus.Container( {
-      image: 'influxdb',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 8086,
-      volumeMounts:[{
-        path: '/var/lib/influxdb',
-        volume: kplus.Volume.fromEmptyDir('data'),
-      }]
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'influxdb'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
+    });
+    
+    new Service(this, 'service', {
+      spec: {
+        ports: [ { port: 8086, targetPort: IntOrString.fromNumber(8086) } ],
+        selector: label
+      }
+    });
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: { labels: label },
+          spec: {
+            volumes:[
+            {
+              name: 'influxdb',
+              persistentVolumeClaim:{claimName: 'influxdb'}
+            }],
+            containers: [{
+                name: 'influxdb',
+                image: 'influxdb',
+                imagePullPolicy: 'Always',
+                ports: [{containerPort: 8086}],
+                volumeMounts: [{mountPath: '/var/lib/influxdb', name: 'influxdb'}]
+              }]
+          }
+        }
+      }
     });
   }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ InfluxDbChart.getContainer() ]
-    });
-  }
-
 }
 
 const app = new App();
