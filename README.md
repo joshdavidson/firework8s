@@ -5,7 +5,7 @@ home lab used for development of this project consists of a 3 node cluster manag
 ## Project Structure
 Folder | Description 
 --------------- | ---------------
-yaml-examples   | Contains pure hand created Kubernetes YAML; These files can be considered the gold standard for the project
+yaml-examples   | Contains pure handcrafted Kubernetes YAML; These files can be considered the gold standard for the project
 cdk8s-examples  | Contains [Cloud Development for Kubernetes (cdk8s)](https://github.com/awslabs/cdk8s) TypeScript files that can be used by cdk8s to generate Kubernetes YAML
 
 ## Deploy
