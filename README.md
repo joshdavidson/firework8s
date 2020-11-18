@@ -70,7 +70,7 @@ organizr | An HTPC/Homelab services organizer | https://organizr.app
 perkeep | Software for modeling, storing, searching, sharing and synchronizing data | https://perkeep.org/
 phpservermon | PHP server monitor | http://www.phpservermonitor.org/
 postgres | Open source object-relational database system | https://www.postgresql.org/
-raneto | Markdown powered Knowledgebase for Nodejs | http://raneto.com/
+raneto | Markdown powered knowledge base for Nodejs | http://raneto.com/
 readarr | Book, magazine, comics eBook and audiobook manager (Sonarr for eBooks) | http://readarr.com/
 sickgear |  SickGear has proven the most reliable stable TV fork of the great Sick-Beard family | https://github.com/SickGear/SickGear
 smokeping | Smokeping keeps track of your network latency | https://github.com/linuxserver/docker-smokeping

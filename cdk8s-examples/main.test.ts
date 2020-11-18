@@ -1,11 +1,12 @@
 import {Testing} from 'cdk8s';
 import {BitwardenChart} from "./bitwarden";
+import {BookstackChart} from "./bookstack";
 import {CiaoChart} from "./ciao";
 import {CyberChefChart} from "./cyberchef";
+import {FlexGetChart} from "./flexget";
 import {HeimdallChart} from "./heimdall";
 import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
-import {BookstackChart} from "./bookstack";
 
 describe('Placeholder', () => {
   test('Bitwarden', () => {
@@ -29,6 +30,12 @@ describe('Placeholder', () => {
   test('CyberChef', () => {
     const app = Testing.app();
     const chart = new CyberChefChart(app, 'test-cyberchef');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('FlexGet', () => {
+    const app = Testing.app();
+    const chart = new FlexGetChart(app, 'test-flexget');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
