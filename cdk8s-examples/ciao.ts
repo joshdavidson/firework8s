@@ -1,50 +1,74 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class CiaoChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('ciao.lan', this.getIngressBackend());
-  }
+    const label = {app: 'ciao'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'brotandgames/ciao',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 3000,
-      volumeMounts:[{
-        path: '/app/db/sqlite',
-        volume: kplus.Volume.fromEmptyDir('data')
-      }]
+    new PersistentVolumeClaim(this, 'ciao', {
+      metadata: {
+        name: 'ciao'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
     });
 
-    container.addEnv('SECRET_KEY_BASE', kplus.EnvValue.fromValue('sensitive_secret_key_base'));
-    container.addEnv('SMTP_ADDRESS', kplus.EnvValue.fromValue('smtp.sendgrid.net'));
-    container.addEnv('SMTP_EMAIL_FROM',   kplus.EnvValue.fromValue('noreply@ciao.lan'));
-    container.addEnv('SMTP_EMAIL_TO',   kplus.EnvValue.fromValue('yourname@youremail.com'));
-    container.addEnv('SMTP_PORT', kplus.EnvValue.fromValue('587'));
-    container.addEnv('SMTP_AUTHENTICATION', kplus.EnvValue.fromValue('plain'));
-    container.addEnv('SMTP_ENABLE_STARTTLS_AUTO', kplus.EnvValue.fromValue('true'));
-    container.addEnv('SMTP_DOMAIN',   kplus.EnvValue.fromValue('smtp.sendgrid.net'));
-    container.addEnv('SMTP_USERNAME',   kplus.EnvValue.fromValue('apikey'));
-    container.addEnv('SMTP_PASSWORD',   kplus.EnvValue.fromValue('enter your sendgrid api password'));
-
-    return container;
-  }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ CiaoChart.getContainer() ]
+    const service = new Service(this, 'service', {
+      ports: [{port: 3000, targetPort: 3000}]
     });
-  }
+    service.addSelector('app', 'ciao');
 
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(3000));
-  }
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [{
+              name: 'ciao',
+              persistentVolumeClaim: {claimName: 'ciao'}
+            }],
+            containers: [{
+              name: 'ciao',
+              image: 'brotandgames/ciao',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 3000}],
+              env: [
+                {name: 'SECRET_KEY_BASE', value: 'sensitive_secret_key_base'},
+                {name: 'SMTP_ADDRESS', value: 'smtp.sendgrid.net'},
+                {name: 'SMTP_EMAIL_FROM', value: 'noreply@ciao.lan'},
+                {name: 'SMTP_EMAIL_TO', value: 'yourname@youremail.com'},
+                {name: 'SMTP_PORT', value: '587'},
+                {name: 'SMTP_AUTHENTICATION', value: 'plain'},
+                {name: 'SMTP_DOMAIN', value: 'smtp.sendgrid.net'},
+                {name: 'SMTP_ENABLE_STARTTLS_AUTO', value: 'true'},
+                {name: 'SMTP_USERNAME', value: 'apikey'},
+                {name: 'SMTP_PASSWORD', value: 'your sendgrid api key'}
+              ],
+              volumeMounts: [{mountPath: '/app/db/sqlite', name: 'ciao'}]
+            }]
+          }
+        }
+      }
+    });
 
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('ciao.lan', IngressBackend.fromService(service));
+  }
 }
 
 const app = new App();
