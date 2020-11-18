@@ -21,7 +21,7 @@ Would deploy Sonarr to your Kubernetes cluster...
 Create a new cdk8s project project in Typescript and use it to generate Kubernetes YAML files for deployment: 
 ```shell script
 cd cdk8s-examples
-mkdir firework8s && cd firework8s
+mkdir build && cd build
 cdk8s init typescript-app
 npm run watch &
 cp ../*.ts .
