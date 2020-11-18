@@ -26,6 +26,7 @@ import {MylarChart} from "./mylar";
 import {MySqlChart} from "./mysql";
 import {ObserviumChart} from "./observium";
 import {PerkeepChart} from "./perkeep";
+import {PhpServerMonChart} from "./phpservermon";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -191,6 +192,12 @@ describe('Placeholder', () => {
   test('Perkeep', () => {
     const app = Testing.app();
     const chart = new PerkeepChart(app, 'test-perkeep');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('PhpServerMon', () => {
+    const app = Testing.app();
+    const chart = new PhpServerMonChart(app, 'test-phpservermon');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
