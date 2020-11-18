@@ -15,6 +15,7 @@ import {InfluxDbChart} from "./influxdb";
 import {JackettChart} from "./jackett";
 import {JellyfinChart} from "./jellyfin";
 import {KomgaChart} from "./komga";
+import {LazyLibrarianChart} from "./lazylibrarian";
 import {VsCodeChart} from "./vscode";
 
 const app = new App();
@@ -34,6 +35,7 @@ new InfluxDbChart(app, 'influxdb');
 new JackettChart(app, 'jackett');
 new JellyfinChart(app, 'jellyfin');
 new KomgaChart(app, 'komga');
+new LazyLibrarianChart(app, 'lazylibrarian');
 new VsCodeChart(app, 'vscode');
 
 app.synth();
