@@ -1,47 +1,65 @@
-import {Construct} from 'constructs';
-import {App, Chart} from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Construct } from 'constructs';
+import { App, Chart } from 'cdk8s';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class VsCodeChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('vscode.lan', this.getIngressBackend());
-  }
+    const label = {app: 'vscode'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'linuxserver/code-server',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 8443,
-      volumeMounts:[{
-        path: '/config',
-        volume: kplus.Volume.fromEmptyDir('config'),
-      }]
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'vscode'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
+    });
+    
+    const service = new Service(this, 'service', {
+      ports: [{port: 8443, targetPort: 8443}]
+    });
+    service.addSelector('app', 'vscode');
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [{name: 'vscode', persistentVolumeClaim: {claimName: 'vscode'}}],
+            containers: [{
+              name: 'vscode',
+              image: 'linuxserver/code-server',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 8443}],
+              env: [
+                {name: 'PUID', value: '1000'},
+                {name: 'PGID', value: '1000'},
+                {name: 'TZ', value: 'America/New_York'}
+              ],
+              volumeMounts: [{mountPath: '/config', name: 'vscode'}]
+            }]
+          }
+        }
+      }
     });
 
-    container.addEnv('PUID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('PGID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('TZ',   kplus.EnvValue.fromValue('America/New_York'));
-    container.addEnv('PASSWORD', kplus.EnvValue.fromValue('PASSWORD'));
-    container.addEnv('SUDO_PASSWORD', kplus.EnvValue.fromValue('PASSWORD'));
-
-    return container;
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('vscode.lan', IngressBackend.fromService(service));
   }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [VsCodeChart.getContainer()]
-    });
-  }
-
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(8443));
-  }
-
 }
-
 
 const app = new App();
 new VsCodeChart(app, 'vscode');
