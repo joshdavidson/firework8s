@@ -9,7 +9,7 @@ export class BitwardenChart extends Chart {
     super(scope, name);
     const label = {app: 'bitwarden'};
 
-    new PersistentVolumeClaim(this, 'bitwarden', {
+    new PersistentVolumeClaim(this, 'pvc', {
       metadata: {
         name: 'bitwarden'
       },

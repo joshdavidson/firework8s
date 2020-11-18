@@ -9,7 +9,7 @@ export class BookStackChart extends Chart {
     super(scope, name);
     const label = {app: 'bookstack'};
 
-    new PersistentVolumeClaim(this, 'bookstack', {
+    new PersistentVolumeClaim(this, 'pvc', {
       metadata: {
         name: 'bookstack'
       },

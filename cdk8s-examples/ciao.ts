@@ -9,7 +9,7 @@ export class CiaoChart extends Chart {
     super(scope, name);
     const label = {app: 'ciao'};
 
-    new PersistentVolumeClaim(this, 'ciao', {
+    new PersistentVolumeClaim(this, 'pvc', {
       metadata: {
         name: 'ciao'
       },
