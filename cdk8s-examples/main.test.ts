@@ -24,6 +24,7 @@ import {MongoDbChart} from "./mongo";
 import {MonitorrChart} from "./monitorr";
 import {MylarChart} from "./mylar";
 import {MySqlChart} from "./mysql";
+import {ObserviumChart} from "./observium";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -177,6 +178,12 @@ describe('Placeholder', () => {
   test('MySQL', () => {
     const app = Testing.app();
     const chart = new MySqlChart(app, 'test-mysql');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Observium', () => {
+    const app = Testing.app();
+    const chart = new ObserviumChart(app, 'test-observium');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
