@@ -1,37 +1,65 @@
-import {Construct} from 'constructs';
-import {App, Chart} from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Construct } from 'constructs';
+import { App, Chart } from 'cdk8s';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class GrafanaChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('grafana.lan', this.getIngressBackend());
-  }
+    const label = {app: 'grafana'};
 
-  private static getContainer() {
-    return new kplus.Container( {
-      image: 'grafana/grafana',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 3000,
-      volumeMounts:[{
-        path: '/config',
-        volume: kplus.Volume.fromEmptyDir('config'),
-      }]
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'grafana'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
     });
-  }
 
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [GrafanaChart.getContainer()]
+    const service = new Service(this, 'service', {
+      ports: [{port: 3000, targetPort: 3000}]
     });
-  }
+    service.addSelector('app', 'grafana');
 
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(3000));
-  }
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [{name: 'grafana', persistentVolumeClaim: {claimName: 'grafana'}}],
+            containers: [{
+              name: 'grafana',
+              image: 'grafana/grafana',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 3000}],
+              env: [
+                {name: 'GF_INSTALL_PLUGINS', value: 'grafana-piechart-panel,grafana-worldmap-panel'},
+                {name: 'GF_PATHS_DATA', value: '/config/data'},
+                {name: 'GF_PATHS_LOGS', value: '/config/logs'},
+                {name: 'GF_PATHS_PLUGINS', value: '/config/plugins'}
+              ],
+              volumeMounts: [{mountPath: '/config', name: 'grafana'}]
+            }]
+          }
+        }
+      }
+    });
 
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('grafana.lan', IngressBackend.fromService(service));
+  }
 }
 
 const app = new App();
