@@ -1,5 +1,6 @@
 import {Testing} from 'cdk8s';
 import {BitwardenChart} from "./bitwarden";
+import {CiaoChart} from "./ciao";
 import {CyberChefChart} from "./cyberchef";
 import {HeimdallChart} from "./heimdall";
 import {VsCodeChart} from "./vscode";
@@ -15,6 +16,12 @@ describe('Placeholder', () => {
   test('Bookstack', () => {
     const app = Testing.app();
     const chart = new BookstackChart(app, 'test-bookstack');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Ciao', () => {
+    const app = Testing.app();
+    const chart = new CiaoChart(app, 'test-ciao');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
