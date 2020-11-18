@@ -3,6 +3,7 @@ import {BitwardenChart} from "./bitwarden";
 import {CiaoChart} from "./ciao";
 import {CyberChefChart} from "./cyberchef";
 import {HeimdallChart} from "./heimdall";
+import {JackettChart} from "./jackett";
 import {VsCodeChart} from "./vscode";
 import {BookstackChart} from "./bookstack";
 
@@ -34,6 +35,12 @@ describe('Placeholder', () => {
   test('Heimdall', () => {
     const app = Testing.app();
     const chart = new HeimdallChart(app, 'test-heimdall');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Jackett', () => {
+    const app = Testing.app();
+    const chart = new JackettChart(app, 'test-jackett');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
