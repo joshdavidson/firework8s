@@ -8,7 +8,7 @@ export class MinecraftBedrockChart extends Chart {
     super(scope, name);
     const label = { app: 'minecraft-bedrock' };
 
-    new PersistentVolumeClaim(this, 'pvc', {
+    new PersistentVolumeClaim(this, 'minecraft-bedrock', {
       metadata: {
         name: 'minecraft-bedrock'
       },
@@ -27,7 +27,7 @@ export class MinecraftBedrockChart extends Chart {
       spec: {
         type: 'NodePort',
         ports: [ { port: 19132, nodePort: 19132, targetPort: IntOrString.fromNumber(19132), protocol: 'UDP' } ],
-        selector: label,
+        selector: label
       }
     });
 
@@ -72,5 +72,5 @@ export class MinecraftBedrockChart extends Chart {
 }
 
 const app = new App();
-new MinecraftBedrockChart(app, 'minecraft');
+new MinecraftBedrockChart(app, 'minecraft-bedrock');
 app.synth();
