@@ -13,6 +13,7 @@ cdk8s-examples  | Contains [Cloud Development for Kubernetes (cdk8s)](https://gi
 Execute kubectl apply -f against the directory you wish to deploy.  For example:
 ```shell script
 cd yaml-examples
+kubectl apply -f sonarr
 ```
 Would deploy Sonarr to your Kubernetes cluster...
 
