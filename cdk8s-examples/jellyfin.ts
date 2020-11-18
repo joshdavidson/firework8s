@@ -1,53 +1,72 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class JellyfinChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('jellyfin.lan', this.getIngressBackend());
-  }
+    const label = {app: 'jellyfin'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'linuxserver/jellyfin',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 8096,
-      volumeMounts:[
-        {
-          path: '/config',
-          volume: kplus.Volume.fromEmptyDir('config')
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'jellyfin'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
+    });
+    
+    const service = new Service(this, 'service', {
+      ports: [{port: 8096, targetPort: 8096}]
+    });
+    service.addSelector('app', 'jellyfin');
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
         },
-        {
-          path: '/data/tvshows',
-          volume: kplus.Volume.fromEmptyDir('tv')
-        },
-        {
-          path: '/data/movies',
-          volume: kplus.Volume.fromEmptyDir('movies')
-        },
-      ]
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [
+              {name: 'jellyfin', persistentVolumeClaim: {claimName: 'jellyfin'}},
+              {name: 'movies', hostPath: {path: '/mnt/share/Movies'}},
+              {name: 'tv', hostPath: {path: '/mnt/share/Television'}}
+            ],
+            containers: [{
+              name: 'jellyfin',
+              image: 'linuxserver/jellyfin',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 8096}],
+              env: [
+                {name: 'PUID', value: '1000'},
+                {name: 'PGID', value: '1000'},
+                {name: 'TZ', value: 'America/New_York'}
+              ],
+              volumeMounts: [
+                {mountPath: '/config', name: 'jellyfin'},
+                {mountPath: '/data/movies', name: 'movies'},
+                {mountPath: '/data/tvshows', name: 'tv'}
+              ]
+            }]
+          }
+        }
+      }
     });
 
-    container.addEnv('PUID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('PGID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('TZ',   kplus.EnvValue.fromValue('America/New_York'));
-
-    return container;
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('jellyfin.lan', IngressBackend.fromService(service));
   }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ JellyfinChart.getContainer() ]
-    });
-  }
-
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(8096));
-  }
-
 }
 
 const app = new App();
