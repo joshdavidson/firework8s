@@ -14,6 +14,7 @@ import {HugginChart} from "./huggin";
 import {InfluxDbChart} from "./influxdb";
 import {JackettChart} from "./jackett";
 import {JellyfinChart} from "./jellyfin";
+import {KomgaChart} from "./komga";
 import {VsCodeChart} from "./vscode";
 
 describe('Placeholder', () => {
@@ -104,6 +105,12 @@ describe('Placeholder', () => {
   test('Jellyfin', () => {
     const app = Testing.app();
     const chart = new JellyfinChart(app, 'test-jellyfin');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Komga', () => {
+    const app = Testing.app();
+    const chart = new KomgaChart(app, 'test-komga');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
