@@ -1,3 +1,1 @@
-*.d.ts
-*.js
-!jest.config.js
+/build
