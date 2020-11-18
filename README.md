@@ -13,15 +13,11 @@ cdk8s-examples  | Contains [Cloud Development for Kubernetes (cdk8s)](https://gi
 Execute kubectl apply -f against the directory you wish to deploy.  For example:
 ```shell script
 cd yaml-examples
-### Using yaml-examples
-Execute kubectl apply -f against the directory you wish to deploy.  For example:
-```shell script
-cd yaml-examples
-kubectl apply -f sonarr
 ```
 Would deploy Sonarr to your Kubernetes cluster...
+
 ### Using cdk8s-examples
-Create a new cdk8s project project in Typescript and use it to generate Kubernetes YAML files for deployment. 
+Create a new cdk8s project project in Typescript and use it to generate Kubernetes YAML files for deployment: 
 ```shell script
 cd cdk8s-examples
 mkdir firework8s && cd firework8s
@@ -30,11 +26,13 @@ npm run watch &
 cp ../*.ts .
 cdk8s synth
 ```
+
 Execute kubectl apply -f against the application you wish to deploy.  For example:
 ```shell script
 kubectl apply -f dist/jackett.k8s.yaml
 ```
-Woud deploy Jackett from the cdk8s generated YAML.
+Would deploy Jackett from the cdk8s generated YAML to your Kubernetes cluster...
+
 ## Applications
 Each folder contains a set of yaml files to deploy the application to a Kubernetes cluster.
 
