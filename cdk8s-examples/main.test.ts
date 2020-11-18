@@ -18,6 +18,7 @@ import {KomgaChart} from "./komga";
 import {LazyLibrarianChart} from "./lazylibrarian";
 import {LidarrChart} from "./lidarr";
 import {MariaDbChart} from "./mariadb";
+import {MinecraftChart} from "./minecraft";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -135,6 +136,12 @@ describe('Placeholder', () => {
   test('MariaDB', () => {
     const app = Testing.app();
     const chart = new MariaDbChart(app, 'test-mariadb');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Minecraft', () => {
+    const app = Testing.app();
+    const chart = new MinecraftChart(app, 'test-minecraft');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
