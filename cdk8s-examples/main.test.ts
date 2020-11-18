@@ -28,6 +28,7 @@ import {ObserviumChart} from "./observium";
 import {PerkeepChart} from "./perkeep";
 import {PhpServerMonChart} from "./phpservermon";
 import {PostgresChart} from "./postgres";
+import {RadarrChart} from "./radarr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -205,6 +206,12 @@ describe('Placeholder', () => {
   test('Postgres', () => {
     const app = Testing.app();
     const chart = new PostgresChart(app, 'test-postgres');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Radarr', () => {
+    const app = Testing.app();
+    const chart = new RadarrChart(app, 'test-radarr');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
