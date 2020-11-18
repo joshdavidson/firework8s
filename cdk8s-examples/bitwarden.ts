@@ -1,37 +1,62 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class BitwardenChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('bitwarden.lan', this.getIngressBackend());
-  }
+    const label = {app: 'bitwarden'};
 
-  private static getContainer() {
-    return new kplus.Container( {
-      image: 'bitwardenrs/server',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 80,
-      volumeMounts:[{
-        path: '/data',
-        volume: kplus.Volume.fromEmptyDir('data'),
-      }]
+    new PersistentVolumeClaim(this, 'bitwarden', {
+      metadata: {
+        name: 'bitwarden'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
     });
-  }
 
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ BitwardenChart.getContainer() ]
+    const service = new Service(this, 'service', {
+      ports: [{port: 80, targetPort: 80}]
     });
-  }
+    service.addSelector('app', 'bitwarden');
 
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(80));
-  }
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [{
+              name: 'data',
+              persistentVolumeClaim: {claimName: 'bitwarden'}
+            }],
+            containers: [{
+              name: 'bitwarden',
+              image: 'bitwardenrs/server',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 80}],
+              volumeMounts: [{mountPath: '/data', name: 'data'}]
+            }]
+          }
+        }
+      }
+    });
 
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('bitwarden.lan', IngressBackend.fromService(service));
+  }
 }
 
 const app = new App();
