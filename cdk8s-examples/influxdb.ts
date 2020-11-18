@@ -15,7 +15,7 @@ export class InfluxDbChart extends Chart {
       imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
       port: 8086,
       volumeMounts:[{
-        path: '/var/lib/mysql',
+        path: '/var/lib/influxdb',
         volume: kplus.Volume.fromEmptyDir('data'),
       }]
     });
