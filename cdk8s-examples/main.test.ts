@@ -21,6 +21,7 @@ import {MariaDbChart} from "./mariadb";
 import {MinecraftChart} from "./minecraft";
 import {MinecraftBedrockChart} from "./minecraft-bedrock";
 import {MongoDbChart} from "./mongo";
+import {MonitorrChart} from "./monitorr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -156,6 +157,12 @@ describe('Placeholder', () => {
   test('MongoDb', () => {
     const app = Testing.app();
     const chart = new MongoDbChart(app, 'test-mongodb');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Monitorr', () => {
+    const app = Testing.app();
+    const chart = new MonitorrChart(app, 'test-monitorr');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
