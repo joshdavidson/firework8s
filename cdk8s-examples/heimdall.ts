@@ -1,43 +1,64 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class HeimdallChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('heimdall.lan', this.getIngressBackend());
-  }
+    const label = {app: 'heimdall'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'linuxserver/heimdall',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 80,
-      volumeMounts:[{
-        path: '/config',
-        volume: kplus.Volume.fromEmptyDir('config'),
-      }]
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'heimdall'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
+    });
+    
+    const service = new Service(this, 'service', {
+      ports: [{port: 80, targetPort: 80}]
+    });
+    service.addSelector('app', 'heimdall');
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [{name: 'heimdall', persistentVolumeClaim: {claimName: 'heimdall'}}],
+            containers: [{
+              name: 'heimdall',
+              image: 'linuxserver/heimdall',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 80}],
+              env: [
+                {name: 'PUID', value: '1000'},
+                {name: 'PGID', value: '1000'},
+                {name: 'TZ', value: 'America/New_York'}
+              ],
+              volumeMounts: [{mountPath: '/config', name: 'heimdall'}]
+            }]
+          }
+        }
+      }
     });
 
-    container.addEnv('PUID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('PGID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('TZ',   kplus.EnvValue.fromValue('America/New_York'));
-
-    return container;
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('heimdall.lan', IngressBackend.fromService(service));
   }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ HeimdallChart.getContainer() ]
-    });
-  }
-
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(80));
-  }
-
 }
 
 const app = new App();
