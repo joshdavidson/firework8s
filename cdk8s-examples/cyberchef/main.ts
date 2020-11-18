@@ -2,7 +2,7 @@ import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
 import * as kplus from 'cdk8s-plus';
 
-export class MyChart extends Chart {
+export class CyberChefChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
@@ -25,5 +25,5 @@ export class MyChart extends Chart {
 }
 
 const app = new App();
-new MyChart(app, 'cyberchef');
+new CyberChefChart(app, 'cyberchef');
 app.synth();
