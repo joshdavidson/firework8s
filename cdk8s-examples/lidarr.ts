@@ -1,53 +1,72 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class LidarrChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('lidarr.lan', this.getIngressBackend());
-  }
+    const label = {app: 'lidarr'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'linuxserver/lidarr:nightly',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 8686,
-      volumeMounts:[
-        {
-          path: '/config',
-          volume: kplus.Volume.fromEmptyDir('config'),
-        },
-        {
-          path: '/downloads',
-          volume: kplus.Volume.fromEmptyDir('downloads'),
-        },
-        {
-          path: '/music',
-          volume: kplus.Volume.fromEmptyDir('music'),
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'lidarr'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
         }
-      ]
+      }
+    });
+    
+    const service = new Service(this, 'service', {
+      ports: [{port: 8686, targetPort: 8686}]
+    });
+    service.addSelector('app', 'lidarr');
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [
+              {name: 'lidarr', persistentVolumeClaim: {claimName: 'lidarr'}},
+              {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}},
+              {name: 'music', hostPath: {path: '/mnt/share/Music'}}
+            ],
+            containers: [{
+              name: 'lidarr',
+              image: 'linuxserver/lidarr:nightly',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 8686}],
+              env: [
+                {name: 'PUID', value: '1000'},
+                {name: 'PGID', value: '1000'},
+                {name: 'TZ', value: 'America/New_York'}
+              ],
+              volumeMounts: [
+                {mountPath: '/config', name: 'lidarr'},
+                {mountPath: '/downloads', name: 'downloads'},
+                {mountPath: '/music', name: 'music'}
+              ]
+            }]
+          }
+        }
+      }
     });
 
-    container.addEnv('PUID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('PGID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('TZ',   kplus.EnvValue.fromValue('America/New_York'));
-
-    return container;
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('lidarr.lan', IngressBackend.fromService(service));
   }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ LidarrChart.getContainer() ]
-    });
-  }
-
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(8686));
-  }
-
 }
 
 const app = new App();

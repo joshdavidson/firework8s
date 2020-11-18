@@ -1,57 +1,70 @@
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
-import * as kplus from 'cdk8s-plus';
+import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class LazyLibrarianChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
-    const ingress = new kplus.Ingress(this, 'ingress');
-    ingress.addHostDefaultBackend('lazylibrarian.lan', this.getIngressBackend());
-  }
+    const label = {app: 'lazylibrarian'};
 
-  private static getContainer() {
-    const container = new kplus.Container( {
-      image: 'linuxserver/lazylibrarian',
-      imagePullPolicy: kplus.ImagePullPolicy.ALWAYS,
-      port: 5299,
-      volumeMounts:[
-        {
-          path: '/config',
-          volume: kplus.Volume.fromEmptyDir('config')
+    new PersistentVolumeClaim(this, 'pvc', {
+      metadata: {
+        name: 'lazylibrarian'
+      },
+      spec: {
+        storageClassName: 'default',
+        accessModes: ['ReadWriteOnce'],
+        resources: {
+          requests: {
+            storage: '250Mi'
+          }
+        }
+      }
+    });
+    
+    const service = new Service(this, 'service', {
+      ports: [{port: 5299, targetPort: 5299}]
+    });
+    service.addSelector('app', 'lazylibrarian');
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 1,
+        selector: {
+          matchLabels: label
         },
-        {
-          path: '/books',
-          volume: kplus.Volume.fromEmptyDir('books')
-        },
-        {
-          path: '/comics',
-          volume: kplus.Volume.fromEmptyDir('comics')
-        },
-        {
-          path: '/downloads',
-          volume: kplus.Volume.fromEmptyDir('downloads')
-        },
-      ]
+        template: {
+          metadata: {labels: label},
+          spec: {
+            volumes: [
+              {name: 'lazylibrarian', persistentVolumeClaim: {claimName: 'lazylibrarian'}},
+              {name: 'books', hostPath: {path: '/mnt/share/eBooks'}}
+            ],
+            containers: [{
+              name: 'lazylibrarian',
+              image: 'linuxserver/lazylibrarian',
+              imagePullPolicy: 'Always',
+              ports: [{containerPort: 5299}],
+              env: [
+                {name: 'PUID', value: '1000'},
+                {name: 'PGID', value: '1000'},
+                {name: 'TZ', value: 'America/New_York'}
+              ],
+              volumeMounts: [
+                {mountPath: '/config', name: 'lazylibrarian'},
+                {mountPath: '/books', name: 'books'}
+              ]
+            }]
+          }
+        }
+      }
     });
 
-    container.addEnv('PUID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('PGID', kplus.EnvValue.fromValue('1000'));
-    container.addEnv('TZ',   kplus.EnvValue.fromValue('America/New_York'));
-
-    return container;
+    const ingress = new Ingress(this, 'ingress');
+    ingress.addHostDefaultBackend('lazylibrarian.lan', IngressBackend.fromService(service));
   }
-
-  private getDeployment() {
-    return new kplus.Deployment(this, 'deployment', {
-      containers: [ LazyLibrarianChart.getContainer() ]
-    });
-  }
-
-  private getIngressBackend() {
-    return kplus.IngressBackend.fromService(this.getDeployment().expose(5299));
-  }
-
 }
 
 const app = new App();
