@@ -1,4 +1,4 @@
-1apiVersion: v1
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: readarr
