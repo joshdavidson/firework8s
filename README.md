@@ -77,8 +77,8 @@ smokeping | Smokeping keeps track of your network latency | https://github.com/l
 snipe-it | Free and open source IT asset management | https://github.com/snipe/snipe-it
 sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
 stuffinspace | A real-time interactive WebGL visualisation of objects in Earth orbit | http://stuffin.space
-transmission | BitTorrent client | https://transmissionbt.com/
 tautulli | Python based monitoring and tracking tool for Plex Media Server | https://github.com/Tautulli/Tautulli
+transmission | BitTorrent client | https://transmissionbt.com/
 trilium | Hierarchical note taking application | https://github.com/zadam/trilium
 ubooquity | Home server for your comics and ebooks | https://github.com/linuxserver/docker-ubooquity
 varken | Standalone application to aggregate data from the Plex ecosystem into InfluxDB | https://github.com/Boerderij/Varken

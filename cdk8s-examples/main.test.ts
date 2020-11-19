@@ -35,6 +35,7 @@ import {SickGearChart} from "./sickgear";
 import {SmokePingChart} from "./smokeping";
 import {SonarrChart} from "./sonarr";
 import {StuffInSpaceChart} from "./stuffinspace";
+import {TautulliChart} from "./tautulli";
 import {TransmissionChart} from "./transmission";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -254,6 +255,12 @@ describe('Placeholder', () => {
   test('StuffInSpace', () => {
     const app = Testing.app();
     const chart = new StuffInSpaceChart(app, 'test-stuffinspace');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Tautulli', () => {
+    const app = Testing.app();
+    const chart = new TautulliChart(app, 'test-tautulli');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
