@@ -2,16 +2,14 @@ import * as k8s from '@pulumi/kubernetes';
 import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
-export class CodeServer extends pulumi.ComponentResource {
+export class BookStack extends pulumi.ComponentResource {
     constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
-        super('pkg:index:CodeServer', name, {}, opts);
+        super('pkg:index:BookStack', name, {}, opts);
 
-        const appLabels = {app: 'code-server'};
+        const appLabels = { app: 'bookstack' };
 
-        new kx.PersistentVolumeClaim('code-server-pvc', {
-            metadata: {
-                name: 'code-server'
-            },
+        new kx.PersistentVolumeClaim('bookstack-pvc', {
+            metadata: { name: 'bookstack' },
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -21,31 +19,31 @@ export class CodeServer extends pulumi.ComponentResource {
                     }
                 }
             }
-        })
+        });
 
-        new kx.Service('code-server-service', {
+        new kx.Service('bookstack-service', {
             metadata: {
-                name: 'code-server'
+                name: 'bookstack'
             },
             spec: {
                 selector: appLabels,
-                ports: [{port: 8443, targetPort: 8443}]
+                ports: [{port: 80, targetPort: 80}]
             }
         });
 
-        new k8s.networking.v1.Ingress('code-server-ingress', {
+        new k8s.networking.v1.Ingress('bookstack-ingress', {
             metadata: {
-                name: 'code-server'
+                name: 'bookstack'
             },
             spec: {
                 rules: [{
-                    host: 'code-server.lan', http: {
+                    host: 'bookstack.lan', http: {
                         paths: [{
                             backend: {
                                 service:
                                     {
-                                        name: 'code-server',
-                                        port: {number: 8443}
+                                        name: 'bookstack',
+                                        port: {number: 80}
                                     }
                             },
                             path: '/',
@@ -56,9 +54,9 @@ export class CodeServer extends pulumi.ComponentResource {
             }
         });
 
-        new k8s.apps.v1.Deployment('code-server', {
+        new k8s.apps.v1.Deployment('bookstack', {
             metadata: {
-                name: 'code-server'
+                name: 'bookstack'
             },
             spec: {
                 selector: { matchLabels: appLabels },
@@ -68,17 +66,22 @@ export class CodeServer extends pulumi.ComponentResource {
                     spec: {
                         volumes:[{ name: 'config',
                                    persistentVolumeClaim: {
-                                     claimName: 'code-server'}
+                                     claimName: 'bookstack'}
                                 }],
                         containers: [{
-                            name: 'code-server',
-                            image: 'linuxserver/code-server:latest',
+                            name: 'bookstack',
+                            image: 'linuxserver/bookstack',
                             imagePullPolicy: 'Always',
-                            ports: [{containerPort: 8443}],
+                            ports: [{containerPort: 80}],
                             env: [
+                                {name: 'TZ', value: 'America/New_York'},
                                 {name: 'PUID', value: '1000'},
                                 {name: 'PGID', value: '1000'},
-                                {name: 'TZ', value: 'America/New_York'}
+                                {name: 'DB_HOST', value: 'mariadb'},
+                                {name: 'DB_USER', value: 'root'},
+                                {name: 'DB_PASS', value: 'password'},
+                                {name: 'DB_DATABASE', value: 'bookstackapp'},
+                                {name: 'APP_URL', value: 'http://bookstack.lan'}
                             ],
                             volumeMounts: [{ mountPath: '/config', name: 'config' }]
                         }]

@@ -2,16 +2,14 @@ import * as k8s from '@pulumi/kubernetes';
 import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
-export class CodeServer extends pulumi.ComponentResource {
+export class Gaps extends pulumi.ComponentResource {
     constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
-        super('pkg:index:CodeServer', name, {}, opts);
+        super('pkg:index:Gaps', name, {}, opts);
 
-        const appLabels = {app: 'code-server'};
+        const appLabels = { app: 'gaps' };
 
-        new kx.PersistentVolumeClaim('code-server-pvc', {
-            metadata: {
-                name: 'code-server'
-            },
+        new kx.PersistentVolumeClaim('gaps-pvc', {
+            metadata: { name: 'gaps' },
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -21,31 +19,31 @@ export class CodeServer extends pulumi.ComponentResource {
                     }
                 }
             }
-        })
+        });
 
-        new kx.Service('code-server-service', {
+        new kx.Service('gaps-service', {
             metadata: {
-                name: 'code-server'
+                name: 'gaps'
             },
             spec: {
                 selector: appLabels,
-                ports: [{port: 8443, targetPort: 8443}]
+                ports: [{port: 8484, targetPort: 8484}]
             }
         });
 
-        new k8s.networking.v1.Ingress('code-server-ingress', {
+        new k8s.networking.v1.Ingress('gaps-ingress', {
             metadata: {
-                name: 'code-server'
+                name: 'gaps'
             },
             spec: {
                 rules: [{
-                    host: 'code-server.lan', http: {
+                    host: 'gaps.lan', http: {
                         paths: [{
                             backend: {
                                 service:
                                     {
-                                        name: 'code-server',
-                                        port: {number: 8443}
+                                        name: 'gaps',
+                                        port: {number: 8484}
                                     }
                             },
                             path: '/',
@@ -56,9 +54,9 @@ export class CodeServer extends pulumi.ComponentResource {
             }
         });
 
-        new k8s.apps.v1.Deployment('code-server', {
+        new k8s.apps.v1.Deployment('gaps', {
             metadata: {
-                name: 'code-server'
+                name: 'gaps'
             },
             spec: {
                 selector: { matchLabels: appLabels },
@@ -66,21 +64,16 @@ export class CodeServer extends pulumi.ComponentResource {
                 template: {
                     metadata: { labels: appLabels },
                     spec: {
-                        volumes:[{ name: 'config',
+                        volumes:[{ name: 'data',
                                    persistentVolumeClaim: {
-                                     claimName: 'code-server'}
+                                     claimName: 'gaps'}
                                 }],
                         containers: [{
-                            name: 'code-server',
-                            image: 'linuxserver/code-server:latest',
+                            name: 'gaps',
+                            image: 'housewrecker/gaps',
                             imagePullPolicy: 'Always',
-                            ports: [{containerPort: 8443}],
-                            env: [
-                                {name: 'PUID', value: '1000'},
-                                {name: 'PGID', value: '1000'},
-                                {name: 'TZ', value: 'America/New_York'}
-                            ],
-                            volumeMounts: [{ mountPath: '/config', name: 'config' }]
+                            ports: [{containerPort: 8484}],
+                            volumeMounts: [{ mountPath: '/usr/data', name: 'data' }]
                         }]
                     }
                 }

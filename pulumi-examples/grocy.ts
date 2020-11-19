@@ -2,16 +2,14 @@ import * as k8s from '@pulumi/kubernetes';
 import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
-export class CodeServer extends pulumi.ComponentResource {
+export class Grocy extends pulumi.ComponentResource {
     constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
-        super('pkg:index:CodeServer', name, {}, opts);
+        super('pkg:index:Grocy', name, {}, opts);
 
-        const appLabels = {app: 'code-server'};
+        const appLabels = { app: 'grocy' };
 
-        new kx.PersistentVolumeClaim('code-server-pvc', {
-            metadata: {
-                name: 'code-server'
-            },
+        new kx.PersistentVolumeClaim('grocy-pvc', {
+            metadata: { name: 'grocy' },
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -21,31 +19,31 @@ export class CodeServer extends pulumi.ComponentResource {
                     }
                 }
             }
-        })
+        });
 
-        new kx.Service('code-server-service', {
+        new kx.Service('grocy-service', {
             metadata: {
-                name: 'code-server'
+                name: 'grocy'
             },
             spec: {
                 selector: appLabels,
-                ports: [{port: 8443, targetPort: 8443}]
+                ports: [{port: 80, targetPort: 80}]
             }
         });
 
-        new k8s.networking.v1.Ingress('code-server-ingress', {
+        new k8s.networking.v1.Ingress('grocy-ingress', {
             metadata: {
-                name: 'code-server'
+                name: 'grocy'
             },
             spec: {
                 rules: [{
-                    host: 'code-server.lan', http: {
+                    host: 'grocy.lan', http: {
                         paths: [{
                             backend: {
                                 service:
                                     {
-                                        name: 'code-server',
-                                        port: {number: 8443}
+                                        name: 'grocy',
+                                        port: {number: 80}
                                     }
                             },
                             path: '/',
@@ -56,9 +54,9 @@ export class CodeServer extends pulumi.ComponentResource {
             }
         });
 
-        new k8s.apps.v1.Deployment('code-server', {
+        new k8s.apps.v1.Deployment('grocy', {
             metadata: {
-                name: 'code-server'
+                name: 'grocy'
             },
             spec: {
                 selector: { matchLabels: appLabels },
@@ -68,19 +66,19 @@ export class CodeServer extends pulumi.ComponentResource {
                     spec: {
                         volumes:[{ name: 'config',
                                    persistentVolumeClaim: {
-                                     claimName: 'code-server'}
+                                     claimName: 'grocy'}
                                 }],
                         containers: [{
-                            name: 'code-server',
-                            image: 'linuxserver/code-server:latest',
+                            name: 'grocy',
+                            image: 'linuxserver/grocy',
                             imagePullPolicy: 'Always',
-                            ports: [{containerPort: 8443}],
+                            ports: [{containerPort: 80}],
                             env: [
                                 {name: 'PUID', value: '1000'},
                                 {name: 'PGID', value: '1000'},
                                 {name: 'TZ', value: 'America/New_York'}
                             ],
-                            volumeMounts: [{ mountPath: '/config', name: 'config' }]
+                            volumeMounts: [{mountPath: '/config', name: 'config'}]
                         }]
                     }
                 }
