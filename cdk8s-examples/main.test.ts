@@ -30,6 +30,7 @@ import {PhpServerMonChart} from "./phpservermon";
 import {PostgresChart} from "./postgres";
 import {RadarrChart} from "./radarr";
 import {RanetoChart} from "./raneto";
+import {ReadarrChart} from "./readarr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
@@ -219,6 +220,12 @@ describe('Placeholder', () => {
   test('Raneto', () => {
     const app = Testing.app();
     const chart = new RanetoChart(app, 'test-raneto');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Readarr', () => {
+    const app = Testing.app();
+    const chart = new ReadarrChart(app, 'test-readarr');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
