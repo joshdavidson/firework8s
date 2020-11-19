@@ -1,3 +1,3 @@
-import { CodeServer } from './codeserver';
+import { CodeServer } from './code-server';
 
-export const codeServer = new CodeServer('codeserver', { });
+export const codeServer = new CodeServer('code-server', { });
