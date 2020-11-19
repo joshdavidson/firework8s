@@ -42,7 +42,7 @@ Name | Description | Website
 bitwarden | Free and open-source password management service that stores credentials in an encrypted vault | https://bitwarden.com/
 bookstack | Free and open source Wiki designed for creating beautiful documentation | https://www.bookstackapp.com
 ciao | Private and public HTTP(S) monitoring | https://brotandgames.com/ciao/
-cyberchef | The cyber swiss army knife | https://gchq.github.io/cyberchef
+cyberchef | The cyber swiss army knife | https://github.com/gchq/CyberChef
 flexget | Multipurpose automation tool for all your media | https://flexget.com
 gaps | Gaps recommends gaps in your Plex Server movie library based on collection searches | https://github.com/JasonHHouse/gaps 
 grafana| Open source analytics and interactive visualization web application | https://grafana.com/
