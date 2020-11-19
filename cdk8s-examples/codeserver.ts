@@ -45,7 +45,9 @@ export class VsCodeChart extends Chart {
               env: [
                 {name: 'PUID', value: '1000'},
                 {name: 'PGID', value: '1000'},
-                {name: 'TZ', value: 'America/New_York'}
+                {name: 'TZ', value: 'America/New_York'},
+                {name: 'PASSWORD', value: 'password'},
+                {name: 'SUDO_PASSWORD', value: 'password'}
               ],
               volumeMounts: [{mountPath: '/config', name: 'vscode'}]
             }]

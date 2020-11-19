@@ -64,7 +64,7 @@ export class CodeServer extends pulumi.ComponentResource {
                         containers: [{
                             name: 'codeserver',
                             image: 'linuxserver/code-server',
-                            //imagePullPolicy: 'Always',
+                            imagePullPolicy: 'Always',
                             ports: [{containerPort: 8443}],
                             env: [
                                 {name: 'PUID', value: '1000'},
