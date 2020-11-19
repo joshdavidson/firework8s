@@ -32,9 +32,7 @@ export class VsCodeChart extends Chart {
     new Deployment(this, 'deployment', {
       spec: {
         replicas: 1,
-        selector: {
-          matchLabels: label
-        },
+        selector: { matchLabels: label },
         template: {
           metadata: {labels: label},
           spec: {

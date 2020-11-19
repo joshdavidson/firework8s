@@ -43,7 +43,7 @@ import {TransmissionChart} from "./transmission";
 import {TriliumChart} from "./trilium";
 import {UbooquityChart} from "./ubooquity";
 import {VarkenChart} from "./varken";
-import {VsCodeChart} from "./vscode";
+import {VsCodeChart} from "./codeserver";
 import {WallabagChart} from "./wallabag";
 import {WekanChart} from "./wekan";
 
