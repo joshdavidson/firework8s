@@ -25,6 +25,7 @@ import {MonitorrChart} from "./monitorr";
 import {MylarChart} from "./mylar";
 import {MySqlChart} from "./mysql";
 import {ObserviumChart} from "./observium";
+import {OmbiChart} from "./ombi";
 import {PerkeepChart} from "./perkeep";
 import {PhpServerMonChart} from "./phpservermon";
 import {PostgresChart} from "./postgres";
@@ -198,6 +199,12 @@ describe('Placeholder', () => {
   test('Observium', () => {
     const app = Testing.app();
     const chart = new ObserviumChart(app, 'test-observium');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Ombi', () => {
+    const app = Testing.app();
+    const chart = new OmbiChart(app, 'test-ombi');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
