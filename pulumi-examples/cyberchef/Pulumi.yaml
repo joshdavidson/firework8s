@@ -1,0 +1,3 @@
+name: cyberchef
+runtime: nodejs
+description: Kubernetes TypeScript Pulumi program for CyberChef
