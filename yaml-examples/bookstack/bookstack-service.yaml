@@ -11,17 +11,3 @@ spec:
     targetPort: 80
   selector:
     app: bookstack
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: bookstack-db
-  name: bookstack-db
-spec:
-  ports:
-    - name: "3306"
-      port: 3306
-      targetPort: 3306
-  selector:
-    app: bookstack-db

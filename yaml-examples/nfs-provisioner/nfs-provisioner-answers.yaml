@@ -13,7 +13,7 @@ persistence:
   enabled: false
   size: "20Gi"
   storageClass: ""
-  hostPath: "/srv/persistent-volumes"
+  hostPath: "/srv/volumes"
 service:
   type: "ClusterIP"
   nfsNodePort: ""

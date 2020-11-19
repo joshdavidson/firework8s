@@ -21,11 +21,11 @@ spec:
         - name: PGID
           value: "1000"
         - name: DB_HOST
-          value: "bookstack-db"
+          value: "mariadb"
         - name: DB_USER
-          value: "bookstack"
+          value: "root"
         - name: DB_PASS
-          value: "bookstack"
+          value: "password"
         - name: DB_DATABASE
           value: "bookstackapp"
         - name: APP_URL
@@ -43,51 +43,3 @@ spec:
         - name: bookstack
           persistentVolumeClaim:
             claimName: bookstack
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: bookstack-db
-  name: bookstack-db
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: bookstack-db
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: bookstack-db
-    spec:
-      containers:
-        - env:
-          - name: PUID
-            value: "1000"
-          - name: PGID
-            value: "1000"
-          - name: MYSQL_ROOT_PASSWORD
-            value: "password"
-          - name: TZ
-            value: "America/New_York"
-          - name: MYSQL_DATABASE
-            value: "bookstackapp"
-          - name: MYSQL_USER
-            value: "bookstack"
-          - name: MYSQL_PASSWORD
-            value: "bookstack"
-          image: linuxserver/mariadb
-          imagePullPolicy: Always
-          name: bookstack-db
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - mountPath: /config
-              name: bookstack-db
-      restartPolicy: Always
-      volumes:
-        - name: bookstack-db
-          persistentVolumeClaim:
-            claimName: bookstack-db

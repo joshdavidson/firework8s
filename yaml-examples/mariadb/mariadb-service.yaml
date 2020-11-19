@@ -8,6 +8,8 @@ spec:
   ports:
     - name: "3306"
       port: 3306
+      nodePort: 32306
       targetPort: 3306
   selector:
     app: mariadb
+  type: NodePort

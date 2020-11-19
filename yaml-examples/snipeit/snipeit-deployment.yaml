@@ -1,41 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: snipeit-db
-  namespace: default
-  labels:
-    app: snipeit-db
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: snipeit-db
-  template:
-    metadata:
-      labels:
-        app: snipeit-db
-    spec:
-      containers:
-      - name: snipeit-db
-        envFrom:
-          - configMapRef:
-              name: snipeit-config
-        image: mysql:5.6
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3306
-        volumeMounts:
-          - mountPath: /var/lib/mysql
-            name: mysql
-      restartPolicy: Always
-      volumes:
-        - name: mysql
-          persistentVolumeClaim:
-            claimName: snipeit-db
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   labels:
     app: snipeit
   name: snipeit

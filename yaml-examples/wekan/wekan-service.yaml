@@ -11,17 +11,3 @@ spec:
     targetPort: 8080
   selector:
     app: wekan
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: wekan-db
-  name: wekan-db
-spec:
-  ports:
-    - name: "27017"
-      port: 27017
-      targetPort: 27017
-  selector:
-    app: wekan-db
