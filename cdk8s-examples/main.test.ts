@@ -33,7 +33,9 @@ import {RanetoChart} from "./raneto";
 import {ReadarrChart} from "./readarr";
 import {SickGearChart} from "./sickgear";
 import {SmokePingChart} from "./smokeping";
+import {SonarrChart} from "./sonarr";
 import {StuffInSpaceChart} from "./stuffinspace";
+import {TransmissionChart} from "./transmission";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
 import {WekanChart} from "./wekan";
@@ -243,9 +245,21 @@ describe('Placeholder', () => {
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
+  test('Sonarr', () => {
+    const app = Testing.app();
+    const chart = new SonarrChart(app, 'test-sonarr');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
   test('StuffInSpace', () => {
     const app = Testing.app();
     const chart = new StuffInSpaceChart(app, 'test-stuffinspace');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Transmission', () => {
+    const app = Testing.app();
+    const chart = new TransmissionChart(app, 'test-transmission');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
