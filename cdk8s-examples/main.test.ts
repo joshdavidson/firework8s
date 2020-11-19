@@ -37,6 +37,7 @@ import {SonarrChart} from "./sonarr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {TautulliChart} from "./tautulli";
 import {TransmissionChart} from "./transmission";
+import {TriliumChart} from "./trilium";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
 import {WekanChart} from "./wekan";
@@ -267,6 +268,12 @@ describe('Placeholder', () => {
   test('Transmission', () => {
     const app = Testing.app();
     const chart = new TransmissionChart(app, 'test-transmission');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Trilium', () => {
+    const app = Testing.app();
+    const chart = new TriliumChart(app, 'test-trilium');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
