@@ -1,14 +1,41 @@
 # Firework8s
-Firework8s is a collection of kubernetes objects (yaml files) for deploying workloads in a home lab with k8s. The 
+Firework8s is a collection of Kubernetes objects (YAML files) for deploying workloads in a home lab with k8s. The 
 home lab used for development of this project consists of a 3 node cluster managed by Rancher.
+
+## Project Structure
+Folder | Description 
+--------------- | ---------------
+yaml-examples   | Contains pure handcrafted Kubernetes YAML; These files can be considered the gold standard for the project
+cdk8s-examples  | Contains [Cloud Development for Kubernetes (cdk8s)](https://github.com/awslabs/cdk8s) TypeScript files that can be used by cdk8s to generate Kubernetes YAML
+
 ## Deploy
+### Using yaml-examples
 Execute kubectl apply -f against the directory you wish to deploy.  For example:
 ```shell script
+cd yaml-examples
 kubectl apply -f sonarr
 ```
 Would deploy Sonarr to your Kubernetes cluster...
+
+### Using cdk8s-examples
+Create a new cdk8s project project in Typescript and use it to generate Kubernetes YAML files for deployment: 
+```shell script
+cd cdk8s-examples
+mkdir build && cd build
+cdk8s init typescript-app
+npm run watch &
+cp ../*.ts .
+cdk8s synth
+```
+
+Execute kubectl apply -f against the application you wish to deploy.  For example:
+```shell script
+kubectl apply -f dist/jackett.k8s.yaml
+```
+Would deploy Jackett from the cdk8s generated YAML to your Kubernetes cluster...
+
 ## Applications
-Each folder contains a set of yaml files to deploy the application to a Kubernetes cluster.
+The following applications are included as yaml and cdk8s examples.
 
 Name | Description | Website
 ------------ | ------------- | -------------
@@ -43,15 +70,15 @@ organizr | An HTPC/Homelab services organizer | https://organizr.app
 perkeep | Software for modeling, storing, searching, sharing and synchronizing data | https://perkeep.org/
 phpservermon | PHP server monitor | http://www.phpservermonitor.org/
 postgres | Open source object-relational database system | https://www.postgresql.org/
-raneto | Markdown powered Knowledgebase for Nodejs | http://raneto.com/
+raneto | Markdown powered knowledge base for Nodejs | http://raneto.com/
 readarr | Book, magazine, comics eBook and audiobook manager (Sonarr for eBooks) | http://readarr.com/
 sickgear |  SickGear has proven the most reliable stable TV fork of the great Sick-Beard family | https://github.com/SickGear/SickGear
 smokeping | Smokeping keeps track of your network latency | https://github.com/linuxserver/docker-smokeping
 snipe-it | Free and open source IT asset management | https://github.com/snipe/snipe-it
 sonarr | Smart PVR for newsgroup and bittorrent users | https://sonarr.tv/
 stuffinspace | A real-time interactive WebGL visualisation of objects in Earth orbit | http://stuffin.space
-transmission | BitTorrent client | https://transmissionbt.com/
 tautulli | Python based monitoring and tracking tool for Plex Media Server | https://github.com/Tautulli/Tautulli
+transmission | BitTorrent client | https://transmissionbt.com/
 trilium | Hierarchical note taking application | https://github.com/zadam/trilium
 ubooquity | Home server for your comics and ebooks | https://github.com/linuxserver/docker-ubooquity
 varken | Standalone application to aggregate data from the Plex ecosystem into InfluxDB | https://github.com/Boerderij/Varken
