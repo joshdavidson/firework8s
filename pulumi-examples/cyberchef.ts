@@ -35,7 +35,7 @@ class CyberChef extends pulumi.ComponentResource {
             }
         });
 
-        const deployment = new k8s.apps.v1.Deployment('cyberchef', {
+        new k8s.apps.v1.Deployment('cyberchef', {
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,
