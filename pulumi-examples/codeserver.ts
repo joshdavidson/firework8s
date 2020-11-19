@@ -2,15 +2,15 @@ import * as k8s from '@pulumi/kubernetes';
 import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
-class CodeServer extends pulumi.ComponentResource {
-    constructor(name, opts) {
+export class CodeServer extends pulumi.ComponentResource {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
         super('pkg:index:CodeServer', name, {}, opts);
 
         const appLabels = {app: 'codeserver'};
 
-        new kx.PersistentVolumeClaim('pvc', {
+        new kx.PersistentVolumeClaim('codeserver-pvc', {
             metadata: {
-                name: 'codeserver'
+                name: 'codeserver-pvc'
             },
             spec: {
                 storageClassName: 'default',
@@ -23,14 +23,14 @@ class CodeServer extends pulumi.ComponentResource {
             }
         })
 
-        new kx.Service('codeserver', {
+        new kx.Service('codeserver-svc', {
             spec: {
                 selector: appLabels,
                 ports: [{port: 8443, targetPort: 8443}]
             }
         });
 
-        new k8s.networking.v1.Ingress('codeserver', {
+        new k8s.networking.v1.Ingress('codeserver-ingress', {
             spec: {
                 rules: [{
                     host: 'codeserver.lan', http: {
@@ -59,12 +59,12 @@ class CodeServer extends pulumi.ComponentResource {
                     spec: {
                         volumes:[{ name: 'config',
                                    persistentVolumeClaim: {
-                                     claimName: 'codeserver'}
+                                     claimName: 'codeserver-pvc'}
                                 }],
                         containers: [{
                             name: 'codeserver',
-                            image: 'mpepping/codeserver',
-                            imagePullPolicy: 'Always',
+                            image: 'linuxserver/code-server',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8443}],
                             env: [
                                 {name: 'PUID', value: '1000'},
@@ -73,7 +73,7 @@ class CodeServer extends pulumi.ComponentResource {
                                 {name: 'PASSWORD', value: 'password'},
                                 {name: 'SUDO_PASSWORD', value: 'password'}
                             ],
-                            volumeMounts: [{ mountPath: '/config', name: 'codeserver' }]
+                            volumeMounts: [{ mountPath: '/config', name: 'config' }]
                         }]
                     }
                 }
@@ -81,6 +81,4 @@ class CodeServer extends pulumi.ComponentResource {
         });
     }
 }
-
-module.exports.codeserver = CodeServer;
 
