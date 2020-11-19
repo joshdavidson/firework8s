@@ -35,6 +35,7 @@ import {RanetoChart} from "./raneto";
 import {ReadarrChart} from "./readarr";
 import {SickGearChart} from "./sickgear";
 import {SmokePingChart} from "./smokeping";
+import {SnipeItChart} from "./snipeit";
 import {SonarrChart} from "./sonarr";
 import {StuffInSpaceChart} from "./stuffinspace";
 import {TautulliChart} from "./tautulli";
@@ -260,6 +261,12 @@ describe('Placeholder', () => {
   test('SmokePing', () => {
     const app = Testing.app();
     const chart = new SmokePingChart(app, 'test-smokeping');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('SnipeIt', () => {
+    const app = Testing.app();
+    const chart = new SnipeItChart(app, 'test-snipeit');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
