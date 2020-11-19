@@ -41,7 +41,7 @@ export class HuginnChart extends Chart {
             volumes: [{name: 'pvc', persistentVolumeClaim: {claimName: 'huginn'}}],
             containers: [{
               name: 'huginn',
-              image: 'b4bz/huginn',
+              image: 'huginn/huginn',
               imagePullPolicy: 'Always',
               ports: [{containerPort: 3000}],
               env: [

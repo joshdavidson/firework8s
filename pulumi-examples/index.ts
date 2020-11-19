@@ -9,6 +9,9 @@ import { Grafana} from "./grafana";
 import { Grocy} from "./grocy";
 import { Heimdall} from "./heimdall";
 import { HomeAssistant} from "./homeassistant";
+import { Homer } from "./homer";
+import { Huginn } from "./huginn";
+import { InfluxDB } from "./influxdb";
 import { MariaDB } from './mariadb';
 
 new BitWarden('bitwarden',{});
@@ -21,6 +24,9 @@ new Gaps('gaps',{});
 new Grafana('grafana',{});
 new Grocy('grocy',{});
 new Heimdall('heimdall',{});
+new Homer('homer',{});
+new Huginn('huginn',{});
+new InfluxDB('influxdb',{});
 new HomeAssistant('homeassistant',{});
 
 
