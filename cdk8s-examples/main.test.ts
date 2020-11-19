@@ -39,6 +39,7 @@ import {TautulliChart} from "./tautulli";
 import {TransmissionChart} from "./transmission";
 import {TriliumChart} from "./trilium";
 import {UbooquityChart} from "./ubooquity";
+import {VarkenChart} from "./varken";
 import {VsCodeChart} from "./vscode";
 import {WallabagChart} from "./wallabag";
 import {WekanChart} from "./wekan";
@@ -281,6 +282,12 @@ describe('Placeholder', () => {
   test('Ubooquity', () => {
     const app = Testing.app();
     const chart = new UbooquityChart(app, 'test-ubooquity');
+    const results = Testing.synth(chart)
+    expect(results).toMatchSnapshot();
+  });
+  test('Varken', () => {
+    const app = Testing.app();
+    const chart = new VarkenChart(app, 'test-varken');
     const results = Testing.synth(chart)
     expect(results).toMatchSnapshot();
   });
