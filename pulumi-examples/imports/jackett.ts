@@ -9,7 +9,7 @@ export class Jackett extends pulumi.ComponentResource {
         const appLabels = { app: 'jackett' };
 
         new kx.PersistentVolumeClaim('jackett-pvc', {
-            metadata: { name: 'jackett', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class Jackett extends pulumi.ComponentResource {
         });
 
         new kx.Service('jackett-service', {
-            metadata: { name: 'jackett', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 9117, targetPort: 9117}]
@@ -30,7 +30,7 @@ export class Jackett extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('jackett-ingress', {
-            metadata: { name: 'jackett', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'jackett.lan', http: {
