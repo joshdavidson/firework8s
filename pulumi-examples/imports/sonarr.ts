@@ -9,7 +9,7 @@ export class Sonarr extends pulumi.ComponentResource {
         const appLabels = { app: 'sonarr' };
 
         new kx.PersistentVolumeClaim('sonarr-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'sonarr-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -59,7 +59,7 @@ export class Sonarr extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'sonarr'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'sonarr-pvc'}},
                             {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}},
                             {name: 'tv', hostPath: {path: '/mnt/share/Television'}}
                         ],

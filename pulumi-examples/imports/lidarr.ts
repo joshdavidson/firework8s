@@ -9,7 +9,7 @@ export class Lidarr extends pulumi.ComponentResource {
         const appLabels = { app: 'lidarr' };
 
         new kx.PersistentVolumeClaim('lidarr-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'lidar-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -59,7 +59,7 @@ export class Lidarr extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'lidarr'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'lidarr-pvc'}},
                             {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}},
                             {name: 'music', hostPath: {path: '/mnt/share/Music'}}
                         ],

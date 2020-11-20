@@ -9,7 +9,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
         const appLabels = { app: 'lazylibrarian' };
 
         new kx.PersistentVolumeClaim('lazylibrarian-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'lazylibrarian-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -59,7 +59,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'lazylibrarian'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'lazylibrarian-pvc'}},
                             {name: 'books', hostPath: {path: '/mnt/share/eBooks'}}
                         ],
                         containers: [{

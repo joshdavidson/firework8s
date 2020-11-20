@@ -9,7 +9,7 @@ export class Radarr extends pulumi.ComponentResource {
         const appLabels = { app: 'radarr' };
 
         new kx.PersistentVolumeClaim('radarr-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'radarr-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -59,7 +59,7 @@ export class Radarr extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'radarr'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'radarr-pvc'}},
                             {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}},
                             {name: 'movies', hostPath: {path: '/mnt/share/Movies'}}
                         ],

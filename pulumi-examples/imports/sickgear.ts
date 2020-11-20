@@ -9,7 +9,7 @@ export class SickGear extends pulumi.ComponentResource {
         const appLabels = { app: 'sickgear' };
 
         new kx.PersistentVolumeClaim('sickgear-pvc', {
-            metadata: { namespace: 'arr-apps' },
+            metadata: { name: 'sickgear-pvc', namespace: 'arr-apps' },
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -59,7 +59,7 @@ export class SickGear extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'sickgear'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'sickgear-pvc'}},
                             {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}},
                             {name: 'tv', hostPath: {path: '/mnt/share/Television'}}
                         ],

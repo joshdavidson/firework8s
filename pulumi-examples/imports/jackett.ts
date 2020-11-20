@@ -9,7 +9,7 @@ export class Jackett extends pulumi.ComponentResource {
         const appLabels = { app: 'jackett' };
 
         new kx.PersistentVolumeClaim('jackett-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'jacket-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -60,7 +60,7 @@ export class Jackett extends pulumi.ComponentResource {
                     spec: {
                         volumes:[{ name: 'config',
                                    persistentVolumeClaim: {
-                                     claimName: 'jackett'}
+                                     claimName: 'jackett-pvc'}
                                 }],
                         containers: [{
                             name: 'jackett',

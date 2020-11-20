@@ -9,7 +9,7 @@ export class Transmission extends pulumi.ComponentResource {
         const appLabels = { app: 'transmission' };
 
         new kx.PersistentVolumeClaim('transmission-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'transmission-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -59,7 +59,7 @@ export class Transmission extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'transmission'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'transmission-pvc'}},
                             {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}}
                         ],
                         containers: [{

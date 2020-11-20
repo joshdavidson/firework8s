@@ -9,7 +9,7 @@ export class Readarr extends pulumi.ComponentResource {
         const appLabels = { app: 'readarr' };
 
         new kx.PersistentVolumeClaim('readarr-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'readarr-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -59,7 +59,7 @@ export class Readarr extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'readarr'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'readarr-pvc'}},
                             {name: 'books', hostPath: {path: '/mnt/share/eBooks'}},
                             {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}}
                         ],

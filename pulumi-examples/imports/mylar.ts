@@ -9,7 +9,7 @@ export class Mylar extends pulumi.ComponentResource {
         const appLabels = { app: 'mylar' };
 
         new kx.PersistentVolumeClaim('mylar-pvc', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: { name: 'mylar-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -61,7 +61,7 @@ export class Mylar extends pulumi.ComponentResource {
                     metadata: { labels: appLabels },
                     spec: {
                         volumes: [
-                            {name: 'config', persistentVolumeClaim: {claimName: 'mylar'}},
+                            {name: 'config', persistentVolumeClaim: {claimName: 'mylar-pvc'}},
                             {name: 'downloads', hostPath: {path: '/mnt/share/Downloads'}},
                             {name: 'comics', hostPath: {path: '/mnt/share/Comics'}}
                         ],
