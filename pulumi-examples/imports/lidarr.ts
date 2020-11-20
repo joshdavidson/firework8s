@@ -9,7 +9,7 @@ export class Lidarr extends pulumi.ComponentResource {
         const appLabels = { app: 'lidarr' };
 
         new kx.PersistentVolumeClaim('lidarr-pvc', {
-            metadata: { name: 'lidarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class Lidarr extends pulumi.ComponentResource {
         });
 
         new kx.Service('lidarr-service', {
-            metadata: { name: 'lidarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 8686, targetPort: 8686}]
@@ -30,7 +30,7 @@ export class Lidarr extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('lidarr-ingress', {
-            metadata: { name: 'lidarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'lidarr.lan', http: {
@@ -66,7 +66,6 @@ export class Lidarr extends pulumi.ComponentResource {
                         containers: [{
                             name: 'lidarr',
                             image: 'linuxserver/lidarr:nightly',
-
                             ports: [{containerPort: 8686}],
                             env: [
                                 {name: 'PUID', value: '1000'},

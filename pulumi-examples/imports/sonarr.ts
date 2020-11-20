@@ -9,7 +9,7 @@ export class Sonarr extends pulumi.ComponentResource {
         const appLabels = { app: 'sonarr' };
 
         new kx.PersistentVolumeClaim('sonarr-pvc', {
-            metadata: { name: 'sonarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class Sonarr extends pulumi.ComponentResource {
         });
 
         new kx.Service('sonarr-service', {
-            metadata: { name: 'sonarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 8989, targetPort: 8989}]
@@ -30,7 +30,7 @@ export class Sonarr extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('sonarr-ingress', {
-            metadata: { name: 'sonarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'sonarr.lan', http: {

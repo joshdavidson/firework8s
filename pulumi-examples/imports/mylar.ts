@@ -9,7 +9,7 @@ export class Mylar extends pulumi.ComponentResource {
         const appLabels = { app: 'mylar' };
 
         new kx.PersistentVolumeClaim('mylar-pvc', {
-            metadata: { name: 'mylar', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class Mylar extends pulumi.ComponentResource {
         });
 
         new kx.Service('mylar-service', {
-            metadata: { name: 'mylar', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 8090, targetPort: 8090}]
@@ -30,7 +30,9 @@ export class Mylar extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('mylar-ingress', {
-            metadata: { name: 'mylar', namespace: 'arr-apps'},
+            metadata: {
+
+                namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'mylar.lan', http: {

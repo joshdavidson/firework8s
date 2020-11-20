@@ -9,7 +9,7 @@ export class Readarr extends pulumi.ComponentResource {
         const appLabels = { app: 'readarr' };
 
         new kx.PersistentVolumeClaim('readarr-pvc', {
-            metadata: { name: 'readarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class Readarr extends pulumi.ComponentResource {
         });
 
         new kx.Service('readarr-service', {
-            metadata: { name: 'readarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 8787, targetPort: 8787}]
@@ -30,7 +30,7 @@ export class Readarr extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('readarr-ingress', {
-            metadata: { name: 'readarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'readarr.lan', http: {

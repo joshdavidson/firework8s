@@ -9,7 +9,7 @@ export class Radarr extends pulumi.ComponentResource {
         const appLabels = { app: 'radarr' };
 
         new kx.PersistentVolumeClaim('radarr-pvc', {
-            metadata: { name: 'radarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class Radarr extends pulumi.ComponentResource {
         });
 
         new kx.Service('radarr-service', {
-            metadata: { name: 'radarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 7878, targetPort: 7878}]
@@ -30,7 +30,7 @@ export class Radarr extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('radarr-ingress', {
-            metadata: { name: 'radarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'radarr.lan', http: {

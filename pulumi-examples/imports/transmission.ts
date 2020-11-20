@@ -9,7 +9,7 @@ export class Transmission extends pulumi.ComponentResource {
         const appLabels = { app: 'transmission' };
 
         new kx.PersistentVolumeClaim('transmission-pvc', {
-            metadata: { name: 'transmission', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class Transmission extends pulumi.ComponentResource {
         });
 
         new kx.Service('transmission-service', {
-            metadata: { name: 'transmission', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 9091, targetPort: 9091}]
@@ -30,7 +30,7 @@ export class Transmission extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('transmission-ingress', {
-            metadata: { name: 'transmission', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'transmission.lan', http: {

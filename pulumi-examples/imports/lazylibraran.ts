@@ -9,7 +9,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
         const appLabels = { app: 'lazylibrarian' };
 
         new kx.PersistentVolumeClaim('lazylibrarian-pvc', {
-            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
         });
 
         new kx.Service('lazylibrarian-service', {
-            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 5299, targetPort: 5299}]
@@ -30,7 +30,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('lazylibrarian-ingress', {
-            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'lazylibrarian.lan', http: {

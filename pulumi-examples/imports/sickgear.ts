@@ -9,7 +9,7 @@ export class SickGear extends pulumi.ComponentResource {
         const appLabels = { app: 'sickgear' };
 
         new kx.PersistentVolumeClaim('sickgear-pvc', {
-            metadata: { name: 'sickgear', namespace: 'arr-apps' },
+            metadata: { namespace: 'arr-apps' },
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -22,7 +22,7 @@ export class SickGear extends pulumi.ComponentResource {
         });
 
         new kx.Service('sickgear-service', {
-            metadata: { name: 'sickgear', namespace: 'arr-apps' },
+            metadata: { namespace: 'arr-apps' },
             spec: {
                 selector: appLabels,
                 ports: [{port: 8081, targetPort: 8081}]
@@ -30,7 +30,7 @@ export class SickGear extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('sickgear-ingress', {
-            metadata: { name: 'sickgear', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'sickgear.lan', http: {
