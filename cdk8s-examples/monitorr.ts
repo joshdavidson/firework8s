@@ -45,7 +45,7 @@ export class MonitorrChart extends Chart {
             containers: [{
               name: 'monitorr',
               image: 'monitorr/monitorr',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 80}],
               env: [
                 {name: 'TZ', value: 'America/New_York'},

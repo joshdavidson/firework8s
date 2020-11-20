@@ -66,7 +66,7 @@ export class Radarr extends pulumi.ComponentResource {
                         containers: [{
                             name: 'radarr',
                             image: 'linuxserver/radarr:nightly',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 7878}],
                             env: [
                                 {name: 'PUID', value: '1000'},

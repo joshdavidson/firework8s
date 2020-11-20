@@ -65,7 +65,7 @@ export class Jackett extends pulumi.ComponentResource {
                         containers: [{
                             name: 'jackett',
                             image: 'linuxserver/jackett:latest',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 9117}],
                             env: [
                                 {name: 'PUID', value: '1000'},

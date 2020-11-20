@@ -46,7 +46,7 @@ export class SickGearChart extends Chart {
             containers: [{
               name: 'sickgear',
               image: 'linuxserver/sickgear',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8081}],
               env: [
                 {name: 'PUID', value: '1000'},

@@ -71,7 +71,7 @@ export class BitWarden extends pulumi.ComponentResource {
                         containers: [{
                             name: 'bitwarden',
                             image: 'bitwardenrs/server',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 80}],
                             volumeMounts: [{ mountPath: '/data', name: 'data' }]
                         }]

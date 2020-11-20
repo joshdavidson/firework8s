@@ -86,7 +86,7 @@ export class FlexGet extends pulumi.ComponentResource {
                         containers: [{
                             name: 'flexget',
                             image: 'wiserain/server',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 5050}],
                             env: [
                                 {name: 'PUID', value: '1000'},

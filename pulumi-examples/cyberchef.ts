@@ -54,7 +54,7 @@ export class CyberChef extends pulumi.ComponentResource {
                         containers: [{
                             name: 'cyberchef',
                             image: 'mpepping/cyberchef',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 8000}]
                         }]
                     }

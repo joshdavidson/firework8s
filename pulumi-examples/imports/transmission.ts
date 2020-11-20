@@ -65,7 +65,7 @@ export class Transmission extends pulumi.ComponentResource {
                         containers: [{
                             name: 'transmission',
                             image: 'linuxserver/transmission:latest',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 9091}],
                             env: [
                                 {name: 'PUID', value: '1000'},

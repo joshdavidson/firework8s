@@ -48,7 +48,7 @@ export class MariaDB extends pulumi.ComponentResource {
                         containers: [{
                             name: 'mariadb',
                             image: 'mariadb',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 3306}],
                             env: [
                                 {name: 'MYSQL_DATABASE', value: 'mariadb'},

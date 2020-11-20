@@ -46,7 +46,7 @@ export class ReadarrChart extends Chart {
             containers: [{
               name: 'readarr',
               image: 'hotio/readarr:nightly',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8787}],
               env: [
                 {name: 'PUID', value: '1000'},

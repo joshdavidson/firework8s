@@ -42,7 +42,7 @@ export class OmbiChart extends Chart {
             containers: [{
               name: 'ombi',
               image: 'linuxserver/ombi',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 3579}],
               env: [
                 {name: 'PUID', value: '1000'},

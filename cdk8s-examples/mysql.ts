@@ -47,7 +47,7 @@ export class MySqlChart extends Chart {
             containers: [{
                 name: 'mysql',
                 image: 'mysql',
-                //imagePullPolicy: 'Always',
+
                 ports: [{containerPort: 3306}],
                 env: [
                   {name: 'MYSQL_DATABASE', value: 'mysql'},

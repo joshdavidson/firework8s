@@ -45,7 +45,7 @@ export class KomgaChart extends Chart {
             containers: [{
               name: 'komga',
               image: 'gotson/komga',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8080}],
               env: [
                 {name: 'PUID', value: '1000'},

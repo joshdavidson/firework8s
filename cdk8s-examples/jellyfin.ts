@@ -46,7 +46,7 @@ export class JellyfinChart extends Chart {
             containers: [{
               name: 'jellyfin',
               image: 'linuxserver/jellyfin',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8096}],
               env: [
                 {name: 'PUID', value: '1000'},

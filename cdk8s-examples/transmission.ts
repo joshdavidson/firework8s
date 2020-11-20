@@ -45,7 +45,7 @@ export class TransmissionChart extends Chart {
             containers: [{
               name: 'transmission',
               image: 'linuxserver/transmission',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 9091},
                       {containerPort: 51413, protocol: Protocol.UDP}],
               env: [

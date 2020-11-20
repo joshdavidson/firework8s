@@ -60,7 +60,7 @@ export class PerkeepChart extends Chart {
             containers: [{
               name: 'perkeep',
               image: 'jhillyerd/perkeep',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 3179}],
               env: [
                 {name: 'PUID', value: '1000'},

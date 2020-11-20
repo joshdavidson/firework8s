@@ -47,7 +47,7 @@ export class MariaDbChart extends Chart {
             containers: [{
                 name: 'mariadb',
                 image: 'mariadb',
-                //imagePullPolicy: 'Always',
+
                 ports: [{containerPort: 3306}],
                 env: [
                   {name: 'MYSQL_DATABASE', value: 'mariadb'},

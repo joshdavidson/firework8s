@@ -66,7 +66,7 @@ export class MongoDbChart extends Chart {
             containers: [{
                 name: 'mongo',
                 image: 'mongo',
-                //imagePullPolicy: 'Always',
+
                 args: [ 'mongod', '--oplogSize', '128' ],
                 ports: [{containerPort: 27017}],
                 volumeMounts: [{mountPath: '/data/db', name: 'mongo'},

@@ -71,7 +71,7 @@ export class HomeAssistant extends pulumi.ComponentResource {
                         containers: [{
                             name: 'homeassistant',
                             image: 'homeassistant/home-assistant:stable',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 8123}],
                             env: [
                                 {name: 'PUID', value: '1000'},

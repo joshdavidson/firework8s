@@ -42,7 +42,7 @@ export class HeimdallChart extends Chart {
             containers: [{
               name: 'heimdall',
               image: 'linuxserver/heimdall',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 80}],
               env: [
                 {name: 'PUID', value: '1000'},

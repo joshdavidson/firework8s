@@ -42,7 +42,7 @@ export class HuginnChart extends Chart {
             containers: [{
               name: 'huginn',
               image: 'huginn/huginn',
-              //imagePullPolicy: 'Always',
+
               ports: [{containerPort: 3000}],
               env: [
                 {name: 'RAILS_ENV', value: 'production'},

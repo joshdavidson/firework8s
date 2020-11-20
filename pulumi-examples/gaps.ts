@@ -71,7 +71,7 @@ export class Gaps extends pulumi.ComponentResource {
                         containers: [{
                             name: 'gaps',
                             image: 'housewrecker/gaps',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 8484}],
                             volumeMounts: [{ mountPath: '/usr/data', name: 'data' }]
                         }]

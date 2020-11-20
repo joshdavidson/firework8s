@@ -48,7 +48,7 @@ export class InfluxDB extends pulumi.ComponentResource {
                         containers: [{
                             name: 'influxdb',
                             image: 'influxdb',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 8086}],
                             volumeMounts: [{mountPath: '/www/lib/influxdb', name: 'data'}]
                         }]

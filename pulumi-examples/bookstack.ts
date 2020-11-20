@@ -71,7 +71,7 @@ export class BookStack extends pulumi.ComponentResource {
                         containers: [{
                             name: 'bookstack',
                             image: 'linuxserver/bookstack',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 80}],
                             env: [
                                 {name: 'TZ', value: 'America/New_York'},

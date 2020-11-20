@@ -66,7 +66,7 @@ export class Readarr extends pulumi.ComponentResource {
                         containers: [{
                             name: 'readarr',
                             image: 'hotio/readarr:nightly',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 8787}],
                             env: [
                                 {name: 'PUID', value: '1000'},

@@ -71,7 +71,7 @@ export class Heimdall extends pulumi.ComponentResource {
                         containers: [{
                             name: 'heimdall',
                             image: 'linuxserver/heimdall',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 80}],
                             env: [
                                 {name: 'PUID', value: '1000'},

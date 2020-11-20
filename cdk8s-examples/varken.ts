@@ -36,7 +36,7 @@ export class VarkenChart extends Chart {
             containers: [{
               name: 'varken',
               image: 'boerderij/varken',
-              //imagePullPolicy: 'Always',
+
               env: [
                 {name: 'TZ', value: 'America/New_York'},
                 {name: 'VRKN_GLOBAL_LIDARR_SERVER_IDS', value: '1'},

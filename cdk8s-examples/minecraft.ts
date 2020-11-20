@@ -47,7 +47,7 @@ export class MinecraftChart extends Chart {
             containers: [{
                 name: 'minecraft',
                 image: 'itzg/minecraft-server',
-                //imagePullPolicy: 'Always',
+
                 env: [{name: 'EULA', value: 'true'}],
                 ports: [{containerPort: 25565, hostPort: 25565}],
                 volumeMounts: [{mountPath: '/data', name: 'data'}],

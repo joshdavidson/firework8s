@@ -47,7 +47,7 @@ export class PostgresChart extends Chart {
             containers: [{
                 name: 'postgres',
                 image: 'postgres',
-                //imagePullPolicy: 'Always',
+
                 ports: [{containerPort: 5432}],
                 env: [{name: 'POSTGRES_PASSWORD', value: 'password'}],
               volumeMounts: [{mountPath: '/var/lib/postgres/data', name: 'postgres'}]

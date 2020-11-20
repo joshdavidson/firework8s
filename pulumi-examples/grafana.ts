@@ -71,7 +71,7 @@ export class Grafana extends pulumi.ComponentResource {
                         containers: [{
                             name: 'grafana',
                             image: 'grafana/grafana',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 3000}],
                             env: [
                                 {name: 'GF_INSTALL_PLUGINS', value: 'grafana-piechart-panel,grafana-worldmap-panel'},

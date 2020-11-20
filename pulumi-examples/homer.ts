@@ -71,7 +71,7 @@ export class Homer extends pulumi.ComponentResource {
                         containers: [{
                             name: 'homer',
                             image: 'b4bz/homer',
-                            //imagePullPolicy: 'Always',
+
                             ports: [{containerPort: 8080}],
                             env: [
                                 {name: 'PUID', value: '1000'},
