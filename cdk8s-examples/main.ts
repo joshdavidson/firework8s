@@ -1,4 +1,4 @@
-import { App } from 'cdk8s';
+import {App} from 'cdk8s';
 import {BitwardenChart} from "./bitwarden";
 import {BookStackChart} from "./bookstack";
 import {CiaoChart} from "./ciao";
@@ -89,7 +89,7 @@ new SonarrChart(app, 'sonarr');
 new StuffInSpaceChart(app, 'stuffinspace');
 new TautulliChart(app, 'tautulli');
 new TransmissionChart(app, 'transmission');
-new TriliumChart(app,'trilium');
+new TriliumChart(app, 'trilium');
 new UbooquityChart(app, 'ubooquity');
 new VarkenChart(app, 'varken');
 new VsCodeChart(app, 'vscode');

@@ -1,18 +1,17 @@
-import { Construct } from 'constructs';
-import { App, Chart } from 'cdk8s';
-import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Construct} from 'constructs';
+import {App, Chart} from 'cdk8s';
+import {Deployment, PersistentVolumeClaim} from './imports/k8s'
 import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class CiaoChart extends Chart {
 
   constructor(scope: Construct, name: string) {
     super(scope, name);
+
     const label = {app: 'ciao'};
 
     new PersistentVolumeClaim(this, 'pvc', {
-      metadata: {
-        name: 'ciao'
-      },
+      metadata: {name: 'ciao'},
       spec: {
         storageClassName: 'default',
         accessModes: ['ReadWriteOnce'],
