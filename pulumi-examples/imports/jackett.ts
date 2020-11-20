@@ -51,7 +51,7 @@ export class Jackett extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('jackett', {
-            metadata: { name: 'jackett', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,

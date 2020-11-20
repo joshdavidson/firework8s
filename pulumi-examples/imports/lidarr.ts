@@ -51,7 +51,7 @@ export class Lidarr extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('lidarr', {
-            metadata: { name: 'lidarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,

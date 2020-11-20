@@ -51,7 +51,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('lazylibrarian', {
-            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,

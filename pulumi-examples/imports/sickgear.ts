@@ -51,7 +51,7 @@ export class SickGear extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('sickgear', {
-            metadata: { name: 'sickgear', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,

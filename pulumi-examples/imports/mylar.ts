@@ -51,7 +51,7 @@ export class Mylar extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('mylar', {
-            metadata: { name: 'mylar', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,

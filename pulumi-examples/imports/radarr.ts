@@ -51,7 +51,7 @@ export class Radarr extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('radarr', {
-            metadata: { name: 'radarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,

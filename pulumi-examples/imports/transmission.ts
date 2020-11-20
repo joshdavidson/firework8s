@@ -51,7 +51,7 @@ export class Transmission extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('transmission', {
-            metadata: { name: 'transmission', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,

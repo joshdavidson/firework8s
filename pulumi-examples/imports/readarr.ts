@@ -51,7 +51,7 @@ export class Readarr extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('readarr', {
-            metadata: { name: 'readarr', namespace: 'arr-apps'},
+            metadata: { namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,
