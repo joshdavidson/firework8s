@@ -3,13 +3,13 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Lidarr extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions = {}) {
         super('pkg:index:Lidarr', name, {}, opts);
 
-        const appLabels = { app: 'lidarr' };
+        const appLabels = {app: 'lidarr'};
 
         new kx.PersistentVolumeClaim('lidarr-pvc', {
-            metadata: { name: 'lidarr-pvc', namespace: 'arr-apps'},
+            metadata: {name: 'lidarr-pvc', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -21,8 +21,8 @@ export class Lidarr extends pulumi.ComponentResource {
             }
         });
 
-        new kx.Service('lidarr-service', {
-            metadata: { namespace: 'arr-apps'},
+        const service = new kx.Service('lidarr-service', {
+            metadata: {namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
                 ports: [{port: 8686, targetPort: 8686}]
@@ -30,7 +30,7 @@ export class Lidarr extends pulumi.ComponentResource {
         });
 
         new k8s.networking.v1.Ingress('lidarr-ingress', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: {namespace: 'arr-apps'},
             spec: {
                 rules: [{
                     host: 'lidarr.lan', http: {
@@ -38,7 +38,7 @@ export class Lidarr extends pulumi.ComponentResource {
                             backend: {
                                 service:
                                     {
-                                        name: 'lidarr',
+                                        name: service.metadata.name,
                                         port: {number: 8686}
                                     }
                             },
@@ -51,12 +51,12 @@ export class Lidarr extends pulumi.ComponentResource {
         });
 
         new k8s.apps.v1.Deployment('lidarr', {
-            metadata: { namespace: 'arr-apps'},
+            metadata: {namespace: 'arr-apps'},
             spec: {
-                selector: { matchLabels: appLabels },
+                selector: {matchLabels: appLabels},
                 replicas: 1,
                 template: {
-                    metadata: { labels: appLabels },
+                    metadata: {labels: appLabels},
                     spec: {
                         volumes: [
                             {name: 'config', persistentVolumeClaim: {claimName: 'lidarr-pvc'}},
