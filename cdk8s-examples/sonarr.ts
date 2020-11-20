@@ -46,7 +46,7 @@ export class SonarrChart extends Chart {
             containers: [{
               name: 'sonarr',
               image: 'linuxserver/sonarr',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 8989}],
               env: [
                 {name: 'PUID', value: '1000'},

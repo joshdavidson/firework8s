@@ -45,7 +45,7 @@ export class BitwardenChart extends Chart {
             containers: [{
               name: 'bitwarden',
               image: 'bitwardenrs/server',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 80}],
               volumeMounts: [{mountPath: '/data', name: 'data'}]
             }]

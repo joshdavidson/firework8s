@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class BitWarden extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:BitWarden', name, {}, opts);
 
         const appLabels = { app: 'bitwarden' };
@@ -71,7 +71,7 @@ export class BitWarden extends pulumi.ComponentResource {
                         containers: [{
                             name: 'bitwarden',
                             image: 'bitwardenrs/server',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 80}],
                             volumeMounts: [{ mountPath: '/data', name: 'data' }]
                         }]
@@ -81,4 +81,3 @@ export class BitWarden extends pulumi.ComponentResource {
         });
     }
 }
-

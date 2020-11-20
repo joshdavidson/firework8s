@@ -42,7 +42,7 @@ export class OrganizrChart extends Chart {
             containers: [{
               name: 'organizr',
               image: 'organizr/organizr',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 80}],
               env: [
                 {name: 'PUID', value: '1000'},

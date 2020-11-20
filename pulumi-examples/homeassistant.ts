@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class HomeAssistant extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:HomeAssistant', name, {}, opts);
 
         const appLabels = { app: 'homeassistant' };
@@ -71,7 +71,7 @@ export class HomeAssistant extends pulumi.ComponentResource {
                         containers: [{
                             name: 'homeassistant',
                             image: 'homeassistant/home-assistant:stable',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8123}],
                             env: [
                                 {name: 'PUID', value: '1000'},

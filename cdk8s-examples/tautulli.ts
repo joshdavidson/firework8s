@@ -60,7 +60,7 @@ export class TautulliChart extends Chart {
             containers: [{
               name: 'tautulli',
               image: 'linuxserver/tautulli',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 8181}],
               env: [
                 {name: 'PUID', value: '1000'},

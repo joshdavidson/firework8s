@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Ciao extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:Ciao', name, {}, opts);
 
         const appLabels = { app: 'ciao' };
@@ -71,7 +71,7 @@ export class Ciao extends pulumi.ComponentResource {
                         containers: [{
                             name: 'ciao',
                             image: 'brotandgames/ciao',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 3000}],
                             env: [
                                 {name: 'SECRET_KEY_BASE', value: 'sensitive_secret_key_base'},

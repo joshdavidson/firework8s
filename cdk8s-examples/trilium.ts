@@ -42,7 +42,7 @@ export class TriliumChart extends Chart {
             containers: [{
               name: 'trilium',
               image: 'zadam/trilium',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 8080}],
               volumeMounts: [
                 {mountPath: '/root/trilium-data', name: 'trilium'}

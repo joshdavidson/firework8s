@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class FlexGet extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:FlexGet', name, {}, opts);
 
         const appLabels = { app: 'flexget' };
@@ -86,7 +86,7 @@ export class FlexGet extends pulumi.ComponentResource {
                         containers: [{
                             name: 'flexget',
                             image: 'wiserain/server',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 5050}],
                             env: [
                                 {name: 'PUID', value: '1000'},

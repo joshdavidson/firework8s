@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class CodeServer extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:CodeServer', name, {}, opts);
 
         const appLabels = {app: 'code-server'};
@@ -73,7 +73,7 @@ export class CodeServer extends pulumi.ComponentResource {
                         containers: [{
                             name: 'code-server',
                             image: 'linuxserver/code-server:latest',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8443}],
                             env: [
                                 {name: 'PUID', value: '1000'},

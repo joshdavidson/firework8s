@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Grafana extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:Grafana', name, {}, opts);
 
         const appLabels = { app: 'grafana' };
@@ -71,7 +71,7 @@ export class Grafana extends pulumi.ComponentResource {
                         containers: [{
                             name: 'grafana',
                             image: 'grafana/grafana',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 3000}],
                             env: [
                                 {name: 'GF_INSTALL_PLUGINS', value: 'grafana-piechart-panel,grafana-worldmap-panel'},

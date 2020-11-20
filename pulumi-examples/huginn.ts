@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Huginn extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:Huginn', name, {}, opts);
 
         const appLabels = { app: 'huginn' };
@@ -71,7 +71,7 @@ export class Huginn extends pulumi.ComponentResource {
                         containers: [{
                             name: 'huginn',
                             image: 'huginn/huginn',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 3000}],
                             env: [
                                 {name: 'RAILS_ENV', value: 'production'},

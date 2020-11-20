@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class MariaDB extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:MariaDB', name, {}, opts);
 
         const appLabels = { app: 'mariadb' };
@@ -48,7 +48,7 @@ export class MariaDB extends pulumi.ComponentResource {
                         containers: [{
                             name: 'mariadb',
                             image: 'mariadb',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 3306}],
                             env: [
                                 {name: 'MYSQL_DATABASE', value: 'mariadb'},

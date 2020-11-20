@@ -42,7 +42,7 @@ export class JackettChart extends Chart {
             containers: [{
               name: 'jackett',
               image: 'linuxserver/jackett',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 9117}],
               env: [
                 {name: 'PUID', value: '1000'},

@@ -26,7 +26,7 @@ export class WekanChart extends Chart {
             containers: [{
               name: 'wekan',
               image: 'wekan/wekan',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 8080}],
               env: [
                 {name: 'BIGEVENTS_PATTERN', value: 'NONE'},

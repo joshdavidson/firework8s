@@ -60,7 +60,7 @@ export class ObserviumChart extends Chart {
             containers: [{
               name: 'observium',
               image: 'uberchuckie/observium',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 8668}],
               env: [
                 {name: 'PUID', value: '1000'},

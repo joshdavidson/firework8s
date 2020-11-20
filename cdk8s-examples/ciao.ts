@@ -45,7 +45,7 @@ export class CiaoChart extends Chart {
             containers: [{
               name: 'ciao',
               image: 'brotandgames/ciao',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 3000}],
               env: [
                 {name: 'SECRET_KEY_BASE', value: 'sensitive_secret_key_base'},

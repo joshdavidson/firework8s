@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class InfluxDB extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:InfluxDB', name, {}, opts);
 
         const appLabels = { app: 'influxdb' };
@@ -48,7 +48,7 @@ export class InfluxDB extends pulumi.ComponentResource {
                         containers: [{
                             name: 'influxdb',
                             image: 'influxdb',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8086}],
                             volumeMounts: [{mountPath: '/www/lib/influxdb', name: 'data'}]
                         }]

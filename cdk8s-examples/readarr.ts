@@ -18,7 +18,7 @@ export class ReadarrChart extends Chart {
         accessModes: ['ReadWriteOnce'],
         resources: {
           requests: {
-            storage: '1Gi'
+            storage: '250Mi'
           }
         }
       }
@@ -46,7 +46,7 @@ export class ReadarrChart extends Chart {
             containers: [{
               name: 'readarr',
               image: 'hotio/readarr:nightly',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 8787}],
               env: [
                 {name: 'PUID', value: '1000'},

@@ -40,7 +40,7 @@ export class VsCodeChart extends Chart {
             containers: [{
               name: 'vscode',
               image: 'linuxserver/code-server',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 8443}],
               env: [
                 {name: 'PUID', value: '1000'},

@@ -2,14 +2,14 @@ import * as k8s from '@pulumi/kubernetes';
 import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
-export class Homer extends pulumi.ComponentResource {
+export class LazyLibrarian extends pulumi.ComponentResource {
     constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
-        super('pkg:index:Homer', name, {}, opts);
+        super('pkg:index:LazyLibrarian', name, {}, opts);
 
-        const appLabels = { app: 'homer' };
+        const appLabels = { app: 'lazylibrarian' };
 
-        new kx.PersistentVolumeClaim('homer-pvc', {
-            metadata: { name: 'homer' },
+        new kx.PersistentVolumeClaim('lazylibrarian-pvc', {
+            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
             spec: {
                 storageClassName: 'default',
                 accessModes: ['ReadWriteOnce'],
@@ -21,29 +21,25 @@ export class Homer extends pulumi.ComponentResource {
             }
         });
 
-        new kx.Service('homer-service', {
-            metadata: {
-                name: 'homer'
-            },
+        new kx.Service('lazylibrarian-service', {
+            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
             spec: {
                 selector: appLabels,
-                ports: [{port: 8080, targetPort: 8080}]
+                ports: [{port: 5299, targetPort: 5299}]
             }
         });
 
-        new k8s.networking.v1.Ingress('homer-ingress', {
-            metadata: {
-                name: 'homer'
-            },
+        new k8s.networking.v1.Ingress('lazylibrarian-ingress', {
+            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
             spec: {
                 rules: [{
-                    host: 'homer.lan', http: {
+                    host: 'lazylibrarian.lan', http: {
                         paths: [{
                             backend: {
                                 service:
                                     {
-                                        name: 'homer',
-                                        port: {number: 8080}
+                                        name: 'lazylibrarian',
+                                        port: {number: 5299}
                                     }
                             },
                             path: '/',
@@ -54,31 +50,32 @@ export class Homer extends pulumi.ComponentResource {
             }
         });
 
-        new k8s.apps.v1.Deployment('homer', {
-            metadata: {
-                name: 'homer'
-            },
+        new k8s.apps.v1.Deployment('lazylibrarian', {
+            metadata: { name: 'lazylibrarian', namespace: 'arr-apps'},
             spec: {
                 selector: { matchLabels: appLabels },
                 replicas: 1,
                 template: {
                     metadata: { labels: appLabels },
                     spec: {
-                        volumes:[{ name: 'data',
-                                   persistentVolumeClaim: {
-                                     claimName: 'homer'}
-                                }],
+                        volumes: [
+                            {name: 'config', persistentVolumeClaim: {claimName: 'lazylibrarian'}},
+                            {name: 'books', hostPath: {path: '/mnt/share/eBooks'}}
+                        ],
                         containers: [{
-                            name: 'homer',
-                            image: 'b4bz/homer',
+                            name: 'lazylibrarian',
+                            image: 'linuxserver/lazylibrarian',
                             //imagePullPolicy: 'Always',
-                            ports: [{containerPort: 8080}],
+                            ports: [{containerPort: 5299}],
                             env: [
                                 {name: 'PUID', value: '1000'},
                                 {name: 'PGID', value: '1000'},
-                                {name: 'TZ', value: 'America/New_York'}
+                                {name: 'TZ', value: 'America/New_York'},
                             ],
-                            volumeMounts: [{mountPath: '/www/assets', name: 'data'}]
+                            volumeMounts: [
+                                {mountPath: '/config', name: 'lazylibrarian'},
+                                {mountPath: '/books', name: 'books'}
+                            ]
                         }]
                     }
                 }

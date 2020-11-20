@@ -42,7 +42,7 @@ export class WallabagChart extends Chart {
             containers: [{
               name: 'wallabag',
               image: 'wallabag/wallabag',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 80}],
               env: [
                 {name: 'SYMFONY__ENV__DOMAIN_NAME', value: 'http://wallabag.lan'},

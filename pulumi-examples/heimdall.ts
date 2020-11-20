@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Heimdall extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:Heimdall', name, {}, opts);
 
         const appLabels = { app: 'heimdall' };
@@ -71,7 +71,7 @@ export class Heimdall extends pulumi.ComponentResource {
                         containers: [{
                             name: 'heimdall',
                             image: 'linuxserver/heimdall',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 80}],
                             env: [
                                 {name: 'PUID', value: '1000'},

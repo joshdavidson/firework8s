@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class BookStack extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:BookStack', name, {}, opts);
 
         const appLabels = { app: 'bookstack' };
@@ -71,7 +71,7 @@ export class BookStack extends pulumi.ComponentResource {
                         containers: [{
                             name: 'bookstack',
                             image: 'linuxserver/bookstack',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 80}],
                             env: [
                                 {name: 'TZ', value: 'America/New_York'},

@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Grocy extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:Grocy', name, {}, opts);
 
         const appLabels = { app: 'grocy' };
@@ -71,7 +71,7 @@ export class Grocy extends pulumi.ComponentResource {
                         containers: [{
                             name: 'grocy',
                             image: 'linuxserver/grocy',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 80}],
                             env: [
                                 {name: 'PUID', value: '1000'},

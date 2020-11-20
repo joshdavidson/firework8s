@@ -46,7 +46,7 @@ export class RadarrChart extends Chart {
             containers: [{
               name: 'radarr',
               image: 'linuxserver/radarr:nightly',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 7878}],
               env: [
                 {name: 'PUID', value: '1000'},

@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class CyberChef extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:CyberChef', name, {}, opts);
 
         const appLabels = {app: 'cyberchef'};
@@ -54,7 +54,7 @@ export class CyberChef extends pulumi.ComponentResource {
                         containers: [{
                             name: 'cyberchef',
                             image: 'mpepping/cyberchef',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8000}]
                         }]
                     }

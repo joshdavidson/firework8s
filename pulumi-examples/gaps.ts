@@ -3,7 +3,7 @@ import * as kx from '@pulumi/kubernetesx';
 import * as pulumi from '@pulumi/pulumi';
 
 export class Gaps extends pulumi.ComponentResource {
-    constructor(name: string, opts: pulumi.ComponentResourceOptions | undefined) {
+    constructor(name: string, opts: pulumi.ComponentResourceOptions={}) {
         super('pkg:index:Gaps', name, {}, opts);
 
         const appLabels = { app: 'gaps' };
@@ -71,7 +71,7 @@ export class Gaps extends pulumi.ComponentResource {
                         containers: [{
                             name: 'gaps',
                             image: 'housewrecker/gaps',
-                            imagePullPolicy: 'Always',
+                            //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8484}],
                             volumeMounts: [{ mountPath: '/usr/data', name: 'data' }]
                         }]

@@ -60,7 +60,7 @@ export class SmokePingChart extends Chart {
             containers: [{
               name: 'smokeping',
               image: 'linuxserver/smokeping',
-              imagePullPolicy: 'Always',
+              //imagePullPolicy: 'Always',
               ports: [{containerPort: 80}],
               env: [
                 {name: 'PUID', value: '1000'},
