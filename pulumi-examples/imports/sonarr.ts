@@ -65,7 +65,7 @@ export class Sonarr extends pulumi.ComponentResource {
                         ],
                         containers: [{
                             name: 'sonarr',
-                            image: 'linuxserver/sonarr',
+                            image: 'linuxserver/sonarr:latest',
                             //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8989}],
                             env: [

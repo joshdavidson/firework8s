@@ -64,7 +64,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
                         ],
                         containers: [{
                             name: 'lazylibrarian',
-                            image: 'linuxserver/lazylibrarian',
+                            image: 'linuxserver/lazylibrarian:latest',
                             //imagePullPolicy: 'Always',
                             ports: [{containerPort: 5299}],
                             env: [

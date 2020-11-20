@@ -65,7 +65,7 @@ export class SickGear extends pulumi.ComponentResource {
                         ],
                         containers: [{
                             name: 'sickgear',
-                            image: 'linuxserver/sickgear',
+                            image: 'linuxserver/sickgear:latest',
                             //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8081}],
                             env: [

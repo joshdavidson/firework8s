@@ -65,7 +65,7 @@ export class Lidarr extends pulumi.ComponentResource {
                         ],
                         containers: [{
                             name: 'lidarr',
-                            image: 'linuxserver/lidarr',
+                            image: 'linuxserver/lidarr:nightly',
                             //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8686}],
                             env: [

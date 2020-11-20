@@ -65,7 +65,7 @@ export class Mylar extends pulumi.ComponentResource {
                         ],
                         containers: [{
                             name: 'mylar',
-                            image: 'linuxserver/mylar3',
+                            image: 'linuxserver/mylar3:latest',
                             //imagePullPolicy: 'Always',
                             ports: [{containerPort: 8090}],
                             env: [
