@@ -26,7 +26,7 @@ export class PhpServerMonChart extends Chart {
             containers: [{
               name: 'phpservermon',
               image: 'benoitpodwinski/phpservermon',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 80}],
               env: [
                 {name: 'PSM_BASE_URL', value: 'http://phpservermon.lan/'},

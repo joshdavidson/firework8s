@@ -69,7 +69,7 @@ export class SnipeItChart extends Chart {
             containers: [{
               name: 'snipeit',
               image: 'snipeit/snipeit',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 80}],
               envFrom: [{ configMapRef: {name: 'snipeit-config'}}],
               volumeMounts: [

@@ -32,9 +32,7 @@ export class VsCodeChart extends Chart {
     new Deployment(this, 'deployment', {
       spec: {
         replicas: 1,
-        selector: {
-          matchLabels: label
-        },
+        selector: { matchLabels: label },
         template: {
           metadata: {labels: label},
           spec: {
@@ -42,12 +40,14 @@ export class VsCodeChart extends Chart {
             containers: [{
               name: 'vscode',
               image: 'linuxserver/code-server',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8443}],
               env: [
                 {name: 'PUID', value: '1000'},
                 {name: 'PGID', value: '1000'},
-                {name: 'TZ', value: 'America/New_York'}
+                {name: 'TZ', value: 'America/New_York'},
+                {name: 'PASSWORD', value: 'password'},
+                {name: 'SUDO_PASSWORD', value: 'password'}
               ],
               volumeMounts: [{mountPath: '/config', name: 'vscode'}]
             }]

@@ -42,7 +42,7 @@ export class RanetoChart extends Chart {
             containers: [{
               name: 'raneto',
               image: 'linuxserver/raneto',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 3000}],
               env: [
                 {name: 'PUID', value: '1000'},

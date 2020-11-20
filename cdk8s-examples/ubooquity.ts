@@ -46,7 +46,7 @@ export class UbooquityChart extends Chart {
             containers: [{
               name: 'ubooquity',
               image: 'linuxserver/ubooquity',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 2202},
                       {containerPort: 2203}],
               env: [

@@ -42,7 +42,7 @@ export class HomerChart extends Chart {
             containers: [{
               name: 'homer',
               image: 'b4bz/homer',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8080}],
               env: [
                 {name: 'UID', value: '1000'},

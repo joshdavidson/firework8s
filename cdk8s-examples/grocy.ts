@@ -42,7 +42,7 @@ export class GrocyChart extends Chart {
             containers: [{
               name: 'grocy',
               image: 'linuxserver/grocy',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 80}],
               env: [
                 {name: 'PUID', value: '1000'},

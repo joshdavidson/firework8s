@@ -63,7 +63,7 @@ export class FlexGetChart extends Chart {
             containers: [{
               name: 'flexget',
               image: 'wiserain/flexget',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 5050}],
               env: [
                 {name: 'PUID', value: '1000'},

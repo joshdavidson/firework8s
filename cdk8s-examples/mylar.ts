@@ -46,7 +46,7 @@ export class MylarChart extends Chart {
             containers: [{
               name: 'mylar',
               image: 'linuxserver/mylar3',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8090}],
               env: [
                 {name: 'PUID', value: '1000'},

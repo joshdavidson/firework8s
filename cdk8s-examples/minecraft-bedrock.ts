@@ -47,7 +47,7 @@ export class MinecraftBedrockChart extends Chart {
             containers: [{
                 name: 'minecraft-bedrock',
                 image: 'itzg/minecraft-bedrock-server',
-                imagePullPolicy: 'Always',
+
                 env: [
                     { name: 'EULA', value: 'true' },
                     { name: 'GAMEMODE', value: 'creative' },

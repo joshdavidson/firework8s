@@ -45,7 +45,7 @@ export class LazyLibrarianChart extends Chart {
             containers: [{
               name: 'lazylibrarian',
               image: 'linuxserver/lazylibrarian',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 5299}],
               env: [
                 {name: 'PUID', value: '1000'},

@@ -47,7 +47,7 @@ export class InfluxDbChart extends Chart {
             containers: [{
                 name: 'influxdb',
                 image: 'influxdb',
-                imagePullPolicy: 'Always',
+
                 ports: [{containerPort: 8086}],
                 volumeMounts: [{mountPath: '/var/lib/influxdb', name: 'influxdb'}]
               }]

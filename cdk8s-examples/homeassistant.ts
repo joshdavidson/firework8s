@@ -42,7 +42,7 @@ export class HomeAssistantChart extends Chart {
             containers: [{
               name: 'homeassistant',
               image: 'homeassistant/home-assistant:stable',
-              imagePullPolicy: 'Always',
+
               ports: [{containerPort: 8123}],
               env: [{name: 'TZ', value: 'America/New_York'}],
               volumeMounts: [{mountPath: '/config', name: 'homeassistant'}]
