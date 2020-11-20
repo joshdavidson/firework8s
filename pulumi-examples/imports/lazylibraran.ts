@@ -73,7 +73,7 @@ export class LazyLibrarian extends pulumi.ComponentResource {
                                 {name: 'TZ', value: 'America/New_York'},
                             ],
                             volumeMounts: [
-                                {mountPath: '/config', name: 'lazylibrarian'},
+                                {mountPath: '/config', name: 'config'},
                                 {mountPath: '/books', name: 'books'}
                             ]
                         }]
