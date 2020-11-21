@@ -1,6 +1,6 @@
-import { Construct } from 'constructs';
-import { App, Chart } from 'cdk8s';
-import { Deployment, PersistentVolumeClaim } from './imports/k8s'
+import {Construct} from 'constructs';
+import {App, Chart} from 'cdk8s';
+import {Deployment, PersistentVolumeClaim} from './imports/k8s'
 import {Ingress, IngressBackend, Service} from 'cdk8s-plus';
 
 export class VsCodeChart extends Chart {
@@ -23,7 +23,7 @@ export class VsCodeChart extends Chart {
         }
       }
     });
-    
+
     const service = new Service(this, 'service', {
       ports: [{port: 8443, targetPort: 8443}]
     });
@@ -32,7 +32,7 @@ export class VsCodeChart extends Chart {
     new Deployment(this, 'deployment', {
       spec: {
         replicas: 1,
-        selector: { matchLabels: label },
+        selector: {matchLabels: label},
         template: {
           metadata: {labels: label},
           spec: {
