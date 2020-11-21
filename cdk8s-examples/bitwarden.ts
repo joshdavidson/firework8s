@@ -22,11 +22,6 @@ export class BitwardenChart extends Chart {
             }
         });
 
-        const service = new Service(this, 'service',{
-            ports: [{port: 80, targetPort: 80}]
-        });
-        service.addSelector('app', 'bitwarden');
-
         new Deployment(this, 'deployment', {
             spec: {
                 replicas: 1,
@@ -50,6 +45,11 @@ export class BitwardenChart extends Chart {
                 }
             }
         });
+
+        const service = new Service(this, 'service',{
+            ports: [{port: 80, targetPort: 80}],
+        });
+        service.addSelector('app', label.app);
 
         const ingress = new Ingress(this, 'ingress');
         ingress.addHostDefaultBackend('bitwarden.lan', IngressBackend.fromService(service));
