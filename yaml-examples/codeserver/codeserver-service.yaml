@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vscode
+  name: codeserver
   namespace: default
 spec:
   selector:
-    app: vscode
+    app: codeserver
   ports:
   - name: web
     port: 8443

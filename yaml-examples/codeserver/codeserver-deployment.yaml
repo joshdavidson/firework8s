@@ -1,21 +1,21 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: vscode
+  name: codeserver
   labels:
-    app: vscode
+    app: codeserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: vscode
+      app: codeserver
   template:
     metadata:
       labels:
-        app: vscode
+        app: codeserver
     spec:
       containers:
-      - name: vscode
+      - name: codeserver
         image: linuxserver/code-server
         imagePullPolicy: Always
         ports:
@@ -33,4 +33,4 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: vscode
+            claimName: codeserver
