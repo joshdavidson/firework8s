@@ -50,7 +50,7 @@ grocy | Groceries and household management solution for your home | https://groc
 heimdalll | Application dashboard and launcher | https://github.com/linuxserver/Heimdall
 homeassistant | Open source home automation | https://www.home-assistant.io/ 
 homer | A very simple static homepage for your server | https://github.com/bastienwirtz/homer
-huggin | Create agents that monitor and act on your behalf | https://github.com/huginn/huginn
+huginn | Create agents that monitor and act on your behalf | https://github.com/huginn/huginn
 influxdb| Open-source time series database | https://www.influxdata.com/
 jackett | API support for your favorite torrent trackers | https://github.com/Jackett/Jackett
 jellyfin | The free software media system | https://jellyfin.org/
