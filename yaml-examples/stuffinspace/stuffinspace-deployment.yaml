@@ -14,6 +14,10 @@ spec:
       labels:
         app: stuffinspace
     spec:
+      volumes:
+        - name: web-root
+          persistentVolumeClaim:
+            claimName: stuffinspace
       containers:
       - name: stuffinspace
         image: joshdavidson/stuffinspace
@@ -25,3 +29,6 @@ spec:
             value: "America/New_York"
         ports:
           - containerPort: 80
+        volumeMounts:
+          - mountPath: /var/www/localhost/htdocs
+            name: web-root
