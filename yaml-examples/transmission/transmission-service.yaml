@@ -7,8 +7,10 @@ spec:
   selector:
     app: transmission
   ports:
-  - port: 9091
+  - name: "9091"
+    port: 9091
     targetPort: 9091
-  - protocol: UDP
+  - name: "51413"
     port: 51413
     targetPort: 51413
+    protocol: UDP
