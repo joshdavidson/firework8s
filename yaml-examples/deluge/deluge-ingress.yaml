@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: deluge
+spec:
+  rules:
+  - host: deluge.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: deluge
+            port:
+              number: 8112
+        path: /
+        pathType: ImplementationSpecific

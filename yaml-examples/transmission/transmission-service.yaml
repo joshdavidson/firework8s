@@ -10,7 +10,11 @@ spec:
   - name: "9091"
     port: 9091
     targetPort: 9091
-  - name: "51413"
+  - name: "51413-tcp"
+    port: 51413
+    targetPort: 51413
+    protocol: TCP
+  - name: "51413-udp"
     port: 51413
     targetPort: 51413
     protocol: UDP
