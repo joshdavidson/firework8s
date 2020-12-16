@@ -27,6 +27,10 @@ spec:
             value: "1000"
           - name: TZ
             value: "America/New_York"
+          - name: UMASK
+            value: "000"
+          - name: DEBUG
+            value: "no"
         volumeMounts:
           - mountPath: /config
             name: config

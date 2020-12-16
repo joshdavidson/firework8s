@@ -1,0 +1,33 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nexus
+  namespace: default
+  labels:
+    app: nexus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      containers:
+      - name: nexus
+        image: sonatype/nexus3
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8081
+          - containerPort: 5000
+            hostPort: 5000
+        volumeMounts:
+          - mountPath: /nexus-data
+            name: nexus-data
+      volumes:
+      - name: nexus-data
+        hostPath:
+          path: /mnt/share/nexus-data
+

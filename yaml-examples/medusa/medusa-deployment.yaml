@@ -1,26 +1,26 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: sonarr
+  name: medusa
   namespace: default
   labels:
-    app: sonarr
+    app: medusa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sonarr
+      app: medusa
   template:
     metadata:
       labels:
-        app: sonarr
+        app: medusa
     spec:
       containers:
-      - name: sonarr
-        image: linuxserver/sonarr
+      - name: medusa
+        image: linuxserver/medusa
         imagePullPolicy: Always
         ports:
-          - containerPort: 8989
+          - containerPort: 8081
         env:
           - name: PUID
             value: "1000"
@@ -38,7 +38,7 @@ spec:
       volumes:
       -  name: config
          persistentVolumeClaim:
-          claimName: sonarr
+          claimName: medusa
       - name: downloads
         hostPath:
           path: /mnt/share/Downloads

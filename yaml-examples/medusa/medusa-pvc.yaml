@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: heimdall
+  name: medusa
 spec:
   storageClassName: "default"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 250Mi
+      storage: 1Gi

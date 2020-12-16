@@ -28,6 +28,8 @@ spec:
             value: "1000"
           - name: TZ
             value: "America/New_York"
+          - name: DOCKER_MODS
+            value: "linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg"
         volumeMounts:
           - mountPath: /config
             name: config

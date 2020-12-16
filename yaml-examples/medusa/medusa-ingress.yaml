@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: medusa
+  namespace: default
+spec:
+  rules:
+  - host: medusa.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: medusa
+            port:
+              number: 8081
+        path: /
+        pathType: ImplementationSpecific
