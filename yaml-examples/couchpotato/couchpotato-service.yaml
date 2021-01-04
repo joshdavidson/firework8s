@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: couchpotato
+  namespace: default
+spec:
+  selector:
+    app: couchpotato
+  ports:
+  - port: 5050
+    targetPort: 5050
