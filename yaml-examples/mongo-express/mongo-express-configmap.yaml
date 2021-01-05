@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-express
+  namespace: default
+data:
+  ME_CONFIG_BASICAUTH_USERNAME: 'admin'
+  ME_CONFIG_BASICAUTH_PASSWORD: 'password'
+  ME_CONFIG_MONGODB_ENABLE_ADMIN:  'true'
+  ME_CONFIG_MONGODB_PORT: '27017'
+  ME_CONFIG_MONGODB_SERVER: 'mongo'
+  ME_CONFIG_OPTIONS_EDITORTHEME: 'darcula'
