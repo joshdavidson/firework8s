@@ -42,7 +42,10 @@ Name | Description | Website
 bitwarden | Free and open-source password management service that stores credentials in an encrypted vault | https://bitwarden.com/
 bookstack | Free and open source Wiki designed for creating beautiful documentation | https://www.bookstackapp.com
 ciao | Private and public HTTP(S) monitoring | https://brotandgames.com/ciao/
+codeserver | VS Code running on a remote server, accessible through the browser | https://github.com/linuxserver/docker-code-server
+couchpotato | Automatic Movie Downloading via NZBs & Torrents | https://couchpota.to/
 cyberchef | The cyber swiss army knife | https://github.com/gchq/CyberChef
+deluge | BitTorrent client | https://deluge-torrent.org/
 flexget | Multipurpose automation tool for all your media | https://flexget.com
 gaps | Gaps recommends gaps in your Plex Server movie library based on collection searches | https://github.com/JasonHHouse/gaps 
 grafana| Open source analytics and interactive visualization web application | https://grafana.com/
@@ -54,22 +57,28 @@ huginn | Create agents that monitor and act on your behalf | https://github.com/
 influxdb| Open-source time series database | https://www.influxdata.com/
 jackett | API support for your favorite torrent trackers | https://github.com/Jackett/Jackett
 jellyfin | The free software media system | https://jellyfin.org/
+jupyter | Jupyter Scientific Python  Notebook | https://jupyter-docker-stacks.readthedocs.io/en/latest/
 komga | Media server for comics/mangas/BDs with API and OPDS support | https://komga.org/
 lazylibrarian | Follow authors and grab metadata for all your digital reading needs | https://github.com/lazylibrarian/LazyLibrarian
 lidarr | Music collection manager | https://lidarr.audio/
 mariadb | Community-developed, commercially supported fork of the MySQL | https://mariadb.org/
+medusa | Automatic Video Library Manager for TV Shows | https://pymedusa.com/
 minecraft | Minecraft server with selectable version | https://hub.docker.com/r/itzg/minecraft-server
 minecraft-bedrock | Minecraft Bedrock Dedicated Server with selectable version | https://hub.docker.com/r/itzg/minecraft-bedrock-server
 mongodb | NoSQL database | https://www.mongodb.com/
+mongo-express | Web-based MongoDB admin interface | https://github.com/mongo-express/mongo-express
 monitorr | Monitors the status of local and remote network services, websites, and applications | https://github.com/Monitorr/Monitorr
 mylar | An automated Comic Book downloader (cbr/cbz) for use with SABnzbd, NZBGet and torrents | https://github.com/evilhero/mylar
 mysql | Open-source relational database management system | https://www.mysql.com/
+nexus3 | Nexus Repo Manager 3 | https://github.com/sonatype/docker-nexus3
 observium | Network monitoring platform | https://www.observium.org/
 ombi |  Gives your shared Plex or Emby users the ability to request content by themselves | https://ombi.io/
 organizr | An HTPC/Homelab services organizer | https://organizr.app
 perkeep | Software for modeling, storing, searching, sharing and synchronizing data | https://perkeep.org/
 phpservermon | PHP server monitor | http://www.phpservermonitor.org/
 postgres | Open source object-relational database system | https://www.postgresql.org/
+qbittorrent | BitTorrent client | https://www.qbittorrent.org/
+radarr | A fork of Sonarr to work with movies à la Couchpotato | https://radarr.video/
 raneto | Markdown powered knowledge base for Nodejs | http://raneto.com/
 readarr | Book, magazine, comics eBook and audiobook manager (Sonarr for eBooks) | http://readarr.com/
 sickgear |  SickGear has proven the most reliable stable TV fork of the great Sick-Beard family | https://github.com/SickGear/SickGear
@@ -82,6 +91,5 @@ transmission | BitTorrent client | https://transmissionbt.com/
 trilium | Hierarchical note taking application | https://github.com/zadam/trilium
 ubooquity | Home server for your comics and ebooks | https://github.com/linuxserver/docker-ubooquity
 varken | Standalone application to aggregate data from the Plex ecosystem into InfluxDB | https://github.com/Boerderij/Varken
-vscode | VS Code running on a remote server, accessible through the browser | https://github.com/linuxserver/docker-code-server
 wallabag | Self hosted application for saving web pages | https://wallabag.org/
 wekan | The open-source kanban (built with Meteor) | https://wekan.github.io/
