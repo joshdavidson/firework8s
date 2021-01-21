@@ -38,6 +38,16 @@ spec:
             name: books
           - mountPath: /downloads
             name: downloads
+        livenessProbe:
+          httpGet:
+            port: 8787
+            path: /
+            httpHeaders:
+              - name: Liveness-Header
+                value: Readarr-Probe
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
       volumes:
       -  name: config
          persistentVolumeClaim:

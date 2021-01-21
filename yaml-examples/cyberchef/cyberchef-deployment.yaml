@@ -20,3 +20,13 @@ spec:
         imagePullPolicy: Always
         ports:
           - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            port: 8000
+            path: /
+            httpHeaders:
+              - name: Liveness-Header
+                value: Cyberchef-Probe
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
