@@ -10,5 +10,6 @@ spec:
   - port: 19132
     nodePort: 19132
     protocol: UDP
-  ipFamily: IPv4
+  ipFamilies:
+    - IPv4
   type: NodePort
