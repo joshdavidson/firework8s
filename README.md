@@ -35,7 +35,7 @@ kubectl apply -f dist/jackett.k8s.yaml
 Would deploy Jackett from the cdk8s generated YAML to your Kubernetes cluster...
 
 ## Applications
-The following applications are included as yaml and cdk8s examples.
+The following applications are included as yaml examples.
 
 Name | Description | Website
 ------------ | ------------- | -------------
