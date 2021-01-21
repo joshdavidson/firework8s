@@ -24,7 +24,7 @@ spec:
           - containerPort: 8888
         env:
           - name: NB_USER
-            value: "jdavidson"
+            value: "jupyter"
           - name: NB_UID
             value: "1000"
           - name: NB_GID
