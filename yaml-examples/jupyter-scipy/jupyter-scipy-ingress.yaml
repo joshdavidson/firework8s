@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jupyter
+  namespace: default
+spec:
+  rules:
+  - host: jupyter.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: jupyter
+            port:
+              number: 8888
+        path: /
+        pathType: ImplementationSpecific

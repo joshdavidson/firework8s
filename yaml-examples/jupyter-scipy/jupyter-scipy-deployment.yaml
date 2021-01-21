@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jupyter
+  namespace: default
+  labels:
+    app: jupyter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyter
+  template:
+    metadata:
+      labels:
+        app: jupyter
+    spec:
+
+      containers:
+      - name: jupyter
+        image: jupyter/scipy-notebook
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8888
+        env:
+          - name: NB_USER
+            value: "jdavidson"
+          - name: NB_UID
+            value: "1000"
+          - name: NB_GID
+            value: "1000"
+          - name: CHOWN_HOME
+            value: "yes"
+          - name: RESTARTABLE
+            value: "yes"
+          - name: GRANT_SUDO
+            value: "yes"
+          - name: JUPYTER_ENABLE_LAB
+            value: "yes"
+        volumeMounts:
+          - mountPath: /datasets
+            name: datasets
+      volumes:
+      - name: datasets
+        hostPath:
+          path: /mnt/share/Datasets
