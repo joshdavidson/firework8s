@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: metube
+  namespace: default
+  labels:
+    app: metube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metube
+  template:
+    metadata:
+      labels:
+        app: metube
+    spec:
+      containers:
+      - name: metube
+        image: alexta69/metube
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8081
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+          - name: UMASK
+            value: "002"
+          - name: DEBUG
+            value: "no"
+        volumeMounts:
+          - mountPath: /downloads
+            name: downloads
+      volumes:
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads

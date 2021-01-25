@@ -27,6 +27,13 @@ spec:
         volumeMounts:
           - name: data
             mountPath: /var/www/wallabag/data
+        livenessProbe:
+          httpGet:
+            port: 80
+            path: /
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
       volumes:
       - name: data
         persistentVolumeClaim:

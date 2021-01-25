@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: metube
+  namespace: default
+spec:
+  rules:
+  - host: metube.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: metube
+            port:
+              number: 8081
+        path: /
+        pathType: ImplementationSpecific
