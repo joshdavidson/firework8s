@@ -1,0 +1,57 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: healthchecks
+  namespace: default
+  labels:
+    app: healthchecks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: healthchecks
+  template:
+    metadata:
+      labels:
+        app: healthchecks
+    spec:
+
+      containers:
+      - name: healthchecks
+        image: linuxserver/healthchecks
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8000
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+          - name: DEFAULT_FROM
+            value: "noreply@healthchecks.lan"
+          - name: EMAIL_HOST
+            value: "smtp.sendgrid.net"
+          - name: EMAIL_PORT
+            value: "587"
+          - name: EMAIL_HOST_USER
+            value: "apikey"
+          - name: EMAIL_HOST_PASSWORD
+            value: ""
+          - name: EMAIL_USE_TLS
+            value: "True"
+          - name: ALLOWED_HOST
+            value: "*"
+          - name: SUPERUSER_EMAIL
+            value: ""
+          - name: SUPERUSER_PASSWORD
+            value: ""
+
+        volumeMounts:
+          - mountPath: /config
+            name: config
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: healthchecks

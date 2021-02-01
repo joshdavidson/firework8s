@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: healthchecks
+  namespace: default
+spec:
+  rules:
+  - host: healthchecks.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: healthchecks
+            port:
+              number: 8000
+        path: /
+        pathType: ImplementationSpecific
