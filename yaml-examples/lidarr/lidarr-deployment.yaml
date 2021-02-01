@@ -39,6 +39,16 @@ spec:
             name: downloads
           - mountPath: /music
             name: music
+        livenessProbe:
+          httpGet:
+            port: 8686
+            path: /
+            httpHeaders:
+              - name: Liveness-Header
+                value: Readarr-Probe
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
       volumes:
       -  name: config
          persistentVolumeClaim:
