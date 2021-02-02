@@ -31,6 +31,8 @@ spec:
             value: "America/New_York"
           - name: DEFAULT_FROM
             value: "noreply@healthchecks.lan"
+          - name: SITE_ROOT
+            value: 'http://healthchecks.lan'
           - name: EMAIL_HOST
             value: "smtp.sendgrid.net"
           - name: EMAIL_PORT
