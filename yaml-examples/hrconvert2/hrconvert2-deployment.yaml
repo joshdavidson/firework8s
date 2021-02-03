@@ -1,0 +1,32 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hrconvert2
+  labels:
+    app: hrconvert2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hrconvert2
+  template:
+    metadata:
+      labels:
+        app: hrconvert2
+    spec:
+      containers:
+      - name: hrconvert2
+        image: dwaaan/hrconvert2-docker
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        livenessProbe:
+          httpGet:
+            port: 80
+            path: /
+            httpHeaders:
+              - name: Liveness-Header
+                value: HRConvert2-Probe
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3

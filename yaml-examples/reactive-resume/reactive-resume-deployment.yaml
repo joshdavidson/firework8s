@@ -1,0 +1,32 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: reactive-resume
+  labels:
+    app: reactive-resume
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactive-resume
+  template:
+    metadata:
+      labels:
+        app: reactive-resume
+    spec:
+      containers:
+      - name: reactive-resume
+        image: amruthpillai/reactive-resume:v1
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        livenessProbe:
+          httpGet:
+            port: 80
+            path: /
+            httpHeaders:
+              - name: Liveness-Header
+                value: RxResume-Probe
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3

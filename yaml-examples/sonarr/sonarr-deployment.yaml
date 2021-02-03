@@ -15,9 +15,18 @@ spec:
       labels:
         app: sonarr
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - macpro01
       containers:
       - name: sonarr
-        image: linuxserver/sonarr
+        image: hotio/sonarr:nightly
         imagePullPolicy: Always
         ports:
           - containerPort: 8989
@@ -36,9 +45,9 @@ spec:
           - mountPath: /tv
             name: tv
       volumes:
-      -  name: config
-         persistentVolumeClaim:
-          claimName: sonarr
+      - name: config
+        hostPath:
+          path: /data/sonarr
       - name: downloads
         hostPath:
           path: /mnt/share/Downloads

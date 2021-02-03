@@ -22,6 +22,8 @@ spec:
           - containerPort: 8080
           - containerPort: 6881
             protocol: TCP
+          - containerPort: 6881
+            protocol: UDP
         env:
           - name: PUID
             value: "1000"
@@ -31,7 +33,7 @@ spec:
             value: "America/New_York"
           - name: WEBUI_PORT
             value: "8080"
-          - name: UMASK_SET
+          - name: UMASK
             value: "000"
         volumeMounts:
           - mountPath: /config

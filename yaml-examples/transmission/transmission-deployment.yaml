@@ -36,7 +36,7 @@ spec:
             value: "transmission"
           - name: PASS
             value: "transmission"
-          - name: UMASK_SET
+          - name: UMASK
             value: "000"
         volumeMounts:
           - mountPath: /config

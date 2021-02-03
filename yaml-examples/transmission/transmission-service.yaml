@@ -10,7 +10,7 @@ spec:
   - name: "9091"
     port: 9091
     targetPort: 9091
-  - name: "51413-tcp"
+  - name: "51413"
     port: 51413
     targetPort: 51413
     protocol: TCP

@@ -15,7 +15,15 @@ spec:
       labels:
         app: radarr
     spec:
-
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - macpro01
       containers:
       - name: radarr
         image: linuxserver/radarr:nightly
@@ -37,9 +45,9 @@ spec:
           - mountPath: /movies
             name: movies
       volumes:
-      -  name: config
-         persistentVolumeClaim:
-          claimName: radarr
+      - name: config
+        hostPath:
+          path: /data/radarr
       - name: downloads
         hostPath:
           path: /mnt/share/Downloads

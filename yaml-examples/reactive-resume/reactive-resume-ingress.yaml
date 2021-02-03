@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: reactive-resume
+spec:
+  rules:
+  - host: reactive-resume.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: reactive-resume
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific

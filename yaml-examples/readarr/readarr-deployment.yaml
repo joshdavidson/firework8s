@@ -14,6 +14,15 @@ spec:
       labels:
         app: readarr
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - macpro01
       containers:
       - name: readarr
         image: hotio/readarr:nightly
@@ -49,9 +58,9 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 3
       volumes:
-      -  name: config
-         persistentVolumeClaim:
-          claimName: readarr
+      - name: config
+        hostPath:
+          path: /data/readarr
       - name: books
         hostPath:
           path: /mnt/share/eBooks
