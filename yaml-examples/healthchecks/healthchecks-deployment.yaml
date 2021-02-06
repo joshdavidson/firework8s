@@ -49,7 +49,6 @@ spec:
             value: ""
           - name: SUPERUSER_PASSWORD
             value: ""
-
         volumeMounts:
           - mountPath: /config
             name: config
