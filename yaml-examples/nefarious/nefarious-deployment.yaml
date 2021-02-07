@@ -1,0 +1,49 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nefarious
+  namespace: default
+  labels:
+    app: nefarious
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nefarious
+  template:
+    metadata:
+      labels:
+        app: nefarious
+    spec:
+      containers:
+      - name: nefarious
+        image: lardbit/nefarious
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        env:
+          - name: HOST_DOWNLOAD_UID
+            value: "1000"
+          - name: HOST_DOWNLOAD_GID
+            value: "1000"
+          - name: LOCAL_NETWORK
+            value: ""
+          - name: HOST_DOWNLOAD_PATH
+            value: /downloads
+        volumeMounts:
+          - mountPath: /downloads
+            name: downloads
+          - mountPath: /movies
+            name: movies
+          - mountPath: /tv
+            name: tv
+      volumes:
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads
+      - name: movies
+        hostPath:
+          path: /mnt/share/Movies
+      - name: tv
+        hostPath:
+          path: /mnt/share/Television

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nefarious
+  namespace: default
+spec:
+  rules:
+  - host: nefarious.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: nefarious
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific

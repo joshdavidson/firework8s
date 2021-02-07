@@ -15,14 +15,19 @@ spec:
       labels:
         app: lidarr
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - macpro01
       containers:
       - name: lidarr
         image: linuxserver/lidarr:nightly
         imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "2Gi"
-            cpu: ".5"
         ports:
           - containerPort: 8686
         env:
@@ -50,9 +55,9 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 3
       volumes:
-      -  name: config
-         persistentVolumeClaim:
-          claimName: lidarr
+      - name: config
+        hostPath:
+          path: /data/lidarr
       - name: downloads
         hostPath:
           path: /mnt/share/Downloads
