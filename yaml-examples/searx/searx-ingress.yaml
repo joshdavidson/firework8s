@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: searx
+  namespace: default
+spec:
+  rules:
+  - host: searx.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: searx
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific

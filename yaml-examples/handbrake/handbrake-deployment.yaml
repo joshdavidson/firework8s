@@ -1,0 +1,61 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: handbrake
+  namespace: default
+  labels:
+    app: handbrake
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: handbrake
+  template:
+    metadata:
+      labels:
+        app: handbrake
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - macpro01
+      containers:
+      - name: handbrake
+        image: jlesage/handbrake
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 5800
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /storage
+            name: storage
+          - mountPath: /watch
+            name: watch
+          - mountPath: /output
+            name: output
+      volumes:
+      - name: config
+        hostPath:
+          path: /data/handbrake/config
+      - name: output
+        hostPath:
+          path: /data/handbrake/output
+      - name: storage
+        hostPath:
+          path: /data/handbrake
+      - name: watch
+        hostPath:
+          path: /data/handbrake/watch

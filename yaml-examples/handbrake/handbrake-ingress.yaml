@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: handbrake
+  namespace: default
+spec:
+  rules:
+  - host: handbrake.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: handbrake
+            port:
+              number: 5800
+        path: /
+        pathType: ImplementationSpecific
