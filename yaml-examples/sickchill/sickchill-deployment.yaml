@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sickchill
+  namespace: default
+  labels:
+    app: sickchill
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sickchill
+  template:
+    metadata:
+      labels:
+        app: sickchill
+    spec:
+      containers:
+      - name: sickchill
+        image: linuxserver/sickchill
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8081
+        env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+          - name: TZ
+            value: "America/New_York"
+        volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /downloads
+            name: downloads
+          - mountPath: /tv
+            name: tv
+      volumes:
+      -  name: config
+         persistentVolumeClaim:
+          claimName: sickchill
+      - name: downloads
+        hostPath:
+          path: /mnt/share/Downloads
+      - name: tv
+        hostPath:
+          path: /mnt/share/Television
