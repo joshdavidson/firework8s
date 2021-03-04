@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: monica
+  name: monica
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monica
+  template:
+    metadata:
+      labels:
+        app: monica
+    spec:
+      containers:
+        - name: monica
+          envFrom:
+            - configMapRef:
+                name: monica
+          image: monica
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/www/html/storage
+              name: data
+      restartPolicy: Always
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: monica

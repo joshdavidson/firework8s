@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monica
+  namespace: default
+spec:
+  rules:
+  - host: monica.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: monica
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
