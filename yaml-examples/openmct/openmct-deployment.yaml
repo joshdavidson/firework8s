@@ -1,0 +1,22 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: openmct
+  labels:
+    app: openmct
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openmct
+  template:
+    metadata:
+      labels:
+        app: openmct
+    spec:
+      containers:
+      - name: openmct
+        image: joshdavidson/openmct
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
