@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pgadmin4
+  labels:
+    app: pgadmin4
+  namespace: postgres
+data:
+  PGADMIN_DEFAULT_EMAIL: admin@pgadmin4.lan
+  PGADMIN_DEFAULT_PASSWORD: postgres

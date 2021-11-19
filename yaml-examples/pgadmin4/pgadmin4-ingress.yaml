@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin4
+  namespace: postgres
+spec:
+  rules:
+  - host: pgadmin4.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: pgadmin4
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
